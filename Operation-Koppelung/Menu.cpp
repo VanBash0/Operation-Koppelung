@@ -48,7 +48,7 @@ int Menu::run() {
 	while (true) {
 		draw();
 		int key = getch();
-		if (key == 10) {
+		if (key == 10 || key == 90 || key == 122) {
 			return selected;
 		}
 		handleInput(key);
