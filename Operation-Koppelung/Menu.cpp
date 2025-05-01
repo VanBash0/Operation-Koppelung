@@ -51,6 +51,9 @@ int Menu::run() {
 		if (key == 10 || key == 90 || key == 122) {
 			return selected;
 		}
+		if (key == 88 || key == 120) {
+			return -1;
+		}
 		handleInput(key);
 	}
 }

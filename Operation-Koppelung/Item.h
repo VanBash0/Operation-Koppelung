@@ -21,4 +21,7 @@ private:
 public:
 	Item(int id, std::string name, std::string description, ItemType type, int value);
 	Item(int id);
+
+	int getValue();
+	std::string getName();
 };

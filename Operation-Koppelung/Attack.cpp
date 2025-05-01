@@ -8,3 +8,7 @@ Attack::Attack(int id) : id(id) {
 	isDamaging = true;
 	isPhysical = true;
 }
+
+std::string Attack::getName() { return name; }
+
+int Attack::getDamage() { return damage; }

@@ -8,3 +8,7 @@ Item::Item(int id) : id(id) {
 	type = ItemType::HP_HEALER;
 	value = 0;
 }
+
+int Item::getValue() { return value; }
+
+std::string Item::getName() { return name; }

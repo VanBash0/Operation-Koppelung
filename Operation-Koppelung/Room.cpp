@@ -25,7 +25,12 @@ void Room::getOptions() {
     std::unique_ptr<Menu> menu = std::make_unique<Menu>(options_desc);
     while (true) {
         int choice = menu->run();
-        options[choice]->execute();
+        if (choice != -1) {
+            options[choice]->execute();
+        }
+        else {
+            break;
+        }
         menu->waitUntilHit();
     }
 }

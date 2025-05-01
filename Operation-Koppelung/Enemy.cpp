@@ -8,3 +8,23 @@ Enemy::Enemy(int id) : id(id) {
     attacks.push_back(std::make_unique<Attack>(2));
     attacks.push_back(std::make_unique<Attack>(3));
 }
+
+std::string Enemy::getName() {
+	return name;
+}
+
+void Enemy::takeDamage(int damage) {
+	hp -= damage;
+}
+
+int Enemy::getHealth() {
+	return hp;
+}
+
+Attack& Enemy::getAttack(size_t index) const {
+    return *attacks[index];
+}
+
+size_t Enemy::getAttackCount() const {
+    return attacks.size();
+}
