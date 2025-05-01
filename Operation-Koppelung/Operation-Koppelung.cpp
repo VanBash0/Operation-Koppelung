@@ -1,9 +1,12 @@
 ﻿#include "Room.h"
-#include <string>
+#include "Battle.h"
+#include <iostream>
 
 int main() {
-	Room* room = new Room({ 1, 2, 3 }, {});
-	room->enterRoom();
-	room->getOptions();
-	return 0;
+    std::vector<int> enemies_id = { 1, 2, 3 };
+    Player::initialize(100, 100, { 1, 2, 3 }, { 1, 2, 3 });
+    int a = Player::getInstance().getDefence();
+    Battle battle(enemies_id);
+    battle.start();
+    return 0;
 }

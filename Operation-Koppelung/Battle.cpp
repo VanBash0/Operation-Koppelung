@@ -27,12 +27,12 @@ void Battle::playerTurn() {
     for (int i = 0; i < 2; ++i) {
         Menu actionMenu(actions);
         int choice = actionMenu.run();
+        std::vector<std::string> enemy_names;
+        for (const auto& enemy : enemies) {
+            enemy_names.push_back(enemy->getName());
+        }
         switch (choice) {
         case 0: { // Attack
-            std::vector<std::string> enemy_names;
-            for (const auto& enemy : enemies) {
-                enemy_names.push_back(enemy->getName());
-            }
             Menu enemy_menu(enemy_names);
             int target = enemy_menu.run();
             enemies[target]->takeDamage(Player::getInstance().getDamage());
@@ -45,7 +45,7 @@ void Battle::playerTurn() {
             }
             Menu spell_menu(spell_names);
             int spellChoice = spell_menu.run();
-            Menu enemyMenu(spell_names);
+            Menu enemyMenu(enemy_names);
             int target = enemyMenu.run();
             enemies[target]->takeDamage(Player::getInstance().getSpell(spellChoice).getDamage());
             break;
@@ -61,24 +61,26 @@ void Battle::playerTurn() {
 }
 
 void Battle::enemiesTurn() {
-    for (auto& enemy : enemies) {
-        if (enemy->getHealth() <= 0) continue;
-
-        if (enemy->getAttackCount() > 0) {
-            int attackIndex = rand() % enemy->getAttackCount();
-            Attack& attack = enemy->getAttack(attackIndex); // Константная ссылка
-            int damage = attack.getDamage() - player_defence;
-            Player::getInstance().takeDamage(damage);
+    for (auto it = enemies.begin(); it != enemies.end(); ) {
+        if ((*it)->getHealth() <= 0) {
+            it = enemies.erase(it);
+        }
+        else {
+            if ((*it)->getAttackCount() > 0) {
+                int attackIndex = rand() % (*it)->getAttackCount();
+                Attack& attack = (*it)->getAttack(attackIndex);
+                int damage = std::max(0, attack.getDamage() - player_defence);
+                player_defence = std::max(0, player_defence - attack.getDamage());
+                Player::getInstance().takeDamage(damage);
+            }
+            ++it;
         }
     }
 }
 
 bool Battle::isBattleOver() {
     if (Player::getInstance().getHealth() <= 0) return true;
-    for (auto& enemy : enemies) {
-        if (enemy->getHealth() > 0) return false;
-    }
-    return true;
+    return enemies.empty();
 }
 
 void Battle::showBattleStatus() {

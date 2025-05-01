@@ -6,7 +6,7 @@ Item::Item(int id) : id(id) {
 	name = "Item " + std::to_string(id);
 	description = "Description of item " + std::to_string(id);
 	type = ItemType::HP_HEALER;
-	value = 0;
+	value = 10;
 }
 
 int Item::getValue() { return value; }
