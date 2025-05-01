@@ -135,10 +135,14 @@
   <ItemGroup>
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Operation-Koppelung.cpp" />
+    <ClCompile Include="Option.cpp" />
+    <ClCompile Include="Room.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="curses.h" />
     <ClInclude Include="Menu.h" />
+    <ClInclude Include="Option.h" />
+    <ClInclude Include="Room.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

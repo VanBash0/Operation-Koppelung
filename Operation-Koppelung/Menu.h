@@ -5,7 +5,7 @@
 
 class Menu {
 public:
-	Menu(const std::vector<std::string>& options_);
+	Menu(const std::vector<std::string>& options);
 	~Menu();
 
 	void show();

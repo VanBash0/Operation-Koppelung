@@ -1,8 +1,9 @@
-﻿#include "Menu.h"
+﻿#include "Room.h"
 #include <string>
 
 int main() {
-    std::vector<std::string> data = { "Option", "I love Paris", "Smth else" };
-    Menu menu = Menu(data);
-    menu.run();
+	Room* room = new Room({ 1, 2, 3 }, {});
+	room->enterRoom();
+	room->getOptions();
+	return 0;
 }

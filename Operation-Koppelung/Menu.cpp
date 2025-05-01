@@ -1,7 +1,7 @@
 #include "Menu.h"
 #include <curses.h>
 
-Menu::Menu(const std::vector<std::string>& options_) : options(options_) {
+Menu::Menu(const std::vector<std::string>& options) : options(options) {
 	initscr();
 	curs_set(0);
 	cbreak();
