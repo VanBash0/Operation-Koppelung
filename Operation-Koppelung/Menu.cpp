@@ -18,7 +18,7 @@ void Menu::draw() {
 	mvprintw(0, 0, "Choose your option:");
 	for (int i = 0; i < options.size(); i++) {
 		if (i == selected) attr_on(A_REVERSE, NULL);
-		mvprintw(1 + i, 2, "%s", options[i].c_str());
+		mvprintw(1 + i, 1, "%s", options[i].c_str());
 		if (i == selected) attr_off(A_REVERSE, NULL);
 	}
 	refresh();
@@ -35,11 +35,19 @@ void Menu::handleInput(int key) {
 	}
 }
 
+void Menu::waitUntilHit() {
+	int key;
+	while (true) {
+		key = getch();
+		if (key == KEY_UP || key == KEY_DOWN) break;
+	}
+	handleInput(key);
+}
+
 int Menu::run() {
 	while (true) {
 		draw();
 		int key = getch();
-
 		if (key == 10) {
 			return selected;
 		}

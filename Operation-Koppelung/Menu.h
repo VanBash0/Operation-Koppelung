@@ -9,6 +9,7 @@ public:
 	~Menu();
 
 	void show();
+	void waitUntilHit();
 	int run();
 
 private:

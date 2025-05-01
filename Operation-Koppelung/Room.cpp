@@ -19,6 +19,9 @@ void Room::getOptions() {
 		options_desc.push_back(option->getDescription());
 	}
 	Menu* menu = new Menu(options_desc);
-	int choice = menu->run();
-	options[choice]->execute();
+	while (true) {
+		int choice = menu->run();
+		options[choice]->execute();
+		menu->waitUntilHit();
+	}
 }
