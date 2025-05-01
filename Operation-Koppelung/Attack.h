@@ -3,7 +3,7 @@
 
 struct Attack {
 public:
-	Attack(int id, std::string name, std::string description, int damage, int sanity_cost, bool isDamaging, bool isPhysical);
+	Attack(int id);
 
 private:
 	int id, damage, sanity_cost;

@@ -3,7 +3,7 @@
 
 class Option {
 public:
-	Option(int id, const std::string& description);
+	Option(int id);
 	//virtual void execute() = 0;
 	void execute();
 	std::string getDescription();

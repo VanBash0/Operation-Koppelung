@@ -9,7 +9,7 @@ void Room::enterRoom() {
 		// инициализация битвы на входе в комнату!
 	}
 	for (int id : options_id) {
-		options.push_back(std::make_unique<Option>(id, "Option " + std::to_string(id)));
+		options.push_back(std::make_unique<Option>(id));
 	}
 }
 

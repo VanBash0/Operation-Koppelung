@@ -4,6 +4,7 @@
 enum ItemType {
 	WEAPON,
 	ARMOR,
+	AMULET,
 	HP_HEALER,
 	SANITY_HEALER,
 	INSTANT_WEAPON,
@@ -19,4 +20,5 @@ private:
 
 public:
 	Item(int id, std::string name, std::string description, ItemType type, int value);
+	Item(int id);
 };
