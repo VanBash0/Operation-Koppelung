@@ -134,6 +134,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Attack.cpp" />
+    <ClCompile Include="AttackManager.cpp" />
     <ClCompile Include="Battle.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Item.cpp" />
@@ -145,6 +146,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Attack.h" />
+    <ClInclude Include="AttackManager.h" />
     <ClInclude Include="Battle.h" />
     <ClInclude Include="curses.h" />
     <ClInclude Include="Enemy.h" />

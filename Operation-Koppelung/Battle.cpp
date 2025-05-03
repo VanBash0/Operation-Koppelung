@@ -27,10 +27,12 @@ void Battle::playerTurn() {
     for (int i = 0; i < 2; ++i) {
         Menu actionMenu(actions);
         int choice = actionMenu.run();
+
         std::vector<std::string> enemy_names;
         for (const auto& enemy : enemies) {
             enemy_names.push_back(enemy->getName());
         }
+
         switch (choice) {
         case 0: { // Attack
             Menu enemy_menu(enemy_names);

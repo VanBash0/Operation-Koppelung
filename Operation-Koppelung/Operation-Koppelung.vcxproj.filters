@@ -27,9 +27,6 @@
     <ClCompile Include="Room.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Attack.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="Item.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
@@ -40,6 +37,9 @@
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="Battle.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="AttackManager.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -56,9 +56,6 @@
     <ClInclude Include="Room.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Attack.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="Item.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
@@ -71,5 +68,17 @@
     <ClInclude Include="Battle.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="AttackManager.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="json.hpp">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Attack.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="attacks.json" />
   </ItemGroup>
 </Project>
