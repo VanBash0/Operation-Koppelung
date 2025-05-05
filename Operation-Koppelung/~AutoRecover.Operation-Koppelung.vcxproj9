@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -141,7 +141,6 @@
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Operation-Koppelung.cpp" />
     <ClCompile Include="Option.cpp" />
-    <ClCompile Include="OptionManager.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Room.cpp" />
   </ItemGroup>
@@ -156,14 +155,12 @@
     <ClInclude Include="json.hpp" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Option.h" />
-    <ClInclude Include="OptionManager.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Room.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="attacks.json" />
     <None Include="enemies.json" />
-    <None Include="options.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

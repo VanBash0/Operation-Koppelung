@@ -1,13 +1,11 @@
 #include "Option.h"
 #include <curses.h>
-Option::Option(int id) : id(id) {
-	description = "Option " + std::to_string(id);
-}
+Option::Option(std::string description) : description(description) {};
 
 void Option::execute() {
-	mvprintw(5, 5, "mmmm");
+	mvprintw(5, 5, "placeholder");
 }
-	
+
 std::string Option::getDescription() {
 	return description;
 }

@@ -18,6 +18,6 @@ AttackManager::AttackManager() {
 	}
 }
 
-const Attack& AttackManager::getAttack(int id) const { 
-	return *attacks.at(id);
+const std::unique_ptr<Attack> AttackManager::getAttack(int id) const {
+	return std::make_unique<Attack>(*attacks.at(id));
 }

@@ -6,9 +6,9 @@
 
 class Enemy {
 public:
-	Enemy(std::string name, std::string description, int health, std::vector<const Attack&> attacks);
+	Enemy(std::string name, std::string description, int health, std::vector<std::unique_ptr<Attack>> attacks);
 private:
 	int health;
 	std::string name, description;
-	std::vector<const Attack&> attacks;
+	std::vector<std::unique_ptr<Attack>> attacks;
 };

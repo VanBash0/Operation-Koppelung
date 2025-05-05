@@ -141,6 +141,7 @@
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Operation-Koppelung.cpp" />
     <ClCompile Include="Option.cpp" />
+    <ClCompile Include="OptionManager.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Room.cpp" />
   </ItemGroup>
@@ -155,12 +156,14 @@
     <ClInclude Include="json.hpp" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Option.h" />
+    <ClInclude Include="OptionManager.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Room.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="attacks.json" />
     <None Include="enemies.json" />
+    <None Include="options.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
