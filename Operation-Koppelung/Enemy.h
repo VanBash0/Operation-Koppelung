@@ -1,18 +1,14 @@
 #pragma once
-#include "Attack.h"
 #include <memory>
 #include <vector>
+#include <string>
+#include "Attack.h"
 
 class Enemy {
 public:
-	Enemy(int id);
-	std::string getName();
-	void takeDamage(int damage);
-	int getHealth();
-	Attack& getAttack(size_t index) const;
-	size_t getAttackCount() const;
+	Enemy(std::string name, std::string description, int health, std::vector<const Attack&> attacks);
 private:
-	int id, hp;
+	int health;
 	std::string name, description;
-	std::vector<std::unique_ptr<Attack>> attacks;
+	std::vector<const Attack&> attacks;
 };

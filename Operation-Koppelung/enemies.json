@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "name": "Skeleton",
+    "description": "A skeleton.",
+    "health": 50,
+    "attack_ids": [ 1, 2 ]
+  }
+  {
+    "id": 2,
+    "name": "Zombie",
+    "description": "A zombie.",
+    "health": 70,
+    "attack_ids": [ 2, 3 ]
+  }
+]
