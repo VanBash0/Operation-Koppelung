@@ -48,6 +48,9 @@
     <ClCompile Include="OptionManager.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="LRUCache.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="curses.h">
@@ -87,6 +90,9 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="OptionManager.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="LRUCache.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

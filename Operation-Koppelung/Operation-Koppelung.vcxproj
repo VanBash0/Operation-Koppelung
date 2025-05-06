@@ -138,6 +138,7 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyManager.cpp" />
     <ClCompile Include="Item.cpp" />
+    <ClCompile Include="LRUCache.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Operation-Koppelung.cpp" />
     <ClCompile Include="Option.cpp" />
@@ -154,6 +155,7 @@
     <ClInclude Include="EnemyManager.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="json.hpp" />
+    <ClInclude Include="LRUCache.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Option.h" />
     <ClInclude Include="OptionManager.h" />
