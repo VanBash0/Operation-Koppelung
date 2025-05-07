@@ -1,13 +1,19 @@
 #pragma once
 #include <string>
 
+enum OptionType {
+	EXPLORATION,
+	BATTLE,
+	GRAMMOPHONE,
+	ROOMCHANGE,
+};
+
 class Option {
 public:
-	Option(std::string description);
-	//virtual void execute() = 0;
-	void execute();
+	Option(std::string description, OptionType type);
 	std::string getDescription();
 
 private:
 	std::string description;
+	OptionType type;
 };

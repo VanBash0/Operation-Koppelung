@@ -140,7 +140,7 @@
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="LRUCache.cpp" />
     <ClCompile Include="Menu.cpp" />
-    <ClCompile Include="Operation-Koppelung.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="Option.cpp" />
     <ClCompile Include="OptionManager.cpp" />
     <ClCompile Include="Player.cpp" />
