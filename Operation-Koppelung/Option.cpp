@@ -16,7 +16,7 @@ void BattleOption::execute() {
     std::cout << "Выполняется BattleOption" << std::endl;
 }
 
-void GrammophoneOption::execute() {
+void GramophoneOption::execute() {
     // Заглушка для GrammophoneOption
     std::cout << "Выполняется GrammophoneOption" << std::endl;
 }

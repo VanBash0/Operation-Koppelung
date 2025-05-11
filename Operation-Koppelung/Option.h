@@ -21,12 +21,12 @@ public:
     ExplorationOption(std::string description, std::vector<std::string> story, int loot_id) : Option{ description, story }, loot_id(loot_id) {};
 };
 
-class GrammophoneOption : public Option {
+class GramophoneOption : public Option {
 private:
     int sanity_restore;
 public:
     void execute() override;
-    GrammophoneOption(std::string description, std::vector<std::string> story, int sanity_restore) : Option{ description, story }, sanity_restore(sanity_restore) {};
+    GramophoneOption(std::string description, std::vector<std::string> story, int sanity_restore) : Option{ description, story }, sanity_restore(sanity_restore) {};
 };
 
 class BattleOption : public Option {
@@ -37,10 +37,10 @@ public:
 	BattleOption(std::string description, std::vector<std::string> story, std::vector<int> enemies_id) : Option{ description, story }, enemies_id(enemies_id) {};
 };
 
-class RoomchangeOption : public Option {
+class RoomChangeOption : public Option {
 private:
 	int room_id;
 public:
 	void execute() override;
-	RoomchangeOption(std::string description, std::vector<std::string> story, int room_id) : Option{ description, story }, room_id(room_id) {};
+	RoomChangeOption(std::string description, std::vector<std::string> story, int room_id) : Option{ description, story }, room_id(room_id) {};
 };

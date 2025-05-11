@@ -14,6 +14,7 @@ public:
 
 private:
 	std::vector<std::string> options;
+	WINDOW* menu_win;
 	int selected = 0;
 
 	void draw();

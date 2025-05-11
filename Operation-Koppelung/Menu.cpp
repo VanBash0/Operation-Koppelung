@@ -7,19 +7,21 @@ Menu::Menu(const std::vector<std::string>& options) : options(options) {
 	cbreak();
 	noecho();
 	keypad(stdscr, TRUE);
+	WINDOW* menu_win = newwin(10, 20, 3, 0);
+	wrefresh(menu_win);
 }
 
 Menu::~Menu() {
-	endwin();
+	delwin(menu_win);
 }
 
 void Menu::draw() {
-	clear();
-	mvprintw(0, 0, "Choose your option:");
+	wclear(menu_win);
+	mvwprintw(menu_win, 1, 1, "Choose your option:");
 	for (int i = 0; i < options.size(); i++) {
-		if (i == selected) attr_on(A_REVERSE, NULL);
-		mvprintw(1 + i, 1, "%s", options[i].c_str());
-		if (i == selected) attr_off(A_REVERSE, NULL);
+		if (i == selected) wattr_on(menu_win, A_REVERSE, NULL);
+		mvwprintw(menu_win, 1 + i, 1, "%s", options[i].c_str());
+		if (i == selected) wattr_off(menu_win, A_REVERSE, NULL);
 	}
 	refresh();
 }
@@ -60,7 +62,7 @@ int Menu::run() {
 
 void Menu::show() {
 	int choice = run();
-	mvprintw(10, 0, "Выбрано: %s", options[choice]);
-	refresh();
+	mvwprintw(menu_win, 10, 1, "Picked: %s", options[choice].c_str());
+	wrefresh(menu_win);
 	getch();
 }

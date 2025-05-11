@@ -8,7 +8,6 @@ public:
 	Room(const std::vector<int>& options_id, const std::vector<int>& enemies_id);
 
 	void enterRoom();
-	void exitRoom();
 	void getOptions();
 
 private:
