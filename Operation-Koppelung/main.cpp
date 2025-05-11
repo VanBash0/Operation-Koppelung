@@ -1,6 +1,8 @@
-﻿#include "AttackManager.h"
+﻿#include "Menu.h"
 
 int main() {
-    AttackManager* attackManager = new AttackManager();
-    attackManager->getAttack(0);
+    std::vector<std::string> options = { "Option 1", "Option 2", "Option 3", "Exit" };
+    Menu menu(options);
+    menu.show();
+    return 0;
 }

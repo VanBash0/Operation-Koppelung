@@ -9,7 +9,7 @@ EnemyManager::EnemyManager(AttackManager* attackManager) {
 
 	for (const auto& enemyData : data) {
 		int id = enemyData["id"];
-		std::vector <const Attack&> attacks;
+		std::vector <std::unique_ptr<Attack>> attacks;
 		for (int i : enemyData["attack_ids"]) {
 			attacks.push_back(attackManager->getAttack(i));
 		}
