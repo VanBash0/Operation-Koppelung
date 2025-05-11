@@ -1,0 +1,8 @@
+[
+  {
+    "id": 1,
+    "enemies_id": [ 1, 2 ],
+    "options_id": [ 1, 2 ],
+    "room_entered": false
+  }
+]
