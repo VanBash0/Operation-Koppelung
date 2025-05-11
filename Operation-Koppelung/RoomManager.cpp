@@ -18,14 +18,11 @@ void RoomManager::addRoom(int id) {
 		std::ifstream file("rooms.json");
 		nlohmann::json data = nlohmann::json::parse(file);
 
-		for (const auto& optionData : data) {
-			if (optionData["id"] == id) {
-				std::string description = optionData["description"].get<std::string>();
-				std::vector<std::string> story = optionData["story"].get<std::vector<std::string>>();
-
-				OptionType type = optionData["type"].get<OptionType>();
-				std::shared_ptr<Option> option;
-				std::vector<int> enemies_id;
+		for (const auto& roomData : data) {
+			if (roomData["id"] == id) {
+				rooms.put(id, std::make_shared<Room>(
+					roomData["options_id"].get<std::vector<int>>(),
+					roomData["enemies_id"].get<std::vector<int>>()));
 			}
 		}
 	}

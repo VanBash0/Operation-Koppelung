@@ -3,7 +3,7 @@
 #include "json.hpp"
 #include "EnemyManager.h"
 
-EnemyManager::EnemyManager(AttackManager* attackManager) {
+EnemyManager::EnemyManager(std::shared_ptr<AttackManager> attackManager) {
 	std::ifstream file("attacks.json");
 	nlohmann::json data = nlohmann::json::parse(file);
 
