@@ -137,12 +137,15 @@
     <ClCompile Include="Battle.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyManager.cpp" />
-    <ClCompile Include="Item.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="ItemManager.cpp" />
+    <ClCompile Include="LRUCache.cpp" />
     <ClCompile Include="Menu.cpp" />
-    <ClCompile Include="Operation-Koppelung.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="Option.cpp" />
+    <ClCompile Include="OptionManager.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Room.cpp" />
+    <ClCompile Include="RoomManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Attack.h" />
@@ -151,16 +154,25 @@
     <ClInclude Include="curses.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyManager.h" />
+    <ClInclude Include="Game.h" />
     <ClInclude Include="Item.h" />
+    <ClInclude Include="ItemManager.h" />
     <ClInclude Include="json.hpp" />
+    <ClInclude Include="LRUCache.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Option.h" />
+    <ClInclude Include="OptionManager.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Room.h" />
+    <ClInclude Include="RoomManager.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="attacks.json" />
     <None Include="enemies.json" />
+    <None Include="items.json" />
+    <None Include="options.json" />
+    <None Include="player.json" />
+    <None Include="rooms.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

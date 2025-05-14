@@ -11,9 +11,10 @@ enum ItemType {
 };
 
 struct Item {
+	int id;
 	std::string name;
 	std::string description;
 	ItemType type;
 	int value;
-	Item(std::string name, std::string description, ItemType type, int value) : name(name), description(description), type(type), value(value) {};
+	Item(int id, std::string name, std::string description, ItemType type, int value) : id(id), name(name), description(description), type(type), value(value) {};
 };

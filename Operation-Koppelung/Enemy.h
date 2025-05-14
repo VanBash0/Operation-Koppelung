@@ -9,6 +9,7 @@ public:
 	Enemy(std::string name, std::string description, int health, std::vector<std::unique_ptr<Attack>> attacks);
 private:
 	int health;
-	std::string name, description;
+	std::string name;
+	std::string description;
 	std::vector<std::unique_ptr<Attack>> attacks;
 };

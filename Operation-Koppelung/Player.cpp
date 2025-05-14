@@ -1,58 +1,34 @@
+#include <fstream>
+#include "json.hpp"
 #include "Player.h"
-
-Player* Player::instance = nullptr;
-Player::Player(int hp, int sanity, std::vector<int> items_id, std::vector<int> attacks_id) : 
-    hp(hp), 
-    sanity(sanity), 
-    weapon(items_id.empty() || items_id[0] == -1 ? nullptr : std::make_unique<Item>(items_id[0])), 
-    armor(items_id.size() < 2 || items_id[1] == -1 ? nullptr : std::make_unique<Item>(items_id[1])), 
-    amulet(items_id.size() < 3 || items_id[2] == -1 ? nullptr : std::make_unique<Item>(items_id[2])) 
-{
-    for (auto i = 3; i < items_id.size(); ++i) {
-        if (items_id[i] != -1) {
-            inventory.push_back(std::make_unique<Item>(items_id[i]));
-        }
-    }
-
-	for (auto i = 0; i < attacks_id.size(); ++i) {
-		unlocked_spells.push_back(std::make_unique<Attack>(attacks_id[i]));
+Player::Player(ItemManager* itemManager, AttackManager* attackManager) {
+	std::ifstream file("player.json");
+	nlohmann::json data = nlohmann::json::parse(file);
+	health = data[0]["health"].get<int>();
+	sanity = data[0]["sanity"].get<int>();
+	for (int i : data[0]["items_id"]) {
+		inventory.push_back(itemManager->getItem(i));
+	}
+	weapon = itemManager->getItem(data[0]["weapon_id"].get<int>());
+	armor = itemManager->getItem(data[0]["armor_id"].get<int>());
+	amulet = itemManager->getItem(data[0]["amulet_id"].get<int>());
+	for (int i : data[0]["spells_id"]) {
+		spells.push_back(attackManager->getAttack(i));
 	}
 }
 
-Player& Player::getInstance() {
-    return *instance;
-}
-
-void Player::initialize(int hp, int sanity, std::vector<int> items_id, std::vector<int> attacks_id) {
-    if (instance) {
-        delete instance;
-    }
-    instance = new Player(hp, sanity, items_id, attacks_id);
-}
-
-int Player::getDamage() {
-    return (weapon != nullptr) ? weapon->getValue() : 10;
-}
-
-int Player::getDefence() {
-    return (armor != nullptr) ? armor->getValue() : 10;
-}
-
-int Player::getHealth() {
-	return hp;
-}
-
-void Player::takeDamage(int damage) {
-    hp -= damage;
-    if (hp < 0) {
-        hp = 0;
-    }
-}
-
-Attack& Player::getSpell(size_t index) const {
-    return *unlocked_spells[index];
-}
-
-size_t Player::getSpellCount() const {
-    return unlocked_spells.size();
+void Player::update() {
+	std::ofstream file("player.json");
+	nlohmann::json data = nlohmann::json::parse(file);
+	data[0]["health"] = health;
+	data[0]["sanity"] = sanity;
+	for (int i = 0; i < inventory.size(); i++) {
+		data[0]["items_id"][i] = inventory[i]->id;
+	}
+	data[0]["weapon_id"] = weapon->id;
+	data[0]["armor_id"] = armor->id;
+	data[0]["amulet_id"] = amulet->id;
+	for (int i = 0; i < spells.size(); i++) {
+		data[0]["spells_id"][i] = spells[i]->id;
+	}
 }

@@ -9,6 +9,7 @@ AttackManager::AttackManager() {
 	for (const auto& attackData : data) {
 		int id = attackData["id"];
 		attacks[id] = std::make_unique<Attack>(
+			attackData["id"].get<int>(),
 			attackData["damage"].get<int>(),
 			attackData["sanity_cost"].get<int>(),
 			attackData["name"].get<std::string>(),

@@ -14,6 +14,7 @@ ItemManager::ItemManager() {
 		int id = itemData["id"];
 		std::vector <std::unique_ptr<Item>> attacks;
 		items[id] = std::make_unique<Item>(
+			itemData["id"].get<int>(),
 			itemData["name"].get<std::string>(),
 			itemData["description"].get<std::string>(),
 			itemData["type"].get<ItemType>(),
@@ -21,6 +22,6 @@ ItemManager::ItemManager() {
 	}
 }
 
-const std::unique_ptr<Item> ItemManager::getItem(int id) {
+std::unique_ptr<Item> ItemManager::getItem(int id) {
 	return std::make_unique<Item>(*items.at(id));
 }

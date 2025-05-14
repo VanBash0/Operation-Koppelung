@@ -1,0 +1,11 @@
+[
+  {
+    "health": 100,
+    "sanity": 100,
+    "items_id": [],
+    "weapon_id": 1,
+    "armor_id": 2,
+    "amulet_id": -1,
+    "spells_id": [1]
+  }
+]
