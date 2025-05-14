@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "name": "Pistol",
+    "description": "Did you hear that? That was the sound of my Walther. Pointed right at your testicles.",
+    "type": "WEAPON",
+    "value": 10
+  },
+  {
+    "id": 2,
+    "name": "FSM Armor",
+    "description": "I love Jay",
+    "type": "ARMOR",
+    "value": 20
+  }
+]

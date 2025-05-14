@@ -11,17 +11,9 @@ enum ItemType {
 };
 
 struct Item {
-private:
-	int id;
 	std::string name;
 	std::string description;
 	ItemType type;
 	int value;
-
-public:
-	Item(int id, std::string name, std::string description, ItemType type, int value);
-	Item(int id);
-
-	int getValue();
-	std::string getName();
+	Item(std::string name, std::string description, ItemType type, int value) : name(name), description(description), type(type), value(value) {};
 };

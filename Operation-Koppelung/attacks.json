@@ -16,7 +16,7 @@
     "sanity_cost": 0,
     "is_damaging": true,
     "is_physical": true
-  }
+  },
   {
     "id": 3,
     "name": "Punch",

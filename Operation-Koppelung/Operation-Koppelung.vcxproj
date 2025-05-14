@@ -138,14 +138,13 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyManager.cpp" />
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="Item.cpp" />
+    <ClCompile Include="ItemManager.cpp" />
     <ClCompile Include="LRUCache.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Option.cpp" />
     <ClCompile Include="OptionManager.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Room.cpp" />
     <ClCompile Include="RoomManager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -157,6 +156,7 @@
     <ClInclude Include="EnemyManager.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Item.h" />
+    <ClInclude Include="ItemManager.h" />
     <ClInclude Include="json.hpp" />
     <ClInclude Include="LRUCache.h" />
     <ClInclude Include="Menu.h" />
@@ -169,7 +169,9 @@
   <ItemGroup>
     <None Include="attacks.json" />
     <None Include="enemies.json" />
+    <None Include="items.json" />
     <None Include="options.json" />
+    <None Include="rooms.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
