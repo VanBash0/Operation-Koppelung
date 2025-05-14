@@ -8,5 +8,5 @@ private:
 	std::unordered_map<int, std::unique_ptr<Attack>> attacks;
 public:
 	AttackManager();
-	const std::unique_ptr<Attack> getAttack(int id) const;
+	const std::shared_ptr<Attack> getAttack(int id) const;
 };

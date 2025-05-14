@@ -3,7 +3,7 @@
 #include "RoomManager.h"
 #include "Menu.h"
 
-const int cache_size = 50;
+const size_t cache_size = 50;
 
 RoomManager::RoomManager(std::shared_ptr<OptionManager> optionManager) : rooms(cache_size), optionManager(optionManager) {};
 

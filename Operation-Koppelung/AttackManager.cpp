@@ -19,6 +19,6 @@ AttackManager::AttackManager() {
 	}
 }
 
-const std::unique_ptr<Attack> AttackManager::getAttack(int id) const {
-	return std::make_unique<Attack>(*attacks.at(id));
+const std::shared_ptr<Attack> AttackManager::getAttack(int id) const {
+	return std::make_shared<Attack>(*attacks.at(id));
 }

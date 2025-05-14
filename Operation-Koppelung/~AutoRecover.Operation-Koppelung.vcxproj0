@@ -139,7 +139,6 @@
     <ClCompile Include="EnemyManager.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="ItemManager.cpp" />
-    <ClCompile Include="LRUCache.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Option.cpp" />

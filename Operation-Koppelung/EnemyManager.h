@@ -9,5 +9,5 @@ private:
 	std::unordered_map<int, std::unique_ptr<Enemy>> enemies;
 public:
 	EnemyManager(std::shared_ptr<AttackManager> attackManager);
-	const std::unique_ptr<Enemy> getEnemy(int id);
+	const std::shared_ptr<Enemy> getEnemy(int id);
 };

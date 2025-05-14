@@ -2,10 +2,6 @@
 #include <curses.h>
 #include <iostream>
 
-std::string Option::getDescription() {
-	return description;
-}
-
 void ExplorationOption::execute() {
     // Заглушка для ExplorationOption
     std::cout << "Выполняется ExplorationOption" << std::endl;

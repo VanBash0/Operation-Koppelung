@@ -3,7 +3,7 @@
 #include "Option.h"
 #include "OptionManager.h"
 
-const int cache_size = 50;
+const size_t cache_size = 50;
 enum OptionType {
 	EXPLORATION,
 	BATTLE,
@@ -35,21 +35,29 @@ void OptionManager::addOption(int id) {
 				std::vector<int> enemies_id;
 				switch (type) {
 					case EXPLORATION:
+					{
 						int loot_id = optionData["loot_id"].get<int>();
-						option = std::make_shared<ExplorationOption>(id, description, story, loot_id);
+						option = std::make_shared<ExplorationOption>(description, story, loot_id);
 						break;
+					}
 					case BATTLE:
+					{
 						enemies_id = optionData["enemies_id"].get<std::vector<int>>();
-						option = std::make_shared<BattleOption>(id, description, story, enemies_id);
+						option = std::make_shared<BattleOption>(description, story, enemies_id);
 						break;
+					}
 					case GRAMOPHONE:
+					{
 						int sanity_restore = optionData["sanity_restore"].get<int>();
-						option = std::make_shared<GramophoneOption>(id, description, story, sanity_restore);
+						option = std::make_shared<GramophoneOption>(description, story, sanity_restore);
 						break;
+					}
 					case ROOMCHANGE:
+					{
 						int room_id = optionData["room_id"].get<int>();
-						option = std::make_shared<RoomChangeOption>(id, description, story, room_id);
+						option = std::make_shared<RoomChangeOption>(description, story, room_id);
 						break;
+					}
 				}
 				options.put(id, option);
 				break;

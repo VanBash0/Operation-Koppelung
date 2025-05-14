@@ -2,11 +2,9 @@
 #include "json.hpp"
 #include "ItemManager.h"
 
-const int cache_size = 50;
+const size_t cache_size = 50;
 
-ItemManager::ItemManager() : items(cache_size) {};
-
-ItemManager::ItemManager() {
+ItemManager::ItemManager() : items(cache_size) {
 	std::ifstream file("items.json");
 	nlohmann::json data = nlohmann::json::parse(file);
 

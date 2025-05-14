@@ -8,11 +8,16 @@
 
 class Player {
 public:
-    Player(ItemManager* itemManager, AttackManager* attackManager);
-    void update();
+    Player(std::shared_ptr<ItemManager> itemManager, std::shared_ptr<AttackManager> attackManager);
+    //void update();
+    void takeDamage(int damage);
+    int getDamage() const;
+    std::vector<std::shared_ptr<Attack>> getSpells() const;
+    int getDefence() const;
+    int getHealth() const;
 private:
     int health, sanity;
     std::unique_ptr<Item> weapon, armor, amulet;
-    std::vector<std::unique_ptr<Item>> inventory;
-    std::vector<std::unique_ptr<Attack>> spells;
+    std::vector<std::shared_ptr<Item>> inventory;
+    std::vector<std::shared_ptr<Attack>> spells;
 };
