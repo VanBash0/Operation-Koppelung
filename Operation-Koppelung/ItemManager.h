@@ -4,9 +4,8 @@
 
 class ItemManager {
 private:
-	LRUCache<Item> items;
+	std::unordered_map<int, std::unique_ptr<Item>> items;
 public:
 	ItemManager();
-	void addItem(int id);
-	std::shared_ptr<Item> getItem(int id);
+	const std::unique_ptr<Item> getItem(int id);
 };

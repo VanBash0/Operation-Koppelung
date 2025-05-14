@@ -6,26 +6,21 @@ const int cache_size = 50;
 
 ItemManager::ItemManager() : items(cache_size) {};
 
-std::shared_ptr<Item> ItemManager::getItem(int id) {
-	if (!items.get(id)) {
-		addItem(id);
+ItemManager::ItemManager() {
+	std::ifstream file("items.json");
+	nlohmann::json data = nlohmann::json::parse(file);
+
+	for (const auto& itemData : data) {
+		int id = itemData["id"];
+		std::vector <std::unique_ptr<Item>> attacks;
+		items[id] = std::make_unique<Item>(
+			itemData["name"].get<std::string>(),
+			itemData["description"].get<std::string>(),
+			itemData["type"].get<ItemType>(),
+			itemData["value"].get<int>());
 	}
-	return items.get(id);
 }
 
-void ItemManager::addItem(int id) {
-	if (!items.contains(id)) {
-		std::ifstream file("rooms.json");
-		nlohmann::json data = nlohmann::json::parse(file);
-
-		for (const auto& itemData : data) {
-			if (itemData["id"] == id) {
-				items.put(id, std::make_shared<Item>(
-					itemData["name"].get<std::string>(),
-					itemData["description"].get<std::string>(),
-					itemData["type"].get<ItemType>(),
-					itemData["value"].get<int>()));
-			}
-		}
-	}
+const std::unique_ptr<Item> ItemManager::getItem(int id) {
+	return std::make_unique<Item>(*items.at(id));
 }
