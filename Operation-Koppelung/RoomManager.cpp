@@ -1,11 +1,10 @@
 #include <fstream>
 #include "json.hpp"
 #include "RoomManager.h"
-#include "Menu.h"
 
 const size_t cache_size = 50;
 
-RoomManager::RoomManager(std::shared_ptr<OptionManager> optionManager) : rooms(cache_size), optionManager(optionManager) {};
+RoomManager::RoomManager(std::shared_ptr<OptionManager> optionManager, std::shared_ptr<MenuManager> menuManager) : rooms(cache_size), optionManager(optionManager), menuManager(menuManager) {};
 
 std::shared_ptr<Room> RoomManager::getRoom(int id) {
 	if (!rooms.get(id)) {
@@ -44,15 +43,14 @@ void RoomManager::roomProcess(int id) {
 	for (const auto& option : options) {
 		options_desc.push_back(option->getDescription());
 	}
-	std::unique_ptr<Menu> menu = std::make_unique<Menu>(options_desc);
 	while (true) {
-		int choice = menu->run();
+		int choice = menuManager->run(options_desc);
 		if (choice != -1) {
 			options[choice]->execute();
 		}
 		else {
 			break;
 		}
-		menu->waitUntilHit();
+		menuManager->waitUntilHit();
 	}
 }

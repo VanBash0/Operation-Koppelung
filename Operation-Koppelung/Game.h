@@ -5,15 +5,18 @@
 #include "RoomManager.h"
 #include "ItemManager.h"
 #include "Player.h"
+#include "MenuManager.h"
 
 class Game {
 private:
 	std::shared_ptr<AttackManager> attackManager;
-	std::unique_ptr<OptionManager> optionManager;
-	std::unique_ptr<EnemyManager> enemyManager;
+	std::shared_ptr<OptionManager> optionManager;
+	std::shared_ptr<EnemyManager> enemyManager;
 	std::unique_ptr<RoomManager> roomManager;
 	std::shared_ptr<ItemManager> itemManager;
-	std::unique_ptr<Player> player;
+	std::shared_ptr<Player> player;
+	std::shared_ptr<MenuManager> menuManager;
+	std::shared_ptr<View> view;
 public:
 	Game();
 };

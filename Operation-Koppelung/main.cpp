@@ -1,4 +1,2 @@
-﻿#include "Menu.h"
-
-int main() {
+﻿int main() {
 }

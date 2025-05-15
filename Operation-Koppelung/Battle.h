@@ -3,14 +3,15 @@
 #include <memory>
 #include "Enemy.h"
 #include "Player.h"
-#include "Menu.h"
+#include "MenuManager.h"
 #include "EnemyManager.h"
 
 class Battle {
 private:
     std::vector<std::shared_ptr<Enemy>> enemies;
-    Player* player;
-    EnemyManager* enemyManager;
+    std::shared_ptr<Player> player;
+    std::shared_ptr<EnemyManager> enemyManager;
+    std::shared_ptr<MenuManager> menuManager;
     int player_defence = 0;
     bool isPlayerTurn = true;
 
@@ -20,6 +21,6 @@ private:
     void showBattleStatus();
 
 public:
-    Battle(std::vector<int> enemies_id, EnemyManager* enemyManager, Player* player);
+    Battle(std::vector<int> enemies_id, std::shared_ptr<EnemyManager> enemyManager, std::shared_ptr<Player> player, std::shared_ptr<MenuManager> menuManager);
     void start();
 };

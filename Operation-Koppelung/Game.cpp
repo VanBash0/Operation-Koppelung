@@ -2,12 +2,11 @@
 
 Game::Game() {
 	attackManager = std::make_shared<AttackManager>();
-	std::shared_ptr<OptionManager> optionManager;
 	optionManager = std::make_shared<OptionManager>();
-	enemyManager = std::make_unique<EnemyManager>(attackManager);
-	std::shared_ptr<ItemManager> itemManager;
+	enemyManager = std::make_shared<EnemyManager>(attackManager);
 	itemManager = std::make_shared<ItemManager>();
-	roomManager = std::make_unique<RoomManager>(optionManager);
-	std::shared_ptr<Player> player;
+	view = std::make_shared<View>();
+	menuManager = std::make_shared<MenuManager>(view);
+	roomManager = std::make_unique<RoomManager>(optionManager, menuManager);
 	player = std::make_shared<Player>(itemManager, attackManager);
 }

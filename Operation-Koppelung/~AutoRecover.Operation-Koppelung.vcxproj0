@@ -145,6 +145,7 @@
     <ClCompile Include="OptionManager.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="RoomManager.cpp" />
+    <ClCompile Include="View.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Attack.h" />
@@ -164,6 +165,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Room.h" />
     <ClInclude Include="RoomManager.h" />
+    <ClInclude Include="View.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="attacks.json" />

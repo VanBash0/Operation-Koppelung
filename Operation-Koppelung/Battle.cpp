@@ -1,7 +1,8 @@
 #include <curses.h>
 #include "Battle.h"
 
-Battle::Battle(std::vector<int> enemies_id, EnemyManager* enemyManager, Player* player_) {
+Battle::Battle(std::vector<int> enemies_id, std::shared_ptr<EnemyManager> enemyManager, std::shared_ptr<Player> player_, std::shared_ptr<MenuManager> menuManager_) {
+    menuManager = menuManager_;
     player = player_;
     for (int id : enemies_id) {
         enemies.push_back(enemyManager->getEnemy(id));
@@ -32,16 +33,14 @@ void Battle::playerTurn(const std::vector<std::shared_ptr<Attack>>& spells, cons
     std::vector<std::string> actions = { "Attack", "Magic", "Defend", "Item" };
     int acts_count = 0;
     while (acts_count < 2) {
-        std::unique_ptr<Menu> actionMenu = std::make_unique<Menu>(actions);
-        int choice = actionMenu->run();
+        int choice = menuManager->run(actions);
         std::vector<std::string> enemy_names;
         for (const auto& enemy : enemies) {
             enemy_names.push_back(enemy->getName());
         }
         switch (choice) {
         case 0: {
-            std::unique_ptr<Menu> enemyMenu = std::make_unique<Menu>(actions);
-            int target = enemyMenu->run();
+            int target = menuManager->run(enemy_names);
             if (target != -1) {
                 enemies[target]->takeDamage(player->getDamage());
                 ++acts_count;
@@ -49,18 +48,15 @@ void Battle::playerTurn(const std::vector<std::shared_ptr<Attack>>& spells, cons
             break;
         }
         case 1: {
-            std::unique_ptr<Menu> spellMenu = std::make_unique<Menu>(spell_names);
-            int spellChoice = spellMenu->run();
-            std::unique_ptr<Menu> enemyMenu = std::make_unique<Menu>(enemy_names);
-            int target = enemyMenu->run();
-            enemies[target]->takeDamage(spells[spellChoice]->damage);
+            int spell_choice = menuManager->run(spell_names);
+            int target = menuManager->run(enemy_names);
+            enemies[target]->takeDamage(spells[spell_choice]->damage);
             break;
         }
         case 2:
             player_defence += player->getDefence();
             break;
         case 3:
-            mvprintw(10, 0, "Items not implemented yet!");
             break;
         }
     }
