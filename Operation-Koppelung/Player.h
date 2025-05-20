@@ -15,6 +15,7 @@ public:
     std::vector<std::shared_ptr<Attack>> getSpells() const;
     int getDefence() const;
     int getHealth() const;
+    int getSanity() const;
 private:
     int health, sanity;
     std::unique_ptr<Item> weapon, armor, amulet;

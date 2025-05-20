@@ -19,7 +19,7 @@ int MenuManager::run(const std::vector<std::string>& options_) {
 	view->setOptions(options);
 	selected = 0;
 	while (true) {
-		view->drawMenu(selected);
+		view->drawMenu(selected, player_health, player_sanity);
 		int key = getch();
 		if (key == 10 || key == 90 || key == 122) {
 			return selected;

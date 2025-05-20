@@ -8,9 +8,10 @@ class View {
 public:
 	View();
 	~View();
-	void drawMenu(int& selected);
+	void drawMenu(int& selected, int& health, int& sanity);
 	void setOptions(const std::vector<std::string>& options);
-	void updatePlayerStats();
+	void showPlayerStats(int health, int sanity);
+	void drawProgressBar(WINDOW* win, int y, int x, const std::string& label, int value, int max_value, int width);
 private:
 	std::vector<std::string> options;
 	WINDOW* player_win;

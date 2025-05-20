@@ -32,6 +32,8 @@ int Player::getDefence() const { return armor->value; }
 
 int Player::getHealth() const { return health; }
 
+int Player::getSanity() const { return sanity; }
+
 //void Player::update() {
 //	std::ofstream file("player.json");
 //	nlohmann::json data = nlohmann::json::parse(file);

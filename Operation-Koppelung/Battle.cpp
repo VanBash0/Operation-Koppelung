@@ -15,8 +15,9 @@ void Battle::start() {
     for (const auto& spell : spells) {
 		spell_names.push_back(spell->name);
     }
+    menuManager->setPlayerHealth(player->getHealth());
+    menuManager->setPlayerSanity(player->getSanity());
     while (!isBattleOver()) {
-        //showBattleStatus();
         if (isPlayerTurn) {
             playerTurn(spells, spell_names);
             isPlayerTurn = false;
@@ -25,8 +26,10 @@ void Battle::start() {
             enemiesTurn();
             isPlayerTurn = true;
             player_defence = 0;
+            menuManager->setPlayerHealth(player->getHealth());
         }
     }
+    exit(0);
 }
 
 void Battle::playerTurn(const std::vector<std::shared_ptr<Attack>>& spells, const std::vector<std::string>& spell_names) {
@@ -36,7 +39,7 @@ void Battle::playerTurn(const std::vector<std::shared_ptr<Attack>>& spells, cons
         int choice = menuManager->run(actions);
         std::vector<std::string> enemy_names;
         for (const auto& enemy : enemies) {
-            enemy_names.push_back(enemy->getName());
+            enemy_names.push_back(enemy->getName() + " HP: " + std::to_string(enemy->getHealth()));
         }
         switch (choice) {
         case 0: {
