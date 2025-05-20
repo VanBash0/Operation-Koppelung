@@ -16,6 +16,7 @@ public:
     int getDefence() const;
     int getHealth() const;
     int getSanity() const;
+    std::string getWeaponName() const;
 private:
     int health, sanity;
     std::unique_ptr<Item> weapon, armor, amulet;

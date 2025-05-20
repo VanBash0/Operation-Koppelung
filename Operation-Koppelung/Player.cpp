@@ -34,6 +34,8 @@ int Player::getHealth() const { return health; }
 
 int Player::getSanity() const { return sanity; }
 
+std::string Player::getWeaponName() const { return weapon->name; }
+
 //void Player::update() {
 //	std::ofstream file("player.json");
 //	nlohmann::json data = nlohmann::json::parse(file);

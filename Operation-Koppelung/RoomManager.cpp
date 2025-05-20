@@ -5,7 +5,7 @@
 
 const size_t cache_size = 50;
 
-RoomManager::RoomManager(std::shared_ptr<OptionManager> optionManager, std::shared_ptr<MenuManager> menuManager, std::shared_ptr<Player> player, std::shared_ptr<EnemyManager> enemyManager) : rooms(cache_size), optionManager(optionManager), menuManager(menuManager), player(player), enemyManager(enemyManager) {};
+RoomManager::RoomManager(std::shared_ptr<OptionManager> optionManager, std::shared_ptr<ViewManager> viewManager, std::shared_ptr<Player> player, std::shared_ptr<EnemyManager> enemyManager) : rooms(cache_size), optionManager(optionManager), viewManager(viewManager), player(player), enemyManager(enemyManager) {};
 
 std::shared_ptr<Room> RoomManager::getRoom(int id) {
 	if (!rooms.get(id)) {
@@ -34,7 +34,7 @@ void RoomManager::roomProcess(int id) {
 	std::shared_ptr<Room> room = getRoom(id);
 	room->room_entered = true;
 	if (!room->enemies_id.empty()) {
-		std::unique_ptr<Battle> battle = std::make_unique<Battle>(room->enemies_id, enemyManager, player, menuManager);
+		std::unique_ptr<Battle> battle = std::make_unique<Battle>(room->enemies_id, enemyManager, player, viewManager);
 		battle->start();
 	}
 	std::vector<std::shared_ptr<Option>> options;
@@ -46,13 +46,13 @@ void RoomManager::roomProcess(int id) {
 		options_desc.push_back(option->getDescription());
 	}
 	while (true) {
-		int choice = menuManager->run(options_desc);
+		int choice = viewManager->run(options_desc);
 		if (choice != -1) {
 			options[choice]->execute();
 		}
 		else {
 			break;
 		}
-		menuManager->waitUntilHit();
+		viewManager->waitUntilHit();
 	}
 }

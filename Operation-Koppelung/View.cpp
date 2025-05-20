@@ -6,8 +6,8 @@ View::View() {
 	cbreak();
 	noecho();
 	keypad(stdscr, TRUE);
-	player_win = newwin(5, 40, 0, 0);
-	main_win = newwin(10, 40, 5, 0);
+	player_win = newwin(5, 60, 0, 0);
+	main_win = newwin(10, 60, 5, 0);
     start_color();
     init_pair(1, COLOR_RED, COLOR_BLACK);
     init_pair(2, COLOR_MAGENTA, COLOR_BLACK);
@@ -49,11 +49,18 @@ void View::drawProgressBar(WINDOW* win, int y, int x, const std::string& label, 
 void View::showPlayerStats(int health, int sanity) {
 	wclear(player_win);
     box(player_win, 0, 0);
-	mvwprintw(player_win, 1, 1, "%s", "Aleksey Ryabinin");
+	mvwprintw(player_win, 1, 1, "%s", "Name: Aleksey Ryabinin");
     wattron(player_win, COLOR_PAIR(1));
     drawProgressBar(player_win, 2, 1, "Health", health, 100, 10);
     wattron(player_win, COLOR_PAIR(2));
     drawProgressBar(player_win, 3, 1, "Sanity", sanity, 100, 10);
     wattroff(player_win, COLOR_PAIR(2));
 	wrefresh(player_win);
+}
+
+void View::showText(std::string text) {
+    wclear(main_win);
+    box(main_win, 0, 0);
+    mvwprintw(main_win, 1, 1, "%s", text.c_str());
+    wrefresh(main_win);
 }

@@ -140,7 +140,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="ItemManager.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="MenuManager.cpp" />
+    <ClCompile Include="ViewManager.cpp" />
     <ClCompile Include="Option.cpp" />
     <ClCompile Include="OptionManager.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -159,7 +159,7 @@
     <ClInclude Include="ItemManager.h" />
     <ClInclude Include="json.hpp" />
     <ClInclude Include="LRUCache.h" />
-    <ClInclude Include="MenuManager.h" />
+    <ClInclude Include="ViewManager.h" />
     <ClInclude Include="Option.h" />
     <ClInclude Include="OptionManager.h" />
     <ClInclude Include="Player.h" />

@@ -1,9 +1,9 @@
-#include "MenuManager.h"
+#include "ViewManager.h"
 #include <curses.h>
 
-MenuManager::MenuManager(std::shared_ptr<View> view) : view(view) {};
+ViewManager::ViewManager(std::shared_ptr<View> view) : view(view) {};
 
-void MenuManager::handleInput(int key) {
+void ViewManager::handleInput(int key) {
 	switch (key) {
 	case KEY_UP:
 		selected = (selected - 1 + options.size()) % options.size();
@@ -14,7 +14,7 @@ void MenuManager::handleInput(int key) {
 	}
 }
 
-int MenuManager::run(const std::vector<std::string>& options_) {
+int ViewManager::run(const std::vector<std::string>& options_) {
 	options = options_;
 	view->setOptions(options);
 	selected = 0;
@@ -31,11 +31,16 @@ int MenuManager::run(const std::vector<std::string>& options_) {
 	}
 }
 
-void MenuManager::waitUntilHit() {
+void ViewManager::waitUntilHit() {
 	int key;
 	while (true) {
 		key = getch();
 		if (key == KEY_UP || key == KEY_DOWN  || key == 10 || key == 90 || key == 122) break;
 	}
 	handleInput(key);
+}
+
+void ViewManager::printText(std::string text) {
+	view->showText(text);
+	waitUntilHit();
 }

@@ -5,7 +5,7 @@
 #include "RoomManager.h"
 #include "ItemManager.h"
 #include "Player.h"
-#include "MenuManager.h"
+#include "ViewManager.h"
 
 class Game {
 private:
@@ -15,7 +15,7 @@ private:
 	std::unique_ptr<RoomManager> roomManager;
 	std::shared_ptr<ItemManager> itemManager;
 	std::shared_ptr<Player> player;
-	std::shared_ptr<MenuManager> menuManager;
+	std::shared_ptr<ViewManager> viewManager;
 	std::shared_ptr<View> view;
 public:
 	Game();
