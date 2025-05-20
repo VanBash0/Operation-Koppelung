@@ -16,7 +16,7 @@ void Battle::start() {
 		spell_names.push_back(spell->name);
     }
     while (!isBattleOver()) {
-        showBattleStatus();
+        //showBattleStatus();
         if (isPlayerTurn) {
             playerTurn(spells, spell_names);
             isPlayerTurn = false;
@@ -49,14 +49,22 @@ void Battle::playerTurn(const std::vector<std::shared_ptr<Attack>>& spells, cons
         }
         case 1: {
             int spell_choice = menuManager->run(spell_names);
-            int target = menuManager->run(enemy_names);
-            enemies[target]->takeDamage(spells[spell_choice]->damage);
+            if (spell_choice != -1) {
+                int target = menuManager->run(enemy_names);
+                if (target != -1) {
+					enemies[target]->takeDamage(spells[spell_choice]->damage);
+					++acts_count;
+				}
+                break;
+            }
             break;
         }
         case 2:
             player_defence += player->getDefence();
+            ++acts_count;
             break;
         case 3:
+            ++acts_count;
             break;
         }
     }
@@ -85,9 +93,9 @@ bool Battle::isBattleOver() {
 
 void Battle::showBattleStatus() {
     clear();
-    mvprintw(0, 0, "Player HP: %d", player->getHealth());
+    mvprintw(15, 0, "Player HP: %d", player->getHealth());
     for (size_t i = 0; i < enemies.size(); ++i) {
-        mvprintw(1 + i, 0, "%s HP: %d", enemies[i]->getName().c_str(), enemies[i]->getHealth());
+        mvprintw(11 + i, 0, "%s HP: %d", enemies[i]->getName().c_str(), enemies[i]->getHealth());
     }
     refresh();
     getch();

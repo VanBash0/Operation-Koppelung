@@ -1,10 +1,11 @@
 #include <fstream>
 #include "json.hpp"
 #include "RoomManager.h"
+#include "Battle.h"
 
 const size_t cache_size = 50;
 
-RoomManager::RoomManager(std::shared_ptr<OptionManager> optionManager, std::shared_ptr<MenuManager> menuManager) : rooms(cache_size), optionManager(optionManager), menuManager(menuManager) {};
+RoomManager::RoomManager(std::shared_ptr<OptionManager> optionManager, std::shared_ptr<MenuManager> menuManager, std::shared_ptr<Player> player, std::shared_ptr<EnemyManager> enemyManager) : rooms(cache_size), optionManager(optionManager), menuManager(menuManager), player(player), enemyManager(enemyManager) {};
 
 std::shared_ptr<Room> RoomManager::getRoom(int id) {
 	if (!rooms.get(id)) {
@@ -33,7 +34,8 @@ void RoomManager::roomProcess(int id) {
 	std::shared_ptr<Room> room = getRoom(id);
 	room->room_entered = true;
 	if (!room->enemies_id.empty()) {
-		// инициализация битвы на входе в комнату!!!
+		std::unique_ptr<Battle> battle = std::make_unique<Battle>(room->enemies_id, enemyManager, player, menuManager);
+		battle->start();
 	}
 	std::vector<std::shared_ptr<Option>> options;
 	for (int i : room->options_id) {

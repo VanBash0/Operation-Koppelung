@@ -9,9 +9,12 @@ Player::Player(std::shared_ptr<ItemManager> itemManager, std::shared_ptr<AttackM
 	for (int i : data[0]["items_id"]) {
 		inventory.push_back(itemManager->getItem(i));
 	}
-	weapon = itemManager->getItem(data[0]["weapon_id"].get<int>());
-	armor = itemManager->getItem(data[0]["armor_id"].get<int>());
-	amulet = itemManager->getItem(data[0]["amulet_id"].get<int>());
+	int weapon_id = data[0]["weapon_id"].get<int>();
+	weapon = (weapon_id == -1) ? nullptr : itemManager->getItem(weapon_id);
+	int armor_id = data[0]["armor_id"].get<int>();
+	armor = (armor_id == -1) ? nullptr : itemManager->getItem(armor_id);
+	int amulet_id = data[0]["amulet_id"].get<int>();
+	amulet = (amulet_id == -1) ? nullptr : itemManager->getItem(amulet_id);
 	for (int i : data[0]["spells_id"]) {
 		spells.push_back(attackManager->getAttack(i));
 	}

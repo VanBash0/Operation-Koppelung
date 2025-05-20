@@ -4,7 +4,7 @@
 #include "EnemyManager.h"
 
 EnemyManager::EnemyManager(std::shared_ptr<AttackManager> attackManager) {
-	std::ifstream file("attacks.json");
+	std::ifstream file("enemies.json");
 	nlohmann::json data = nlohmann::json::parse(file);
 
 	for (const auto& enemyData : data) {

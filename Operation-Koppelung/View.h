@@ -10,6 +10,7 @@ public:
 	~View();
 	void drawMenu(int& selected);
 	void setOptions(const std::vector<std::string>& options);
+	void updatePlayerStats();
 private:
 	std::vector<std::string> options;
 	WINDOW* player_win;
