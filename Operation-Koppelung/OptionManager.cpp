@@ -4,12 +4,6 @@
 #include "OptionManager.h"
 
 const size_t cache_size = 50;
-enum OptionType {
-	EXPLORATION,
-	BATTLE,
-	GRAMOPHONE,
-	ROOMCHANGE,
-};
 
 OptionManager::OptionManager() : options(cache_size) {};
 
@@ -29,35 +23,24 @@ void OptionManager::addOption(int id) {
 			if (optionData["id"] == id) {
 				std::string description = optionData["description"].get<std::string>();
 				std::vector<std::string> story = optionData["story"].get<std::vector<std::string>>();
-
-				OptionType type = optionData["type"].get<OptionType>();
+				std::string typeStr = optionData["type"].get<std::string>();
 				std::shared_ptr<Option> option;
 				std::vector<int> enemies_id;
-				switch (type) {
-					case EXPLORATION:
-					{
-						int loot_id = optionData["loot_id"].get<int>();
-						option = std::make_shared<ExplorationOption>(description, story, loot_id);
-						break;
-					}
-					case BATTLE:
-					{
-						enemies_id = optionData["enemies_id"].get<std::vector<int>>();
-						option = std::make_shared<BattleOption>(description, story, enemies_id);
-						break;
-					}
-					case GRAMOPHONE:
-					{
-						int sanity_restore = optionData["sanity_restore"].get<int>();
-						option = std::make_shared<GramophoneOption>(description, story, sanity_restore);
-						break;
-					}
-					case ROOMCHANGE:
-					{
-						int room_id = optionData["room_id"].get<int>();
-						option = std::make_shared<RoomChangeOption>(description, story, room_id);
-						break;
-					}
+				if (typeStr == "EXPLORATION") {
+					int loot_id = optionData["loot_id"].get<int>();
+					option = std::make_shared<ExplorationOption>(description, story, loot_id);
+				}
+				else if (typeStr == "BATTLE") {
+					enemies_id = optionData["enemies_id"].get<std::vector<int>>();
+					option = std::make_shared<BattleOption>(description, story, enemies_id);
+				}
+				else if (typeStr == "GRAMOPHONE") {
+					int sanity_restore = optionData["sanity_restore"].get<int>();
+					option = std::make_shared<GramophoneOption>(description, story, sanity_restore);
+				}
+				else if (typeStr == "ROOMCHANGE") {
+					int room_id = optionData["room_id"].get<int>();
+					option = std::make_shared<RoomChangeOption>(description, story, room_id);
 				}
 				options.put(id, option);
 				break;

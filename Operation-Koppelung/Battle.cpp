@@ -19,17 +19,22 @@ void Battle::start() {
     viewManager->setPlayerSanity(player->getSanity());
     while (!isBattleOver()) {
         if (isPlayerTurn) {
+            player_defence = player->getDefence();
             playerTurn(spells, spell_names);
             isPlayerTurn = false;
         }
         else {
             enemiesTurn();
             isPlayerTurn = true;
-            player_defence = 0;
             viewManager->setPlayerHealth(player->getHealth());
         }
     }
-    exit(0);
+    if (player->getHealth() > 0) {
+        viewManager->printText("You won!");
+    }
+    else {
+        exit(0);
+    }
 }
 
 void Battle::playerTurn(const std::vector<std::shared_ptr<Attack>>& spells, const std::vector<std::string>& spell_names) {
@@ -57,6 +62,7 @@ void Battle::playerTurn(const std::vector<std::shared_ptr<Attack>>& spells, cons
                 int target = viewManager->run(enemy_names);
                 if (target != -1) {
 					enemies[target]->takeDamage(spells[spell_choice]->damage);
+                    viewManager->printText("You attack " + enemies[target]->getName() + " with " + spells[spell_choice]->name + " and deal " + std::to_string(spells[spell_choice]->damage) + " damage!");
 					++acts_count;
 				}
                 break;
@@ -64,7 +70,8 @@ void Battle::playerTurn(const std::vector<std::shared_ptr<Attack>>& spells, cons
             break;
         }
         case 2:
-            player_defence += player->getDefence();
+            player_defence += 10;
+            viewManager->printText("You make a defensive pose. Your defence rises by 10!");
             ++acts_count;
             break;
         case 3:
