@@ -42,5 +42,14 @@ void ViewManager::waitUntilHit() {
 
 void ViewManager::printText(std::string text) {
 	view->showText(text);
-	waitUntilHit();
+	waitUntilHitEnter();
+}
+
+void ViewManager::waitUntilHitEnter() {
+	int key;
+	while (true) {
+		key = getch();
+		if (key == 10 || key == 90 || key == 122) break;
+	}
+	handleInput(key);
 }

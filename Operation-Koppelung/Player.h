@@ -9,7 +9,7 @@
 class Player {
 public:
     Player(std::shared_ptr<ItemManager> itemManager, std::shared_ptr<AttackManager> attackManager);
-    //void update();
+    void update();
     void takeDamage(int damage);
     int getDamage() const;
     std::vector<std::shared_ptr<Attack>> getSpells() const;
@@ -17,9 +17,18 @@ public:
     int getHealth() const;
     int getSanity() const;
     std::string getWeaponName() const;
+    int getLocation() const;
+    void setLocation(const int& location);
+    std::vector<std::shared_ptr<Item>> getItems() const;
+    std::shared_ptr<Item> getWeapon() const;
+    std::shared_ptr<Item> getArmor() const;
+    std::shared_ptr<Item> getAmulet() const;
+    void healHealth(int delta);
+    void healSanity(int delta);
+    void loseSanity(int delta);
 private:
-    int health, sanity;
-    std::unique_ptr<Item> weapon, armor, amulet;
+    int health, sanity, location;
+    std::shared_ptr<Item> weapon, armor, amulet;
     std::vector<std::shared_ptr<Item>> inventory;
     std::vector<std::shared_ptr<Attack>> spells;
 };

@@ -10,3 +10,9 @@ Game::Game() {
 	player = std::make_shared<Player>(itemManager, attackManager);
 	roomManager = std::make_unique<RoomManager>(optionManager, viewManager, player, enemyManager);
 }
+
+void Game::play() {
+	while (true) {
+		roomManager->roomProcess(player->getLocation());
+	}
+}

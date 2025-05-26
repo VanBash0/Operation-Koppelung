@@ -10,6 +10,7 @@ public:
 	ViewManager(std::shared_ptr<View> view);
 	int run(const std::vector<std::string>& options_);
 	void waitUntilHit();
+	void waitUntilHitEnter();
 	void setPlayerHealth(int health) { player_health = health; };
 	void setPlayerSanity(int sanity) { player_sanity = sanity; };
 	void printText(std::string text);

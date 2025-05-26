@@ -19,4 +19,5 @@ private:
 	std::shared_ptr<View> view;
 public:
 	Game();
+	void play();
 };

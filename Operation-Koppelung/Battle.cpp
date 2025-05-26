@@ -1,3 +1,4 @@
+#include <utility>
 #include <curses.h>
 #include "Battle.h"
 
@@ -46,36 +47,108 @@ void Battle::playerTurn(const std::vector<std::shared_ptr<Attack>>& spells, cons
         for (const auto& enemy : enemies) {
             enemy_names.push_back(enemy->getName() + " HP: " + std::to_string(enemy->getHealth()));
         }
-        switch (choice) {
-        case 0: {
+        std::vector<std::string> item_names;
+		for (const auto& item : player->getItems()) {
+			item_names.push_back(item->name);
+		}
+        if (choice == 0) {
             int target = viewManager->run(enemy_names);
             if (target != -1) {
                 enemies[target]->takeDamage(player->getDamage());
                 viewManager->printText("You attack " + enemies[target]->getName() + " with " + player->getWeaponName() + " and deal " + std::to_string(player->getDamage()) + " damage!");
                 ++acts_count;
             }
-            break;
         }
-        case 1: {
-            int spell_choice = viewManager->run(spell_names);
-            if (spell_choice != -1) {
-                int target = viewManager->run(enemy_names);
-                if (target != -1) {
-					enemies[target]->takeDamage(spells[spell_choice]->damage);
-                    viewManager->printText("You attack " + enemies[target]->getName() + " with " + spells[spell_choice]->name + " and deal " + std::to_string(spells[spell_choice]->damage) + " damage!");
-					++acts_count;
-				}
-                break;
+        else if (choice == 1) {
+            while (true) {
+                int spell_choice = viewManager->run(spell_names);
+                if (spell_choice != -1) {
+                    if (player->getSanity() >= spells[spell_choice]->sanity_cost) {
+                        int target = viewManager->run(enemy_names);
+                        if (target != -1) {
+                            enemies[target]->takeDamage(spells[spell_choice]->damage);
+                            viewManager->printText("You attack " + enemies[target]->getName() + " with " + spells[spell_choice]->name + " and deal " + std::to_string(spells[spell_choice]->damage) + " damage!;You lose " + std::to_string(spells[spell_choice]->sanity_cost) + " sanity!");
+							player->loseSanity(spells[spell_choice]->sanity_cost);
+                            viewManager->setPlayerSanity(player->getSanity());
+                            viewManager->updatePlayerStats();
+                            ++acts_count;
+                        }
+                        break;
+                    }
+                }
+                else {
+                    break;
+                }
             }
-            break;
         }
-        case 2:
-            player_defence += 10;
-            viewManager->printText("You make a defensive pose. Your defence rises by 10!");
+        else if (choice == 2) {
+            int delta = player->getHealth() / 10;
+            player_defence += delta;
+            viewManager->printText("You make a defensive pose. Your defence rises by " + std::to_string(delta) + "!");
             ++acts_count;
-            break;
-        case 3:
+        }   
+        else if (choice == 3 && !player->getItems().empty()) {
+			int item_choice = viewManager->run(item_names);
+            if (item_choice != -1) {
+                std::shared_ptr<Item> item = player->getItems()[item_choice];
+                switch (item->type) {
+                case WEAPON:
+                    viewManager->printText("You equip " + item->name + "!");
+                    player->getWeapon().swap(item);
+                    break;
+                case ARMOR:
+					viewManager->printText("You equip " + item->name + "!");
+					player->getArmor().swap(item);
+					break;
+                case AMULET:
+					viewManager->printText("You equip " + item->name + "!");
+					player->getAmulet().swap(item);
+					break;
+                case HP_HEALER:
+                    player->healHealth(item->value);
+                    if (player->getHealth() == 100) {
+                        viewManager->printText("You use " + item->name + "and fully restore your health!");
+                    }
+                    else {
+						viewManager->printText("You use " + item->name + "and heal" + std::to_string(item->value) + " health!");
+                    }
+                    viewManager->setPlayerHealth(player->getHealth());
+                    viewManager->updatePlayerStats();
+					break;
+				case SANITY_HEALER:
+                    player->healSanity(item->value);
+                    if (player->getSanity() == 100) {
+                        viewManager->printText("You use " + item->name + "and fully restore your sanity!");
+                    }
+                    else {
+                        viewManager->printText("You use " + item->name + "and heal" + std::to_string(item->value) + " sanity!");
+                    }
+                    viewManager->setPlayerSanity(player->getSanity());
+                    viewManager->updatePlayerStats();
+                    break;
+                case INSTANT_WEAPON:
+                    for (auto it = enemies.begin(); it != enemies.end(); ) {
+                        (*it)->takeDamage(item->value);
+                        ++it;
+                    }
+					viewManager->printText("You use " + item->name + "and deal " + std::to_string(item->value) + " damage to all enemies!");
+					break;
+				}
+            }
             ++acts_count;
+        }
+
+        for (auto it = enemies.begin(); it != enemies.end(); ) {
+			if ((*it)->getHealth() <= 0) {
+				viewManager->printText("You kill " + (*it)->getName() + "!");
+                it = enemies.erase(it);
+			}
+			else {
+				++it;
+			}
+		}
+
+        if (isBattleOver()) {
             break;
         }
     }
@@ -83,20 +156,15 @@ void Battle::playerTurn(const std::vector<std::shared_ptr<Attack>>& spells, cons
 
 void Battle::enemiesTurn() {
     for (auto it = enemies.begin(); it != enemies.end(); ) {
-        if ((*it)->getHealth() <= 0) {
-            it = enemies.erase(it);
-        }
-        else {
-            std::vector<std::shared_ptr<Attack>> attacks = (*it)->getAttacks();
-            int attack_idx = rand() % attacks.size();
-            int damage = std::max(0, attacks[attack_idx]->damage - player_defence);
-            player_defence = std::max(0, player_defence - attacks[attack_idx]->damage);
-            player->takeDamage(damage);
-            viewManager->printText((*it)->getName() + " attacks you with " + attacks[attack_idx]->name + " and deals you " + std::to_string(damage) + " damage!");
-            viewManager->setPlayerHealth(player->getHealth());
-            viewManager->updatePlayerStats();
-            ++it;
-        }
+        std::vector<std::shared_ptr<Attack>> attacks = (*it)->getAttacks();
+        int attack_idx = rand() % attacks.size();
+        int damage = std::max(0, attacks[attack_idx]->damage - player_defence);
+        player_defence = std::max(0, player_defence - attacks[attack_idx]->damage);
+        player->takeDamage(damage);
+        viewManager->printText((*it)->getName() + " attacks you with " + attacks[attack_idx]->name + " and deals you " + std::to_string(damage) + " damage!");
+        viewManager->setPlayerHealth(player->getHealth());
+        viewManager->updatePlayerStats();
+        ++it;
     }
 }
 
