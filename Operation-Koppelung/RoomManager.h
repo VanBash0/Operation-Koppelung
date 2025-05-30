@@ -6,6 +6,7 @@
 #include "ViewManager.h"
 #include "Player.h"
 #include "EnemyManager.h"
+#include "ItemManager.h"
 
 class RoomManager {
 private:
@@ -14,8 +15,9 @@ private:
 	std::shared_ptr<ViewManager> viewManager;
 	std::shared_ptr<Player> player;
 	std::shared_ptr<EnemyManager> enemyManager;
+	std::shared_ptr<ItemManager> itemManager;
 public:
-	RoomManager(std::shared_ptr<OptionManager> optionManager, std::shared_ptr<ViewManager> viewManager, std::shared_ptr<Player> player, std::shared_ptr<EnemyManager> enemyManager);
+	RoomManager(std::shared_ptr<OptionManager> optionManager, std::shared_ptr<ViewManager> viewManager, std::shared_ptr<Player> player, std::shared_ptr<EnemyManager> enemyManager, std::shared_ptr<ItemManager> itemManager);
 	void addRoom(int id);
 	std::shared_ptr<Room> getRoom(int id);
 	void roomProcess(int id);

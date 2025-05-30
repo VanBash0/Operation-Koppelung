@@ -112,6 +112,7 @@ void Battle::playerTurn(const std::vector<std::shared_ptr<Attack>>& spells, cons
                     else {
 						viewManager->printText("You use " + item->name + "and heal" + std::to_string(item->value) + " health!");
                     }
+                    player->removeItem(item->id);
                     viewManager->setPlayerHealth(player->getHealth());
                     viewManager->updatePlayerStats();
 					break;
@@ -123,6 +124,7 @@ void Battle::playerTurn(const std::vector<std::shared_ptr<Attack>>& spells, cons
                     else {
                         viewManager->printText("You use " + item->name + "and heal" + std::to_string(item->value) + " sanity!");
                     }
+                    player->removeItem(item->id);
                     viewManager->setPlayerSanity(player->getSanity());
                     viewManager->updatePlayerStats();
                     break;
@@ -132,7 +134,8 @@ void Battle::playerTurn(const std::vector<std::shared_ptr<Attack>>& spells, cons
                         ++it;
                     }
 					viewManager->printText("You use " + item->name + "and deal " + std::to_string(item->value) + " damage to all enemies!");
-					break;
+                    player->removeItem(item->id);
+                    break;
 				}
             }
             ++acts_count;

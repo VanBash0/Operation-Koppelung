@@ -8,7 +8,7 @@ Game::Game() {
 	view = std::make_shared<View>();
 	viewManager = std::make_shared<ViewManager>(view);
 	player = std::make_shared<Player>(itemManager, attackManager);
-	roomManager = std::make_unique<RoomManager>(optionManager, viewManager, player, enemyManager);
+	roomManager = std::make_unique<RoomManager>(optionManager, viewManager, player, enemyManager, itemManager);
 }
 
 void Game::play() {

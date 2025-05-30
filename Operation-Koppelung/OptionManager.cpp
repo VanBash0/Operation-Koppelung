@@ -22,25 +22,27 @@ void OptionManager::addOption(int id) {
 		for (const auto& optionData : data) {
 			if (optionData["id"] == id) {
 				std::string description = optionData["description"].get<std::string>();
-				std::vector<std::string> story = optionData["story"].get<std::vector<std::string>>();
+				std::string story = optionData["story"].get<std::string>();
+				std::string after_story = optionData["after_story"].get<std::string>();
+				bool isPicked = optionData["isPicked"].get<bool>();
 				std::string typeStr = optionData["type"].get<std::string>();
 				std::shared_ptr<Option> option;
 				std::vector<int> enemies_id;
 				if (typeStr == "EXPLORATION") {
 					int loot_id = optionData["loot_id"].get<int>();
-					option = std::make_shared<ExplorationOption>(description, story, loot_id);
+					option = std::make_shared<ExplorationOption>(description, story, after_story, isPicked, loot_id);
 				}
 				else if (typeStr == "BATTLE") {
 					enemies_id = optionData["enemies_id"].get<std::vector<int>>();
-					option = std::make_shared<BattleOption>(description, story, enemies_id);
+					option = std::make_shared<BattleOption>(description, story, after_story, isPicked, enemies_id);
 				}
 				else if (typeStr == "GRAMOPHONE") {
 					int sanity_restore = optionData["sanity_restore"].get<int>();
-					option = std::make_shared<GramophoneOption>(description, story, sanity_restore);
+					option = std::make_shared<GramophoneOption>(description, story, after_story, isPicked, sanity_restore);
 				}
 				else if (typeStr == "ROOMCHANGE") {
 					int room_id = optionData["room_id"].get<int>();
-					option = std::make_shared<RoomChangeOption>(description, story, room_id);
+					option = std::make_shared<RoomChangeOption>(description, story, after_story, isPicked, room_id);
 				}
 				options.put(id, option);
 				break;

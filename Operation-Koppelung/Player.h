@@ -26,6 +26,9 @@ public:
     void healHealth(int delta);
     void healSanity(int delta);
     void loseSanity(int delta);
+    bool inventoryFull() const;
+	void addItem(int item_id, std::shared_ptr<ItemManager> itemManager);
+	void removeItem(int item_id);
 private:
     int health, sanity, location;
     std::shared_ptr<Item> weapon, armor, amulet;

@@ -3,19 +3,18 @@
     "id": 1,
     "description": "A cool option",
     "type": "EXPLORATION",
-    "story": [
-      "A story",
-      "Another story"
-    ],
-    "loot_id": 1
+    "story": "A story;Another story",
+    "after_story":  "Lol u have already picked that one",
+    "loot_id": 1,
+    "isPicked": false
   },
   {
     "id": 2,
     "description": "A really cool option",
     "type": "EXPLORATION",
-    "story": [
-      "You found a gem!"
-    ],
-    "loot_id": -1
+    "story": "You found a gem!",
+    "after_story":  "To est vy utverzhdayete, shto nikakogo dyavola ne suchestvuyet?",
+    "loot_id": -1,
+    "isPicked": false
   }
 ]

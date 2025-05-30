@@ -14,7 +14,9 @@ public:
 	void setPlayerHealth(int health) { player_health = health; };
 	void setPlayerSanity(int sanity) { player_sanity = sanity; };
 	void printText(std::string text);
+	void printTextByLine(std::string text);
 	void updatePlayerStats() { view->showPlayerStats(player_health, player_sanity); };
+	std::vector<std::string> split(const std::string& line);
 private:
 	std::shared_ptr<View> view;
 	std::vector<std::string> options;

@@ -61,6 +61,21 @@ void Player::loseSanity(int delta) {
 	sanity = (sanity - delta < 0) ? 0 : sanity - delta;
 }
 
+bool Player::inventoryFull() const {
+	return (inventory.size() == 8);
+}
+
+void Player::addItem(int item_id, std::shared_ptr<ItemManager> itemManager) { inventory.push_back(itemManager->getItem(item_id)); }
+
+void Player::removeItem(int item_id) {
+	for (int i = 0; i < inventory.size(); i++) {
+		if (inventory[i]->id == item_id) {
+			inventory.erase(inventory.begin() + i);
+			break;
+		}
+	}
+}
+
 void Player::update() {
 	std::ifstream input_file("player.json");
 	nlohmann::json player_data = nlohmann::json::parse(input_file);

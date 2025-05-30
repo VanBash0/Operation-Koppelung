@@ -1,6 +1,3 @@
-#include <sstream>
-#include <vector>
-#include <string>
 #include "View.h"
 
 View::View() {
@@ -61,23 +58,11 @@ void View::showPlayerStats(int health, int sanity) {
 	wrefresh(player_win);
 }
 
-std::vector<std::string> View::split(const std::string& line) {
-    std::vector<std::string> split_line;
-    std::istringstream iss(line);
-    std::string str;
-
-    while (std::getline(iss, str, ';')) {
-        split_line.push_back(str);
-    }
-    return split_line;
-}
-
-void View::showText(std::string& text) {
+void View::showText(std::vector<std::string>& text) {
     wclear(main_win);
     box(main_win, 0, 0);
-    std::vector<std::string> text_lines = split(text);
-    for (int i = 0; i < text_lines.size(); i++) {
-		mvwprintw(main_win, i + 1, 1, "%s", text_lines[i].c_str());
+    for (int i = 0; i < text.size(); i++) {
+		mvwprintw(main_win, i + 1, 1, "%s", text[i].c_str());
 	}
     wrefresh(main_win);
 }

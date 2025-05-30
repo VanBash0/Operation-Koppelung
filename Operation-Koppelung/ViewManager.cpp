@@ -1,5 +1,7 @@
-#include "ViewManager.h"
+#include <sstream>
+#include <vector>
 #include <curses.h>
+#include "ViewManager.h"
 
 ViewManager::ViewManager(std::shared_ptr<View> view) : view(view) {};
 
@@ -40,9 +42,30 @@ void ViewManager::waitUntilHit() {
 	handleInput(key);
 }
 
+std::vector<std::string> ViewManager::split(const std::string& line) {
+	std::vector<std::string> split_line;
+	std::istringstream iss(line);
+	std::string str;
+
+	while (std::getline(iss, str, ';')) {
+		split_line.push_back(str);
+	}
+	return split_line;
+}
+
 void ViewManager::printText(std::string text) {
-	view->showText(text);
+	std::vector<std::string> lines = split(text);
+	view->showText(lines);
 	waitUntilHitEnter();
+}
+
+void ViewManager::printTextByLine(std::string text) {
+	std::vector<std::string> lines = split(text);
+	for (int i = 0; i < lines.size(); i++) {
+		std::vector<std::string> line = { lines[i] };
+		view->showText(line);
+		waitUntilHitEnter();
+	}
 }
 
 void ViewManager::waitUntilHitEnter() {

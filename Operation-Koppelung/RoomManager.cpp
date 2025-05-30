@@ -5,7 +5,7 @@
 
 const size_t cache_size = 50;
 
-RoomManager::RoomManager(std::shared_ptr<OptionManager> optionManager, std::shared_ptr<ViewManager> viewManager, std::shared_ptr<Player> player, std::shared_ptr<EnemyManager> enemyManager) : rooms(cache_size), optionManager(optionManager), viewManager(viewManager), player(player), enemyManager(enemyManager) {};
+RoomManager::RoomManager(std::shared_ptr<OptionManager> optionManager, std::shared_ptr<ViewManager> viewManager, std::shared_ptr<Player> player, std::shared_ptr<EnemyManager> enemyManager, std::shared_ptr<ItemManager> itemManager) : rooms(cache_size), optionManager(optionManager), viewManager(viewManager), player(player), enemyManager(enemyManager), itemManager(itemManager) {};
 
 std::shared_ptr<Room> RoomManager::getRoom(int id) {
 	if (!rooms.get(id)) {
@@ -48,11 +48,10 @@ void RoomManager::roomProcess(int id) {
 	while (true) {
 		int choice = viewManager->run(options_desc);
 		if (choice != -1) {
-			options[choice]->execute();
+			options[choice]->execute(viewManager, player, itemManager, enemyManager);
 		}
 		else {
 			break;
 		}
-		viewManager->waitUntilHit();
 	}
 }
