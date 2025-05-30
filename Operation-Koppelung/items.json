@@ -2,22 +2,43 @@
   {
     "id": 1,
     "name": "Pistol",
-    "description": "Did you hear that? That was the sound of my Walther. Pointed right at your testicles.",
+    "description": "A reliable handgun for ranged attacks.",
     "type": "WEAPON",
-    "value": 10
+    "value": 12
   },
   {
     "id": 2,
-    "name": "FSM Armor",
-    "description": "I love Jay",
+    "name": "Leather Armor",
+    "description": "Basic protection against physical harm.",
     "type": "ARMOR",
-    "value": 10
+    "value": 8
   },
   {
     "id": 3,
-    "name": "Panzerfaust",
-    "description": "kinda grenade",
+    "name": "Amulet of Focus",
+    "description": "Boosts sanity regeneration.",
+    "type": "AMULET",
+    "value": 5
+  },
+  {
+    "id": 4,
+    "name": "Minor Health Potion",
+    "description": "Heals a small amount of HP.",
+    "type": "HP_HEALER",
+    "value": 25
+  },
+  {
+    "id": 5,
+    "name": "Calming Tonic",
+    "description": "Restores sanity when consumed.",
+    "type": "SANITY_HEALER",
+    "value": 20
+  },
+  {
+    "id": 6,
+    "name": "Grenade",
+    "description": "Deals area damage to all enemies.",
     "type": "INSTANT_WEAPON",
-    "value": 40
+    "value": 30
   }
 ]

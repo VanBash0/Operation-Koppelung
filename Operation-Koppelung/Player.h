@@ -11,6 +11,7 @@ public:
     Player(std::shared_ptr<ItemManager> itemManager, std::shared_ptr<AttackManager> attackManager);
     void update();
     void takeDamage(int damage);
+    void loseSanity(int damage);
     int getDamage() const;
     std::vector<std::shared_ptr<Attack>> getSpells() const;
     int getDefence() const;
@@ -25,7 +26,6 @@ public:
     std::shared_ptr<Item> getAmulet() const;
     void healHealth(int delta);
     void healSanity(int delta);
-    void loseSanity(int delta);
     bool inventoryFull() const;
 	void addItem(int item_id, std::shared_ptr<ItemManager> itemManager);
 	void removeItem(int item_id);

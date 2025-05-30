@@ -64,16 +64,28 @@ void Battle::playerTurn(const std::vector<std::shared_ptr<Attack>>& spells, cons
                 int spell_choice = viewManager->run(spell_names);
                 if (spell_choice != -1) {
                     if (player->getSanity() >= spells[spell_choice]->sanity_cost) {
-                        int target = viewManager->run(enemy_names);
-                        if (target != -1) {
-                            enemies[target]->takeDamage(spells[spell_choice]->damage);
-                            viewManager->printText("You attack " + enemies[target]->getName() + " with " + spells[spell_choice]->name + " and deal " + std::to_string(spells[spell_choice]->damage) + " damage!;You lose " + std::to_string(spells[spell_choice]->sanity_cost) + " sanity!");
-							player->loseSanity(spells[spell_choice]->sanity_cost);
-                            viewManager->setPlayerSanity(player->getSanity());
-                            viewManager->updatePlayerStats();
-                            ++acts_count;
+                        if (spells[spell_choice]->is_damaging) {
+                            int target = viewManager->run(enemy_names);
+                            if (target != -1) {
+                                enemies[target]->takeDamage(spells[spell_choice]->damage);
+                                viewManager->printText("You attack " + enemies[target]->getName() + " with " + spells[spell_choice]->name + " and deal " + std::to_string(spells[spell_choice]->damage) + " damage!;You lose " + std::to_string(spells[spell_choice]->sanity_cost) + " sanity!");
+                                player->loseSanity(spells[spell_choice]->sanity_cost);
+                                viewManager->setPlayerSanity(player->getSanity());
+                                viewManager->updatePlayerStats();
+                                ++acts_count;
+                            }
+                            break;
                         }
-                        break;
+                        else {
+                            player->healHealth(spells[spell_choice]->damage);
+							viewManager->printText("You heal " + std::to_string(spells[spell_choice]->damage) + " health with " + spells[spell_choice]->name + "!;You lose " + std::to_string(spells[spell_choice]->sanity_cost) + " sanity!");
+							player->loseSanity(spells[spell_choice]->sanity_cost);
+							viewManager->setPlayerSanity(player->getSanity());
+                            viewManager->setPlayerHealth(player->getHealth());
+							viewManager->updatePlayerStats();
+							++acts_count;
+							break;
+                        }
                     }
                 }
                 else {
@@ -163,8 +175,22 @@ void Battle::enemiesTurn() {
         int attack_idx = rand() % attacks.size();
         int damage = std::max(0, attacks[attack_idx]->damage - player_defence);
         player_defence = std::max(0, player_defence - attacks[attack_idx]->damage);
-        player->takeDamage(damage);
-        viewManager->printText((*it)->getName() + " attacks you with " + attacks[attack_idx]->name + " and deals you " + std::to_string(damage) + " damage!");
+        if (attacks[attack_idx]->is_damaging) {
+            switch (attacks[attack_idx]->is_physical) {
+            case true:
+                player->takeDamage(damage);
+                viewManager->printText((*it)->getName() + " attacks you with " + attacks[attack_idx]->name + " and deals you " + std::to_string(damage) + " damage!");
+                break;
+            case false:
+                player->loseSanity(damage);
+                viewManager->printText((*it)->getName() + " attacks you with " + attacks[attack_idx]->name + " and deals you " + std::to_string(damage) + " sanity damage!");
+                break;
+            }
+        }
+        else {
+            (*it)->heal(attacks[attack_idx]->damage);
+            viewManager->printText((*it)->getName() + " heals themselves with " + attacks[attack_idx]->name + " and restores " + std::to_string(attacks[attack_idx]->damage) + " health!");
+        }
         viewManager->setPlayerHealth(player->getHealth());
         viewManager->updatePlayerStats();
         ++it;

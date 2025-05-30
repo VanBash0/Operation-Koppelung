@@ -1,20 +1,47 @@
 [
   {
     "id": 1,
-    "description": "A cool option",
+    "description": "Search the rubble",
     "type": "EXPLORATION",
-    "story": "A story;Another story",
-    "after_story":  "Lol u have already picked that one",
-    "loot_id": 1,
+    "story": "You sift through broken stones and find something.",
+    "after_story": "You've already searched here.",
+    "loot_id": 4,
     "isPicked": false
   },
   {
     "id": 2,
-    "description": "A really cool option",
+    "description": "Examine the altar",
     "type": "EXPLORATION",
-    "story": "You found a gem!",
-    "after_story":  "To est vy utverzhdayete, shto nikakogo dyavola ne suchestvuyet?",
+    "story": "Ancient runes glow faintly under your touch.",
+    "after_story": "The runes are still glowing.",
     "loot_id": -1,
+    "isPicked": false
+  },
+  {
+    "id": 3,
+    "description": "Confront the lurking shadow",
+    "type": "BATTLE",
+    "story": "A shadowy figure emerges!",
+    "after_story": "The shadow lies defeated.",
+    "enemies_id": [ 4 ],
+    "isPicked": false
+  },
+  {
+    "id": 4,
+    "description": "Listen to the gramophone",
+    "type": "GRAMOPHONE",
+    "story": "A haunting melody soothes your mind.",
+    "after_story": "The melody fades.",
+    "sanity_restore": 15,
+    "isPicked": false
+  },
+  {
+    "id": 5,
+    "description": "Open the hidden door",
+    "type": "ROOMCHANGE",
+    "story": "You push a loose brick and reveal a passage.",
+    "after_story": "The door is already open.",
+    "room_id": 2,
     "isPicked": false
   }
 ]

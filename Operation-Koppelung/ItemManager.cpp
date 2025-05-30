@@ -26,6 +26,6 @@ ItemManager::ItemManager() {
 	}
 }
 
-std::unique_ptr<Item> ItemManager::getItem(int id) {
-	return std::make_unique<Item>(*items.at(id));
+std::shared_ptr<Item> ItemManager::getItem(int id) {
+	return std::make_shared<Item>(*items.at(id));
 }

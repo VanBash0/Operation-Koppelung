@@ -9,6 +9,7 @@ public:
 	Enemy(std::string name, std::string description, int health, std::vector<std::shared_ptr<Attack>> attacks);
 	std::string getName() const;
 	void takeDamage(int damage);
+	void heal(int delta);
 	int getHealth() const;
 	std::vector<std::shared_ptr<Attack>> getAttacks() const;
 private:

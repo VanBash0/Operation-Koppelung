@@ -2,16 +2,16 @@
   {
     "id": 1,
     "name": "Fireball",
-    "description": "Pretty hot!",
-    "damage": 20,
+    "description": "A blazing orb of fire.",
+    "damage": 20000,
     "sanity_cost": 5,
     "is_damaging": true,
-    "is_physical": false
+    "is_physical": true
   },
   {
     "id": 2,
     "name": "Slash",
-    "description": "A quick slash!",
+    "description": "A swift blade strike.",
     "damage": 15,
     "sanity_cost": 0,
     "is_damaging": true,
@@ -20,10 +20,28 @@
   {
     "id": 3,
     "name": "Punch",
-    "description": "A quick punch!",
+    "description": "A powerful fist blow.",
     "damage": 10,
     "sanity_cost": 0,
     "is_damaging": true,
     "is_physical": true
+  },
+  {
+    "id": 4,
+    "name": "Minor Heal",
+    "description": "Restores a small amount of health.",
+    "damage": 15,
+    "sanity_cost": 0,
+    "is_damaging": false,
+    "is_physical": true
+  },
+  {
+    "id": 5,
+    "name": "Mind Mend",
+    "description": "Calming energy restores sanity.",
+    "damage": 10,
+    "sanity_cost": 0,
+    "is_damaging": false,
+    "is_physical": false
   }
 ]

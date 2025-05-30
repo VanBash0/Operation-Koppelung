@@ -32,23 +32,34 @@ void RoomManager::addRoom(int id) {
 
 void RoomManager::roomProcess(int id) {
 	std::shared_ptr<Room> room = getRoom(id);
-	room->room_entered = true;
-	if (!room->enemies_id.empty()) {
+	if (!room->enemies_id.empty() && room->room_entered == false) {
 		std::unique_ptr<Battle> battle = std::make_unique<Battle>(room->enemies_id, enemyManager, player, viewManager);
 		battle->start();
 	}
+	room->room_entered = true;
+
 	std::vector<std::shared_ptr<Option>> options;
 	for (int i : room->options_id) {
-		options.push_back(optionManager->getOption(id));
+		options.push_back(optionManager->getOption(i));
 	}
 	std::vector<std::string> options_desc;
-	for (const auto& option : options) {
-		options_desc.push_back(option->getDescription());
+	for (auto option : options) {
+		if (option == nullptr) {
+			options_desc.push_back("ERROR");
+		}
+		else {
+			options_desc.push_back(option->getDescription());
+		}
 	}
 	while (true) {
-		int choice = viewManager->run(options_desc);
-		if (choice != -1) {
-			options[choice]->execute(viewManager, player, itemManager, enemyManager);
+		if (player->getLocation() == id) {
+			int choice = viewManager->run(options_desc);
+			if (choice != -1) {
+				options[choice]->execute(viewManager, player, itemManager, enemyManager);
+			}
+			else {
+				break;
+			}
 		}
 		else {
 			break;

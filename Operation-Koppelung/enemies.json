@@ -2,15 +2,29 @@
   {
     "id": 1,
     "name": "Skeleton",
-    "description": "A skeleton.",
+    "description": "A rattling skeleton warrior.",
     "health": 50,
-    "attack_ids": [ 1, 2 ]
+    "attack_ids": [ 2, 3 ]
   },
   {
     "id": 2,
     "name": "Zombie",
-    "description": "A zombie.",
-    "health": 70,
-    "attack_ids": [ 2, 3 ]
+    "description": "A shambling undead creature.",
+    "health": 60,
+    "attack_ids": [ 2, 4 ]
+  },
+  {
+    "id": 3,
+    "name": "Ghoul",
+    "description": "A twisted, feral corpse.",
+    "health": 40,
+    "attack_ids": [ 3, 5 ]
+  },
+  {
+    "id": 4,
+    "name": "Shadow Fiend",
+    "description": "A creature of living darkness.",
+    "health": 45,
+    "attack_ids": [ 1, 5 ]
   }
 ]

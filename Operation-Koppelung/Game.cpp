@@ -13,6 +13,7 @@ Game::Game() {
 
 void Game::play() {
 	while (true) {
-		roomManager->roomProcess(player->getLocation());
+		int room_id = player->getLocation();
+		roomManager->roomProcess(room_id);
 	}
 }
