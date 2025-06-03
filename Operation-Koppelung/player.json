@@ -5,7 +5,6 @@
     "items_id": [ 1, 5 ],
     "weapon_id": 1,
     "armor_id": 2,
-    "amulet_id": 3,
     "spells_id": [ 1, 2 ],
     "location": 1
   }

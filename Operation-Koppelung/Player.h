@@ -23,7 +23,6 @@ public:
     std::vector<std::shared_ptr<Item>> getItems() const;
     std::shared_ptr<Item> getWeapon() const;
     std::shared_ptr<Item> getArmor() const;
-    std::shared_ptr<Item> getAmulet() const;
     void healHealth(int delta);
     void healSanity(int delta);
     bool inventoryFull() const;
@@ -31,7 +30,7 @@ public:
 	void removeItem(int item_id);
 private:
     int health, sanity, location;
-    std::shared_ptr<Item> weapon, armor, amulet;
+    std::shared_ptr<Item> weapon, armor;
     std::vector<std::shared_ptr<Item>> inventory;
     std::vector<std::shared_ptr<Attack>> spells;
 };

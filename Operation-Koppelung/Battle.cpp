@@ -112,10 +112,6 @@ void Battle::playerTurn(const std::vector<std::shared_ptr<Attack>>& spells, cons
 					viewManager->printText("You equip " + item->name + "!");
 					player->getArmor().swap(item);
 					break;
-                case AMULET:
-					viewManager->printText("You equip " + item->name + "!");
-					player->getAmulet().swap(item);
-					break;
                 case HP_HEALER:
                     player->healHealth(item->value);
                     if (player->getHealth() == 100) {

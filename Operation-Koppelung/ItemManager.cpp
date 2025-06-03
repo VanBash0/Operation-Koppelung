@@ -13,7 +13,6 @@ ItemManager::ItemManager() {
 		std::string typeStr = itemData["type"].get<std::string>();
 		if (typeStr == "WEAPON") itemType = WEAPON;
 		else if (typeStr == "ARMOR") itemType = ARMOR;
-		else if (typeStr == "AMULET") itemType = AMULET;
 		else if (typeStr == "HP_HEALER") itemType = HP_HEALER;
 		else if (typeStr == "SANITY_HEALER") itemType = SANITY_HEALER;
 		else if (typeStr == "INSTANT_WEAPON") itemType = INSTANT_WEAPON;

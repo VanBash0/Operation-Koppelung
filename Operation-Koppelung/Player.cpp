@@ -14,8 +14,6 @@ Player::Player(std::shared_ptr<ItemManager> itemManager, std::shared_ptr<AttackM
 	weapon = (weapon_id == -1) ? nullptr : itemManager->getItem(weapon_id);
 	int armor_id = data[0]["armor_id"].get<int>();
 	armor = (armor_id == -1) ? nullptr : itemManager->getItem(armor_id);
-	int amulet_id = data[0]["amulet_id"].get<int>();
-	amulet = (amulet_id == -1) ? nullptr : itemManager->getItem(amulet_id);
 	for (int i : data[0]["spells_id"]) {
 		spells.push_back(attackManager->getAttack(i));
 	}
@@ -46,8 +44,6 @@ std::vector<std::shared_ptr<Item>> Player::getItems() const { return inventory; 
 std::shared_ptr<Item> Player::getWeapon() const { return weapon; }
 
 std::shared_ptr<Item> Player::getArmor() const { return armor; }
-
-std::shared_ptr<Item> Player::getAmulet() const { return amulet; }
 
 void Player::healHealth(int delta) {
 	health = (health + delta > 100) ? 100 : health + delta;
@@ -89,7 +85,6 @@ void Player::update() {
 	}
 	player_data[0]["weapon_id"] = (weapon == nullptr) ? -1 : weapon->id;
 	player_data[0]["armor_id"] = (armor == nullptr) ? -1 : armor->id;
-	player_data[0]["amulet_id"] = (amulet == nullptr) ? -1 : amulet->id;
 	player_data[0]["spells_id"].clear();
 	for (int i = 0; i < spells.size(); i++) {
 		player_data[0]["spells_id"].push_back(spells[i]->id);
