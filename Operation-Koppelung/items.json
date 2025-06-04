@@ -3,42 +3,35 @@
     "id": 1,
     "name": "Pistol",
     "description": "A reliable handgun for ranged attacks.",
-    "type": "WEAPON",
+    "type": "kWeapon",
     "value": 12
   },
   {
     "id": 2,
     "name": "Leather Armor",
     "description": "Basic protection against physical harm.",
-    "type": "ARMOR",
+    "type": "kArmor",
     "value": 8
-  },
-  {
-    "id": 3,
-    "name": "Amulet of Focus",
-    "description": "Boosts sanity regeneration.",
-    "type": "AMULET",
-    "value": 5
   },
   {
     "id": 4,
     "name": "Minor Health Potion",
     "description": "Heals a small amount of HP.",
-    "type": "HP_HEALER",
+    "type": "kHealthHealer",
     "value": 25
   },
   {
     "id": 5,
     "name": "Calming Tonic",
     "description": "Restores sanity when consumed.",
-    "type": "SANITY_HEALER",
+    "type": "kSanityHealer",
     "value": 20
   },
   {
     "id": 6,
     "name": "Grenade",
     "description": "Deals area damage to all enemies.",
-    "type": "INSTANT_WEAPON",
+    "type": "kInstantWeapon",
     "value": 30
   }
 ]

@@ -1,25 +1,37 @@
-#pragma once
-#include <vector>
+#ifndef BATTLE_H_
+#define BATTLE_H_
+
 #include <memory>
-#include "Enemy.h"
-#include "Player.h"
-#include "ViewManager.h"
-#include "EnemyManager.h"
+#include <string>
+#include <vector>
+
+#include "enemy_manager.h"
+#include "player.h"
+#include "view_manager.h"
 
 class Battle {
-private:
-    std::vector<std::shared_ptr<Enemy>> enemies;
-    std::shared_ptr<Player> player;
-    std::shared_ptr<EnemyManager> enemyManager;
-    std::shared_ptr<ViewManager> viewManager;
-    int player_defence = 0;
-    bool isPlayerTurn = true;
+ public:
+  Battle(std::shared_ptr<Player> player,
+         std::vector<std::shared_ptr<Enemy>> enemies,
+         std::shared_ptr<ViewManager> view_manager);
 
-    void playerTurn(const std::vector<std::shared_ptr<Attack>>& spells, const std::vector<std::string>& spell_names);
-    void enemiesTurn();
-    bool isBattleOver();
+  void PlayerTurn(const std::vector<std::shared_ptr<Attack>>& spells,
+                  const std::vector<std::string>& spell_names);
 
-public:
-    Battle(std::vector<int> enemies_id, std::shared_ptr<EnemyManager> enemyManager, std::shared_ptr<Player> player, std::shared_ptr<ViewManager> viewManager);
-    void start();
+ private:
+  bool HandleAttack();
+  bool HandleMagic(const std::vector<std::shared_ptr<Attack>>& spells,
+                   const std::vector<std::string>& spell_names);
+  void HandleDefend();
+  bool HandleItem();
+  void RemoveDeadEnemies();
+  bool IsBattleOver() const;
+
+  std::shared_ptr<Player> player_;
+  std::vector<std::shared_ptr<Enemy>> enemies_;
+  std::shared_ptr<ViewManager> view_manager_;
+
+  int player_defence_ = 0;
 };
+
+#endif  // BATTLE_H_

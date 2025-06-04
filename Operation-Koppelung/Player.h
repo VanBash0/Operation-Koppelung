@@ -1,36 +1,59 @@
-#pragma once
-#include <vector>
+#ifndef PLAYER_H_
+#define PLAYER_H_
+
 #include <memory>
-#include "Item.h"
-#include "Attack.h"
-#include "ItemManager.h"
-#include "AttackManager.h"
+#include <string>
+#include <vector>
+
+#include "attack_manager.h"
+#include "item_manager.h"
 
 class Player {
-public:
-    Player(std::shared_ptr<ItemManager> itemManager, std::shared_ptr<AttackManager> attackManager);
-    void update();
-    void takeDamage(int damage);
-    void loseSanity(int damage);
-    int getDamage() const;
-    std::vector<std::shared_ptr<Attack>> getSpells() const;
-    int getDefence() const;
-    int getHealth() const;
-    int getSanity() const;
-    std::string getWeaponName() const;
-    int getLocation() const;
-    void setLocation(const int& location);
-    std::vector<std::shared_ptr<Item>> getItems() const;
-    std::shared_ptr<Item> getWeapon() const;
-    std::shared_ptr<Item> getArmor() const;
-    void healHealth(int delta);
-    void healSanity(int delta);
-    bool inventoryFull() const;
-	void addItem(int item_id, std::shared_ptr<ItemManager> itemManager);
-	void removeItem(int item_id);
-private:
-    int health, sanity, location;
-    std::shared_ptr<Item> weapon, armor;
-    std::vector<std::shared_ptr<Item>> inventory;
-    std::vector<std::shared_ptr<Attack>> spells;
+ public:
+  Player(const std::shared_ptr<ItemManager>& item_manager,
+         const std::shared_ptr<AttackManager>& attack_manager);
+
+  void Update();
+
+  void TakeDamage(int damage);
+  void LoseSanity(int damage);
+  void HealHealth(int delta);
+  void HealSanity(int delta);
+
+  void EquipWeapon(int inventory_index);
+  void EquipArmor(int inventory_index);
+
+  int GetDamage() const;
+  int GetDefence() const;
+  int GetHealth() const;
+  int GetSanity() const;
+  int GetLocation() const;
+
+  void SetLocation(int location);
+
+  std::string GetWeaponName() const;
+
+  std::vector<std::shared_ptr<Attack>> GetSpells() const;
+  std::vector<std::shared_ptr<Item>> GetItems() const;
+
+  std::shared_ptr<Item> GetWeapon() const;
+  std::shared_ptr<Item> GetArmor() const;
+
+  bool InventoryFull() const;
+
+  void AddItem(int item_id, const std::shared_ptr<ItemManager>& item_manager);
+  void RemoveItem(int item_id);
+
+ private:
+  int health_ = 100;
+  int sanity_ = 100;
+  int location_ = 0;
+
+  std::shared_ptr<Item> weapon_ = nullptr;
+  std::shared_ptr<Item> armor_ = nullptr;
+
+  std::vector<std::shared_ptr<Item>> inventory_;
+  std::vector<std::shared_ptr<Attack>> spells_;
 };
+
+#endif  // PLAYER_H_
