@@ -134,18 +134,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="attack_manager.cpp" />
-    <ClCompile Include="battle.cpp" />
-    <ClCompile Include="enemy.cpp" />
-    <ClCompile Include="enemy_manager.cpp" />
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="item_manager.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="view_manager.cpp" />
-    <ClCompile Include="Option.cpp" />
-    <ClCompile Include="OptionManager.cpp" />
-    <ClCompile Include="player.cpp" />
-    <ClCompile Include="RoomManager.cpp" />
+    <ClCompile Include="attack_manager.cc" />
+    <ClCompile Include="battle.cc" />
+    <ClCompile Include="enemy.cc" />
+    <ClCompile Include="enemy_manager.cc" />
+    <ClCompile Include="game.cc" />
+    <ClCompile Include="item_manager.cc" />
+    <ClCompile Include="main.cc" />
+    <ClCompile Include="view_manager.cc" />
+    <ClCompile Include="option.cc" />
+    <ClCompile Include="option_manager.cc" />
+    <ClCompile Include="player.cc" />
+    <ClCompile Include="room_manager.cc" />
     <ClCompile Include="view.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -155,17 +155,17 @@
     <ClInclude Include="curses.h" />
     <ClInclude Include="enemy.h" />
     <ClInclude Include="enemy_manager.h" />
-    <ClInclude Include="Game.h" />
+    <ClInclude Include="game.h" />
     <ClInclude Include="item.h" />
     <ClInclude Include="item_manager.h" />
     <ClInclude Include="json.hpp" />
     <ClInclude Include="lru_cache.h" />
     <ClInclude Include="view_manager.h" />
-    <ClInclude Include="Option.h" />
-    <ClInclude Include="OptionManager.h" />
+    <ClInclude Include="option.h" />
+    <ClInclude Include="option_manager.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="room.h" />
-    <ClInclude Include="RoomManager.h" />
+    <ClInclude Include="room_manager.h" />
     <ClInclude Include="view.h" />
   </ItemGroup>
   <ItemGroup>

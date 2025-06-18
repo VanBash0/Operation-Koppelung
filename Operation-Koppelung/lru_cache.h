@@ -13,7 +13,7 @@ class LRUCache {
  public:
   explicit LRUCache(size_t capacity) : capacity_(capacity) {}
 
-  void Put(int key, std::shared_ptr<Value> value) {
+  void Put(int key, std::unique_ptr<Value> value) {
     auto it = cache_.find(key);
     if (it != cache_.end()) {
       Touch(it);
@@ -25,15 +25,15 @@ class LRUCache {
       }
       // Вставляем новый элемент в начало списка
       order_.push_front(key);
-      cache_[key] = {value, order_.begin()};
+      cache_[key] = {std::move(value), order_.begin()};
     }
   }
 
-  std::shared_ptr<Value> Get(int key) {
+  Value* Get(int key) {
     auto it = cache_.find(key);
     if (it != cache_.end()) {
       Touch(it);
-      return it->second.value;
+      return it->second.value.get();
     }
     return nullptr;
   }
@@ -42,7 +42,7 @@ class LRUCache {
 
  private:
   struct CacheItem {
-    std::shared_ptr<Value> value;
+    std::unique_ptr<Value> value;
     std::list<int>::iterator it;  // Указатель на позицию ключа в списке order_
   };
 
@@ -51,6 +51,16 @@ class LRUCache {
     order_.erase(it->second.it);
     order_.push_front(it->first);
     it->second.it = order_.begin();
+  }
+
+  // Обновляет порядок использования для указанного ключа
+  void UpdateOrder(int key) {
+    auto it = cache_.find(key);
+    if (it != cache_.end()) {
+      order_.erase(it->second.it);
+      order_.push_front(key);
+      it->second.it = order_.begin();
+    }
   }
 
   std::unordered_map<int, CacheItem> cache_;

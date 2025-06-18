@@ -10,8 +10,7 @@
 
 class Player {
  public:
-  Player(const std::shared_ptr<ItemManager>& item_manager,
-         const std::shared_ptr<AttackManager>& attack_manager);
+  Player(ItemManager* item_manager, AttackManager* attack_manager);
 
   void Update();
 
@@ -30,30 +29,32 @@ class Player {
   int GetLocation() const;
 
   void SetLocation(int location);
+  void SetDefaultStats();
 
   std::string GetWeaponName() const;
 
-  std::vector<std::shared_ptr<Attack>> GetSpells() const;
-  std::vector<std::shared_ptr<Item>> GetItems() const;
+  std::vector<Attack*> GetSpells() const;
+  std::vector<Item*> GetItems() const;
 
-  std::shared_ptr<Item> GetWeapon() const;
-  std::shared_ptr<Item> GetArmor() const;
+  Item* GetWeapon() const;
+  Item* GetArmor() const;
 
   bool InventoryFull() const;
 
-  void AddItem(int item_id, const std::shared_ptr<ItemManager>& item_manager);
+  void AddItem(int item_id, ItemManager* item_manager);
   void RemoveItem(int item_id);
 
  private:
   int health_ = 100;
   int sanity_ = 100;
   int location_ = 0;
+  int prev_location_ = 0;
 
-  std::shared_ptr<Item> weapon_ = nullptr;
-  std::shared_ptr<Item> armor_ = nullptr;
+  Item* weapon_ = nullptr;
+  Item* armor_ = nullptr;
 
-  std::vector<std::shared_ptr<Item>> inventory_;
-  std::vector<std::shared_ptr<Attack>> spells_;
+  std::vector<Item*> inventory_;
+  std::vector<Attack*> spells_;
 };
 
 #endif  // PLAYER_H_

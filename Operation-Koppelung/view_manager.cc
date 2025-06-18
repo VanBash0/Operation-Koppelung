@@ -2,7 +2,7 @@
 
 #include <sstream>
 
-ViewManager::ViewManager(std::shared_ptr<View> view) : view_(std::move(view)) {}
+ViewManager::ViewManager(View* view) : view_(view) {}
 
 int ViewManager::Run(const std::vector<std::string>& options) {
   options_ = options;

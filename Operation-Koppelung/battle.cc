@@ -3,15 +3,53 @@
 #include <string>
 #include <vector>
 
-Battle::Battle(std::shared_ptr<Player> player,
-               std::vector<std::shared_ptr<Enemy>> enemies,
-               std::shared_ptr<ViewManager> view_manager)
-    : player_(std::move(player)),
-      enemies_(std::move(enemies)),
-      view_manager_(std::move(view_manager)),
-      player_defence_(0) {}
+Battle::Battle(const std::vector<int>& enemies_id, EnemyManager* enemy_manager,
+               Player* player, ViewManager* view_manager)
+    : player_(player), view_manager_(view_manager), player_defence_(0) {
+  for (int id : enemies_id) {
+    enemies_.push_back(enemy_manager->GetEnemy(id));
+  }
+}
 
-void Battle::PlayerTurn(const std::vector<std::shared_ptr<Attack>>& spells,
+bool Battle::ExecuteBattle() {
+  // Устанавливаем начальные параметры игрока
+  view_manager_->SetPlayerHealth(player_->GetHealth());
+  view_manager_->SetPlayerSanity(player_->GetSanity());
+  bool is_player_turn_ = true;
+
+  // Основной цикл боя
+  while (!IsBattleOver()) {
+    if (is_player_turn_) {
+      std::vector<Attack*> spells = player_->GetSpells();
+      std::vector<std::string> spell_names;
+      for (const auto& spell : spells) {
+        spell_names.push_back(spell->name);
+      }
+
+      PlayerTurn(spells, spell_names);
+      is_player_turn_ = false;
+    } else {
+      EnemiesTurn();
+      is_player_turn_ = true;
+    }
+  }
+
+  if (player_->GetHealth() > 0) {
+    view_manager_->PrintText("You won!");
+    return true;
+  } else {
+    view_manager_->PrintText(
+        "You are fainting...;Surprisingly, you find yourself alive in "
+        "several... minutes? Hours? Doesn't really matter.");
+    player_->SetDefaultStats();
+    view_manager_->SetPlayerHealth(player_->GetHealth());
+    view_manager_->SetPlayerSanity(player_->GetSanity());
+    view_manager_->UpdatePlayerStats();
+    return false;
+  }
+}
+
+void Battle::PlayerTurn(const std::vector<Attack*>& spells,
                         const std::vector<std::string>& spell_names) {
   const std::vector<std::string> kActions = {"Attack", "Magic", "Defend",
                                              "Item"};
@@ -52,6 +90,42 @@ void Battle::PlayerTurn(const std::vector<std::shared_ptr<Attack>>& spells,
   }
 }
 
+void Battle::EnemiesTurn() {
+  for (const auto& enemy : enemies_) {
+    std::vector<Attack*> attacks = enemy->GetAttacks();
+    if (attacks.empty()) continue;
+
+    int attack_idx = rand() % attacks.size();
+    Attack* attack = attacks[attack_idx];
+
+    int damage = std::max(0, attack->damage - player_defence_);
+    player_defence_ = std::max(0, player_defence_ - attack->damage);
+
+    if (attack->is_damaging) {
+      if (attack->is_physical) {
+        player_->TakeDamage(damage);
+        view_manager_->PrintText(enemy->GetName() + " attacks you with " +
+                                 attack->name + " and deals you " +
+                                 std::to_string(damage) + " damage!");
+      } else {
+        player_->LoseSanity(damage);
+        view_manager_->PrintText(enemy->GetName() + " attacks you with " +
+                                 attack->name + " and deals you " +
+                                 std::to_string(damage) + " sanity damage!");
+      }
+    } else {
+      enemy->Heal(attack->damage);
+      view_manager_->PrintText(enemy->GetName() + " heals themselves with " +
+                               attack->name + " and restores " +
+                               std::to_string(attack->damage) + " health!");
+    }
+
+    view_manager_->SetPlayerHealth(player_->GetHealth());
+    view_manager_->SetPlayerSanity(player_->GetSanity());
+    view_manager_->UpdatePlayerStats();
+  }
+}
+
 bool Battle::HandleAttack() {
   std::vector<std::string> enemy_names;
   for (const auto& enemy : enemies_) {
@@ -74,7 +148,7 @@ bool Battle::HandleAttack() {
   return true;
 }
 
-bool Battle::HandleMagic(const std::vector<std::shared_ptr<Attack>>& spells,
+bool Battle::HandleMagic(const std::vector<Attack*>& spells,
                          const std::vector<std::string>& spell_names) {
   while (true) {
     int spell_choice = view_manager_->Run(spell_names);
@@ -149,7 +223,7 @@ bool Battle::HandleItem() {
     return false;
   }
 
-  const std::shared_ptr<Item>& item = items[item_choice];
+  Item* item = items[item_choice];
   switch (item->type) {
     case ItemType::kWeapon:
       view_manager_->PrintText("You equip " + item->name + "!");

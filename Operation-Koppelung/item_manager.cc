@@ -10,7 +10,7 @@ using json = nlohmann::json;
 ItemType ItemManager::StringToItemType(const std::string& type_str) const {
   if (type_str == "kWeapon") return ItemType::kWeapon;
   if (type_str == "kArmor") return ItemType::kArmor;
-  if (type_str == "kHpHealer") return ItemType::kHpHealer;
+  if (type_str == "kHpHealer") return ItemType::kHealthHealer;
   if (type_str == "kSanityHealer") return ItemType::kSanityHealer;
   if (type_str == "kInstantWeapon") return ItemType::kInstantWeapon;
 
@@ -31,21 +31,21 @@ ItemManager::ItemManager() {
     return;
   }
 
-  for (const auto& itemData : data) {
-    int id = itemData["id"].get<int>();
-    ItemType item_type = StringToItemType(itemData["type"].get<std::string>());
+  for (const auto& item_data : data) {
+    int id = item_data["id"].get<int>();
+    ItemType item_type = StringToItemType(item_data["type"].get<std::string>());
 
     items_[id] =
-        std::make_unique<Item>(id, itemData["name"].get<std::string>(),
-                               itemData["description"].get<std::string>(),
-                               item_type, itemData["value"].get<int>());
+        std::make_unique<Item>(id, item_data["name"].get<std::string>(),
+                               item_data["description"].get<std::string>(),
+                               item_type, item_data["value"].get<int>());
   }
 }
 
-std::shared_ptr<Item> ItemManager::GetItem(int id) const {
+Item* ItemManager::GetItem(int id) const {
   auto it = items_.find(id);
   if (it == items_.end()) {
     return nullptr;
   }
-  return std::make_shared<Item>(*it->second);
+  return it->second.get();
 }

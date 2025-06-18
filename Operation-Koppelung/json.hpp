@@ -11949,7 +11949,7 @@ class binary_reader
                     result = dim.at(dim.size() - 1);
                     return true;
                 }
-                if (!dim.empty())  // if ndarray, convert to an object in JData annotated array format
+                if (!dim.empty())  // if ndarray, convert to an object in J_data annotated array format
                 {
                     for (auto i : dim) // test if any dimension in an ndarray is 0, if so, return a 1D empty container
                     {
@@ -12057,7 +12057,7 @@ class binary_reader
                     return sax->parse_error(chars_read, get_token_string(), parse_error::create(112, chars_read,
                                             exception_message(input_format, "ndarray can not be recursive", "size"), nullptr));
                 }
-                result.second |= (1 << 8); // use bit 8 to indicate ndarray, all UBJSON and BJData markers should be ASCII letters
+                result.second |= (1 << 8); // use bit 8 to indicate ndarray, all UBJSON and BJ_data markers should be ASCII letters
             }
             return is_error;
         }
@@ -12281,8 +12281,8 @@ class binary_reader
             return false;
         }
 
-        // if bit-8 of size_and_type.second is set to 1, encode bjdata ndarray as an object in JData annotated array format (https://github.com/NeuroJSON/jdata):
-        // {"_ArrayType_" : "typeid", "_ArraySize_" : [n1, n2, ...], "_ArrayData_" : [v1, v2, ...]}
+        // if bit-8 of size_and_type.second is set to 1, encode bjdata ndarray as an object in J_data annotated array format (https://github.com/NeuroJSON/jdata):
+        // {"_ArrayType_" : "typeid", "_ArraySize_" : [n1, n2, ...], "_Array_data_" : [v1, v2, ...]}
 
         if (input_format == input_format_t::bjdata && size_and_type.first != npos && (size_and_type.second & (1 << 8)) != 0)
         {
@@ -12310,7 +12310,7 @@ class binary_reader
                 size_and_type.second = 'U';
             }
 
-            key = "_ArrayData_";
+            key = "_Array_data_";
             if (JSON_HEDLEY_UNLIKELY(!sax->key(key) || !sax->start_array(size_and_type.first) ))
             {
                 return false;
@@ -12327,7 +12327,7 @@ class binary_reader
             return (sax->end_array() && sax->end_object());
         }
 
-        // If BJData type marker is 'B' decode as binary
+        // If BJ_data type marker is 'B' decode as binary
         if (input_format == input_format_t::bjdata && size_and_type.first != npos && size_and_type.second == 'B')
         {
             binary_t result;
@@ -12396,12 +12396,12 @@ class binary_reader
             return false;
         }
 
-        // do not accept ND-array size in objects in BJData
+        // do not accept ND-array size in objects in BJ_data
         if (input_format == input_format_t::bjdata && size_and_type.first != npos && (size_and_type.second & (1 << 8)) != 0)
         {
             auto last_token = get_token_string();
             return sax->parse_error(chars_read, last_token, parse_error::create(112, chars_read,
-                                    exception_message(input_format, "BJData object does not support ND-array size in optimized format", "object"), nullptr));
+                                    exception_message(input_format, "BJ_data object does not support ND-array size in optimized format", "object"), nullptr));
         }
 
         string_t key;
@@ -12627,7 +12627,7 @@ class binary_reader
     @note This function needs to respect the system's endianness, because
           bytes in CBOR, MessagePack, and UBJSON are stored in network order
           (big endian) and therefore need reordering on little endian systems.
-          On the other hand, BSON and BJData use little endian and should reorder
+          On the other hand, BSON and BJ_data use little endian and should reorder
           on big endian systems.
     */
     template<typename NumberType, bool InputIsLittleEndian = false>
@@ -12769,7 +12769,7 @@ class binary_reader
                 break;
 
             case input_format_t::bjdata:
-                error_msg += "BJData";
+                error_msg += "BJ_data";
                 break;
 
             case input_format_t::json: // LCOV_EXCL_LINE
@@ -15768,7 +15768,7 @@ NLOHMANN_JSON_NAMESPACE_BEGIN
 namespace detail
 {
 
-/// how to encode BJData
+/// how to encode BJ_data
 enum class bjdata_version_t
 {
     draft2,
@@ -16481,8 +16481,8 @@ class binary_writer
     @param[in] use_count   whether to use '#' prefixes (optimized format)
     @param[in] use_type    whether to use '$' prefixes (optimized format)
     @param[in] add_prefix  whether prefixes need to be used for this value
-    @param[in] use_bjdata  whether write in BJData format, default is false
-    @param[in] bjdata_version  which BJData version to use, default is draft2
+    @param[in] use_bjdata  whether write in BJ_data format, default is false
+    @param[in] bjdata_version  which BJ_data version to use, default is draft2
     */
     void write_ubjson(const BasicJsonType& j, const bool use_count,
                       const bool use_type, const bool add_prefix = true,
@@ -16635,9 +16635,9 @@ class binary_writer
 
             case value_t::object:
             {
-                if (use_bjdata && j.m_data.m_value.object->size() == 3 && j.m_data.m_value.object->find("_ArrayType_") != j.m_data.m_value.object->end() && j.m_data.m_value.object->find("_ArraySize_") != j.m_data.m_value.object->end() && j.m_data.m_value.object->find("_ArrayData_") != j.m_data.m_value.object->end())
+                if (use_bjdata && j.m_data.m_value.object->size() == 3 && j.m_data.m_value.object->find("_ArrayType_") != j.m_data.m_value.object->end() && j.m_data.m_value.object->find("_ArraySize_") != j.m_data.m_value.object->end() && j.m_data.m_value.object->find("_Array_data_") != j.m_data.m_value.object->end())
                 {
-                    if (!write_bjdata_ndarray(*j.m_data.m_value.object, use_count, use_type, bjdata_version))  // decode bjdata ndarray in the JData format (https://github.com/NeuroJSON/jdata)
+                    if (!write_bjdata_ndarray(*j.m_data.m_value.object, use_count, use_type, bjdata_version))  // decode bjdata ndarray in the J_data format (https://github.com/NeuroJSON/jdata)
                     {
                         break;
                     }
@@ -17388,7 +17388,7 @@ class binary_writer
             len *= static_cast<std::size_t>(el.m_data.m_value.number_unsigned);
         }
 
-        key = "_ArrayData_";
+        key = "_Array_data_";
         if (value.at(key).size() != len)
         {
             return true;
@@ -17402,7 +17402,7 @@ class binary_writer
         key = "_ArraySize_";
         write_ubjson(value.at(key), use_count, use_type, true,  true, bjdata_version);
 
-        key = "_ArrayData_";
+        key = "_Array_data_";
         if (dtype == 'U' || dtype == 'C' || dtype == 'B')
         {
             for (const auto& el : value.at(key))
@@ -17490,7 +17490,7 @@ class binary_writer
     @note This function needs to respect the system's endianness, because bytes
           in CBOR, MessagePack, and UBJSON are stored in network order (big
           endian) and therefore need reordering on little endian systems.
-          On the other hand, BSON and BJData use little endian and should reorder
+          On the other hand, BSON and BJ_data use little endian and should reorder
           on big endian systems.
     */
     template<typename NumberType>
@@ -20185,7 +20185,7 @@ class basic_json // NOLINT(cppcoreguidelines-special-member-functions,hicpp-spec
     using error_handler_t = detail::error_handler_t;
     /// how to treat CBOR tags
     using cbor_tag_handler_t = detail::cbor_tag_handler_t;
-    /// how to encode BJData
+    /// how to encode BJ_data
     using bjdata_version_t = detail::bjdata_version_t;
     /// helper type for initializer lists of basic_json values
     using initializer_list_t = std::initializer_list<detail::json_ref<basic_json>>;
@@ -24364,7 +24364,7 @@ class basic_json // NOLINT(cppcoreguidelines-special-member-functions,hicpp-spec
         binary_writer<char>(o).write_ubjson(j, use_size, use_type);
     }
 
-    /// @brief create a BJData serialization of a given JSON value
+    /// @brief create a BJ_data serialization of a given JSON value
     /// @sa https://json.nlohmann.me/api/basic_json/to_bjdata/
     static std::vector<std::uint8_t> to_bjdata(const basic_json& j,
             const bool use_size = false,
@@ -24376,7 +24376,7 @@ class basic_json // NOLINT(cppcoreguidelines-special-member-functions,hicpp-spec
         return result;
     }
 
-    /// @brief create a BJData serialization of a given JSON value
+    /// @brief create a BJ_data serialization of a given JSON value
     /// @sa https://json.nlohmann.me/api/basic_json/to_bjdata/
     static void to_bjdata(const basic_json& j, detail::output_adapter<std::uint8_t> o,
                           const bool use_size = false, const bool use_type = false,
@@ -24385,7 +24385,7 @@ class basic_json // NOLINT(cppcoreguidelines-special-member-functions,hicpp-spec
         binary_writer<std::uint8_t>(o).write_ubjson(j, use_size, use_type, true, true, version);
     }
 
-    /// @brief create a BJData serialization of a given JSON value
+    /// @brief create a BJ_data serialization of a given JSON value
     /// @sa https://json.nlohmann.me/api/basic_json/to_bjdata/
     static void to_bjdata(const basic_json& j, detail::output_adapter<char> o,
                           const bool use_size = false, const bool use_type = false,
@@ -24583,7 +24583,7 @@ class basic_json // NOLINT(cppcoreguidelines-special-member-functions,hicpp-spec
         return res ? result : basic_json(value_t::discarded);
     }
 
-    /// @brief create a JSON value from an input in BJData format
+    /// @brief create a JSON value from an input in BJ_data format
     /// @sa https://json.nlohmann.me/api/basic_json/from_bjdata/
     template<typename InputType>
     JSON_HEDLEY_WARN_UNUSED_RESULT
@@ -24598,7 +24598,7 @@ class basic_json // NOLINT(cppcoreguidelines-special-member-functions,hicpp-spec
         return res ? result : basic_json(value_t::discarded);
     }
 
-    /// @brief create a JSON value from an input in BJData format
+    /// @brief create a JSON value from an input in BJ_data format
     /// @sa https://json.nlohmann.me/api/basic_json/from_bjdata/
     template<typename IteratorType>
     JSON_HEDLEY_WARN_UNUSED_RESULT

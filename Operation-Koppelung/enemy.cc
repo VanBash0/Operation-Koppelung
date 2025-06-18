@@ -1,7 +1,7 @@
 #include "enemy.h"
 
 Enemy::Enemy(const std::string& name, const std::string& description,
-             int health, const std::vector<std::shared_ptr<Attack>>& attacks)
+             int health, const std::vector<Attack*>& attacks)
     : name_(name),
       description_(description),
       health_(health),
@@ -17,6 +17,4 @@ std::string Enemy::GetName() const { return name_; }
 
 int Enemy::GetHealth() const { return health_; }
 
-std::vector<std::shared_ptr<Attack>> Enemy::GetAttacks() const {
-  return attacks_;
-}
+std::vector<Attack*> Enemy::GetAttacks() const { return attacks_; }

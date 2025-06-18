@@ -11,25 +11,26 @@
 
 class Battle {
  public:
-  Battle(std::shared_ptr<Player> player,
-         std::vector<std::shared_ptr<Enemy>> enemies,
-         std::shared_ptr<ViewManager> view_manager);
-
-  void PlayerTurn(const std::vector<std::shared_ptr<Attack>>& spells,
-                  const std::vector<std::string>& spell_names);
+  Battle(const std::vector<int>& enemies_id, EnemyManager* enemy_manager,
+         Player* player, ViewManager* view_manager);
+  bool ExecuteBattle();
 
  private:
+  void PlayerTurn(const std::vector<Attack*>& spells,
+                  const std::vector<std::string>& spell_names);
+
+  void EnemiesTurn();
   bool HandleAttack();
-  bool HandleMagic(const std::vector<std::shared_ptr<Attack>>& spells,
+  bool HandleMagic(const std::vector<Attack*>& spells,
                    const std::vector<std::string>& spell_names);
   void HandleDefend();
   bool HandleItem();
   void RemoveDeadEnemies();
   bool IsBattleOver() const;
 
-  std::shared_ptr<Player> player_;
-  std::vector<std::shared_ptr<Enemy>> enemies_;
-  std::shared_ptr<ViewManager> view_manager_;
+  Player* player_;
+  std::vector<std::unique_ptr<Enemy>> enemies_;
+  ViewManager* view_manager_;
 
   int player_defence_ = 0;
 };

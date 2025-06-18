@@ -17,7 +17,7 @@ class ItemManager {
   ItemManager();
 
   // Возвращает shared_ptr на Item, или nullptr, если такого нет
-  std::shared_ptr<Item> GetItem(int id) const;
+  Item* GetItem(int id) const;
 };
 
 #endif  // ITEM_MANAGER_H_

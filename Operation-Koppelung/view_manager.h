@@ -11,7 +11,7 @@
 
 class ViewManager {
  public:
-  explicit ViewManager(std::shared_ptr<View> view);
+  explicit ViewManager(View* view);
 
   // Запускает меню с заданными опциями.
   // Возвращает индекс выбранного пункта или -1 при отмене
@@ -35,7 +35,7 @@ class ViewManager {
  private:
   void HandleInput(int key);
 
-  std::shared_ptr<View> view_;
+  View* view_;
   std::vector<std::string> options_;
   int selected_ = 0;
   int player_health_ = 0;

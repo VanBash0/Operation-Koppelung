@@ -4,8 +4,7 @@
 
 #include "json.hpp"
 
-Player::Player(const std::shared_ptr<ItemManager>& item_manager,
-               const std::shared_ptr<AttackManager>& attack_manager) {
+Player::Player(ItemManager* item_manager, AttackManager* attack_manager) {
   std::ifstream file("player.json");
   nlohmann::json data = nlohmann::json::parse(file);
 
@@ -42,7 +41,7 @@ void Player::EquipWeapon(int inventory_index) {
     return;
   }
 
-  std::shared_ptr<Item> selected_item = inventory_[inventory_index];
+  Item* selected_item = inventory_[inventory_index];
   if (!selected_item || selected_item->type != ItemType::kWeapon) {
     return;
   }
@@ -57,7 +56,7 @@ void Player::EquipArmor(int inventory_index) {
     return;
   }
 
-  std::shared_ptr<Item> selected_item = inventory_[inventory_index];
+  Item* selected_item = inventory_[inventory_index];
   if (!selected_item || selected_item->type != ItemType::kArmor) {
     return;
   }
@@ -76,38 +75,41 @@ int Player::GetSanity() const { return sanity_; }
 
 int Player::GetLocation() const { return location_; }
 
-void Player::SetLocation(int location) { location_ = location; }
+void Player::SetLocation(int location) {
+  prev_location_ = location_;
+  location_ = location;
+}
+
+void Player::SetDefaultStats() {
+  health_ = 50;
+  sanity_ = 50;
+  location_ = prev_location_;
+}
 
 std::string Player::GetWeaponName() const {
   return weapon_ ? weapon_->name : "Unarmed";
 }
 
-std::vector<std::shared_ptr<Attack>> Player::GetSpells() const {
-  return spells_;
-}
+std::vector<Attack*> Player::GetSpells() const { return spells_; }
 
-std::vector<std::shared_ptr<Item>> Player::GetItems() const {
-  return inventory_;
-}
+std::vector<Item*> Player::GetItems() const { return inventory_; }
 
-std::shared_ptr<Item> Player::GetWeapon() const { return weapon_; }
+Item* Player::GetWeapon() const { return weapon_; }
 
-std::shared_ptr<Item> Player::GetArmor() const { return armor_; }
+Item* Player::GetArmor() const { return armor_; }
 
 bool Player::InventoryFull() const { return inventory_.size() >= 8; }
 
-void Player::AddItem(int item_id,
-                     const std::shared_ptr<ItemManager>& item_manager) {
+void Player::AddItem(int item_id, ItemManager* item_manager) {
   if (!InventoryFull()) {
     inventory_.push_back(item_manager->GetItem(item_id));
   }
 }
 
 void Player::RemoveItem(int item_id) {
-  auto it = std::remove_if(inventory_.begin(), inventory_.end(),
-                           [item_id](const std::shared_ptr<Item>& item) {
-                             return item->id == item_id;
-                           });
+  auto it =
+      std::remove_if(inventory_.begin(), inventory_.end(),
+                     [item_id](Item* item) { return item->id == item_id; });
   inventory_.erase(it, inventory_.end());
 }
 

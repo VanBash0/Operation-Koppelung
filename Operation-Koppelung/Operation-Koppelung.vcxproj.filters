@@ -15,43 +15,43 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="main.cc">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Option.cpp">
+    <ClCompile Include="option.cc">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="player.cpp">
+    <ClCompile Include="player.cc">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="enemy.cpp">
+    <ClCompile Include="enemy.cc">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="battle.cpp">
+    <ClCompile Include="battle.cc">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="attack_manager.cpp">
+    <ClCompile Include="attack_manager.cc">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="enemy_manager.cpp">
+    <ClCompile Include="enemy_manager.cc">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="OptionManager.cpp">
+    <ClCompile Include="option_manager.cc">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Game.cpp">
+    <ClCompile Include="game.cc">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="RoomManager.cpp">
+    <ClCompile Include="room_manager.cc">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="item_manager.cpp">
+    <ClCompile Include="item_manager.cc">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="view.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="view_manager.cpp">
+    <ClCompile Include="view_manager.cc">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -59,7 +59,7 @@
     <ClInclude Include="curses.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Option.h">
+    <ClInclude Include="option.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="room.h">
@@ -89,16 +89,16 @@
     <ClInclude Include="enemy_manager.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="OptionManager.h">
+    <ClInclude Include="option_manager.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="lru_cache.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Game.h">
+    <ClInclude Include="game.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="RoomManager.h">
+    <ClInclude Include="room_manager.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="item_manager.h">

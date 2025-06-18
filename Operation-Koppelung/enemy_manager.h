@@ -9,7 +9,7 @@
 
 class EnemyManager {
  public:
-  EnemyManager(std::shared_ptr<AttackManager> attackManager);
+  EnemyManager(AttackManager* attack_manager);
 
   // Возвращает копию врага по id
   std::unique_ptr<Enemy> GetEnemy(int id) const;

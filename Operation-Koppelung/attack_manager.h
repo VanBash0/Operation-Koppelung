@@ -12,10 +12,10 @@ class AttackManager {
   explicit AttackManager();
 
   // Возвращает указатель на атаку по ID или nullptr, если не найдено
-  std::shared_ptr<Attack> GetAttack(int id) const;
+  Attack* GetAttack(int id) const;
 
  private:
-  std::unordered_map<int, std::shared_ptr<Attack>> attacks_;
+  std::unordered_map<int, std::unique_ptr<Attack>> attacks_;
 };
 
 #endif  // ATTACK_MANAGER_H_

@@ -1,23 +1,28 @@
-#pragma once
-#include "AttackManager.h"
-#include "OptionManager.h"
-#include "EnemyManager.h"
-#include "RoomManager.h"
-#include "ItemManager.h"
-#include "Player.h"
-#include "ViewManager.h"
+#ifndef GAME_H_
+#define GAME_H_
+
+#include "attack_manager.h"
+#include "enemy_manager.h"
+#include "item_manager.h"
+#include "option_manager.h"
+#include "player.h"
+#include "room_manager.h"
+#include "view_manager.h"
 
 class Game {
-private:
-	std::shared_ptr<AttackManager> attackManager;
-	std::shared_ptr<OptionManager> optionManager;
-	std::shared_ptr<EnemyManager> enemyManager;
-	std::unique_ptr<RoomManager> roomManager;
-	std::shared_ptr<ItemManager> itemManager;
-	std::shared_ptr<Player> player;
-	std::shared_ptr<ViewManager> viewManager;
-	std::shared_ptr<View> view;
-public:
-	Game();
-	void play();
+ private:
+  std::unique_ptr<AttackManager> attack_manager_;
+  std::unique_ptr<OptionManager> option_manager_;
+  std::unique_ptr<EnemyManager> enemy_manager_;
+  std::unique_ptr<RoomManager> room_manager_;
+  std::unique_ptr<ItemManager> item_manager_;
+  std::unique_ptr<Player> player_;
+  std::unique_ptr<ViewManager> view_manager_;
+  std::unique_ptr<View> view_;
+
+ public:
+  Game();
+  void Play();
 };
+
+#endif  // GAME_H_

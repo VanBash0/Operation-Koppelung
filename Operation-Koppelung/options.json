@@ -2,7 +2,7 @@
   {
     "id": 1,
     "description": "Search the rubble",
-    "type": "EXPLORATION",
+    "type": "kExploration",
     "story": "You sift through broken stones and find something.",
     "after_story": "You've already searched here.",
     "loot_id": 4,
@@ -11,7 +11,7 @@
   {
     "id": 2,
     "description": "Examine the altar",
-    "type": "EXPLORATION",
+    "type": "kExploration",
     "story": "Ancient runes glow faintly under your touch.",
     "after_story": "The runes are still glowing.",
     "loot_id": -1,
@@ -20,7 +20,7 @@
   {
     "id": 3,
     "description": "Confront the lurking shadow",
-    "type": "BATTLE",
+    "type": "kBattle",
     "story": "A shadowy figure emerges!",
     "after_story": "The shadow lies defeated.",
     "enemies_id": [ 4 ],
@@ -29,7 +29,7 @@
   {
     "id": 4,
     "description": "Listen to the gramophone",
-    "type": "GRAMOPHONE",
+    "type": "kGramophone",
     "story": "A haunting melody soothes your mind.",
     "after_story": "The melody fades.",
     "sanity_restore": 15,
@@ -38,7 +38,7 @@
   {
     "id": 5,
     "description": "Open the hidden door",
-    "type": "ROOMCHANGE",
+    "type": "kRoomChange",
     "story": "You push a loose brick and reveal a passage.",
     "after_story": "The door is already open.",
     "room_id": 2,
