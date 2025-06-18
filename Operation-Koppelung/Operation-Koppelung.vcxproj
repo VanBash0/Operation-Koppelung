@@ -146,7 +146,7 @@
     <ClCompile Include="option_manager.cc" />
     <ClCompile Include="player.cc" />
     <ClCompile Include="room_manager.cc" />
-    <ClCompile Include="view.cpp" />
+    <ClCompile Include="view.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="attack.h" />

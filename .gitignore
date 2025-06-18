@@ -364,3 +364,6 @@ FodyWeavers.xsd
 
 CLang format file
 format.clang-format
+Operation-Koppelung/Operation-Koppelung.vcxproj
+Operation-Koppelung/Operation-Koppelung.vcxproj.filters
+Operation-Koppelung.vcxproj.user
