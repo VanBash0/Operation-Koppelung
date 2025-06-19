@@ -7,7 +7,7 @@ View::View() {
   noecho();
   keypad(stdscr, TRUE);
 
-  player_win_ = newwin(5, 60, 0, 0);
+  extra_win_ = newwin(5, 60, 0, 0);
   main_win_ = newwin(10, 60, 5, 0);
 
   start_color();
@@ -17,7 +17,7 @@ View::View() {
 
 View::~View() {
   delwin(main_win_);
-  delwin(player_win_);
+  delwin(extra_win_);
   endwin();
 }
 
@@ -51,21 +51,34 @@ void View::DrawMenu(int selected, int health, int sanity) {
   ShowPlayerStats(health, sanity);
 }
 
+void View::DrawMenu(int selected) {
+  wclear(main_win_);
+  box(main_win_, 0, 0);
+  for (size_t i = 0; i < options_.size(); ++i) {
+    if (static_cast<int>(i) == selected) wattron(main_win_, A_REVERSE);
+    mvwprintw(main_win_, static_cast<int>(i) + 1, 1, "%s", options_[i].c_str());
+    if (static_cast<int>(i) == selected) wattroff(main_win_, A_REVERSE);
+  }
+  wrefresh(main_win_);
+
+  ShowTitle();
+}
+
 void View::ShowPlayerStats(int health, int sanity) {
-  wclear(player_win_);
-  box(player_win_, 0, 0);
+  wclear(extra_win_);
+  box(extra_win_, 0, 0);
 
-  mvwprintw(player_win_, 1, 1, "%s", "Name: Aleksey Ryabinin");
+  mvwprintw(extra_win_, 1, 1, "%s", "Name: Aleksey Ryabinin");
 
-  wattron(player_win_, COLOR_PAIR(1));
-  DrawProgressBar(player_win_, 2, 1, "Health", health, 100, 10);
-  wattroff(player_win_, COLOR_PAIR(1));
+  wattron(extra_win_, COLOR_PAIR(1));
+  DrawProgressBar(extra_win_, 2, 1, "Health", health, 100, 10);
+  wattroff(extra_win_, COLOR_PAIR(1));
 
-  wattron(player_win_, COLOR_PAIR(2));
-  DrawProgressBar(player_win_, 3, 1, "Sanity", sanity, 100, 10);
-  wattroff(player_win_, COLOR_PAIR(2));
+  wattron(extra_win_, COLOR_PAIR(2));
+  DrawProgressBar(extra_win_, 3, 1, "Sanity", sanity, 100, 10);
+  wattroff(extra_win_, COLOR_PAIR(2));
 
-  wrefresh(player_win_);
+  wrefresh(extra_win_);
 }
 
 void View::ShowText(const std::vector<std::string>& text) {
@@ -75,4 +88,13 @@ void View::ShowText(const std::vector<std::string>& text) {
     mvwprintw(main_win_, static_cast<int>(i) + 1, 1, "%s", text[i].c_str());
   }
   wrefresh(main_win_);
+}
+
+void View::ShowTitle() {
+  wclear(extra_win_);
+  box(extra_win_, 0, 0);
+  mvwprintw(extra_win_, 1, 1, "%s", "~~~~~~~~~~~~~~~~~~~");
+  mvwprintw(extra_win_, 2, 1, "%s", "OPERATION KOPPELUNG");
+  mvwprintw(extra_win_, 3, 1, "%s", "~~~~~~~~~~~~~~~~~~~");
+  wrefresh(extra_win_);
 }

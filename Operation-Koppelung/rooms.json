@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "enemies_id": [ 1 ],
+    "enemies_id": [ ],
     "options_id": [ 1, 2, 3, 4, 5 ],
     "room_entered": false
   },

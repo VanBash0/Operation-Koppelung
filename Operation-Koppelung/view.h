@@ -22,15 +22,20 @@ class View {
   // –исует меню с подсветкой выбранного пункта и статистику игрока
   void DrawMenu(int selected, int health, int sanity);
 
+  // –исует меню с подсветкой выбранного пункта
+  void DrawMenu(int selected);
+
   // ѕоказывает статистику игрока
   void ShowPlayerStats(int health, int sanity);
 
   // ќтображает текст в основном окне
   void ShowText(const std::vector<std::string>& text);
 
+  void ShowTitle();
+
  private:
   std::vector<std::string> options_;
-  WINDOW* player_win_;
+  WINDOW* extra_win_;
   WINDOW* main_win_;
 };
 

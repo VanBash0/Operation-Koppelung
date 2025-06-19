@@ -24,5 +24,5 @@ class RoomManager {
               ItemManager* item_manager);
   void AddRoom(int id);
   Room* GetRoom(int id);
-  void RoomProcess(int id);
+  bool RoomProcess(int id);
 };

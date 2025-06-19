@@ -39,15 +39,19 @@ void RoomManager::AddRoom(int id) {
   }
 }
 
-void RoomManager::RoomProcess(int id) {
+bool RoomManager::RoomProcess(int id) {
   Room* room = GetRoom(id);
+  view_manager_->SetPlayerHealth(player_->GetHealth());
+  view_manager_->SetPlayerSanity(player_->GetSanity());
+  view_manager_->UpdatePlayerStats();
+
   if (!room->enemies_id_.empty() && room->room_entered_ == false) {
     std::unique_ptr<Battle> battle = std::make_unique<Battle>(
         room->enemies_id_, enemy_manager_, player_, view_manager_);
     if (battle->ExecuteBattle()) {
       room->room_entered_ = true;
     } else {
-      return;
+      return true;
     }
   }
 
@@ -57,15 +61,14 @@ void RoomManager::RoomProcess(int id) {
   }
   std::vector<std::string> options_desc;
   for (auto option : options) {
-    if (option == nullptr) {
-      options_desc.push_back("ERROR");
-    } else {
-      options_desc.push_back(option->GetDescription());
-    }
+    options_desc.push_back(option->GetDescription());
   }
   while (true) {
     if (player_->GetLocation() == id) {
       int choice = view_manager_->Run(options_desc);
+      if (choice == -2) {
+        return false;
+      }
       if (choice != -1) {
         options[choice]->Execute(view_manager_, player_, item_manager_,
                                  enemy_manager_);
@@ -76,4 +79,5 @@ void RoomManager::RoomProcess(int id) {
       break;
     }
   }
+  return true;
 }

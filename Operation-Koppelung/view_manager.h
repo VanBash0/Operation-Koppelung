@@ -11,11 +11,13 @@
 
 class ViewManager {
  public:
-  explicit ViewManager(View* view);
+  ViewManager();
 
   // Запускает меню с заданными опциями.
-  // Возвращает индекс выбранного пункта или -1 при отмене
+  // Возвращает индекс выбранного пункта, -1 при отмене и -2 при выходе
   int Run(const std::vector<std::string>& options);
+
+  int Run();
 
   // Ждёт нажатия клавиши, обрабатывает стрелки и Enter/Z
   void WaitUntilHit();
@@ -35,7 +37,7 @@ class ViewManager {
  private:
   void HandleInput(int key);
 
-  View* view_;
+  std::unique_ptr<View> view_;
   std::vector<std::string> options_;
   int selected_ = 0;
   int player_health_ = 0;

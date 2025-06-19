@@ -18,11 +18,11 @@ class Game {
   std::unique_ptr<ItemManager> item_manager_;
   std::unique_ptr<Player> player_;
   std::unique_ptr<ViewManager> view_manager_;
-  std::unique_ptr<View> view_;
 
  public:
   Game();
-  void Play();
+  void Run();   // Основной цикл программы
+  void Play();  // Непосредственно игра
 };
 
 #endif  // GAME_H_

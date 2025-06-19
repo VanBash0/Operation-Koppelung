@@ -2,7 +2,7 @@
 
 #include <sstream>
 
-ViewManager::ViewManager(View* view) : view_(view) {}
+ViewManager::ViewManager() : view_(std::make_unique<View>()) {}
 
 int ViewManager::Run(const std::vector<std::string>& options) {
   options_ = options;
@@ -16,6 +16,23 @@ int ViewManager::Run(const std::vector<std::string>& options) {
     }
     if (key == 88 || key == 120) {  // 'X'/'x'
       return -1;
+    }
+    if (key == 27) {  // Esc
+      return -2;
+    }
+    HandleInput(key);
+  }
+}
+
+int ViewManager::Run() {
+  options_ = {"Play", "Controls", "Reset", "Exit"};
+  view_->SetOptions(options_);
+  selected_ = 0;
+  while (true) {
+    view_->DrawMenu(selected_);
+    int key = getch();
+    if (key == 10 || key == 90 || key == 122) {  // Enter или 'Z'/'z'
+      return selected_;
     }
     HandleInput(key);
   }
