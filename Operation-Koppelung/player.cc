@@ -112,30 +112,3 @@ void Player::RemoveItem(int item_id) {
                      [item_id](Item* item) { return item->id == item_id; });
   inventory_.erase(it, inventory_.end());
 }
-
-void Player::Update() {
-  std::ifstream input_file("player.json");
-  nlohmann::json player_data = nlohmann::json::parse(input_file);
-  input_file.close();
-
-  player_data[0]["health"] = health_;
-  player_data[0]["sanity"] = sanity_;
-  player_data[0]["location"] = location_;
-
-  player_data[0]["items_id"].clear();
-  for (const auto& item : inventory_) {
-    player_data[0]["items_id"].push_back(item->id);
-  }
-
-  player_data[0]["weapon_id"] = weapon_ ? weapon_->id : -1;
-  player_data[0]["armor_id"] = armor_ ? armor_->id : -1;
-
-  player_data[0]["spells_id"].clear();
-  for (const auto& spell : spells_) {
-    player_data[0]["spells_id"].push_back(spell->id);
-  }
-
-  std::ofstream output_file("player.json");
-  output_file << player_data.dump(4);
-  output_file.close();
-}

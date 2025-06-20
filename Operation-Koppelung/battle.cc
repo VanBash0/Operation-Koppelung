@@ -268,9 +268,6 @@ bool Battle::HandleItem() {
                                " damage to all enemies!");
       player_->RemoveItem(item->id);
       break;
-    default:
-      view_manager_->PrintText("Unknown item type.");
-      return false;
   }
 
   return true;

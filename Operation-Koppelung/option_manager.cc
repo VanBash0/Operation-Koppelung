@@ -33,8 +33,9 @@ void OptionManager::AddOption(int id) {
     std::string description = option_data["description"].get<std::string>();
     std::string story = option_data["story"].get<std::string>();
     std::string after_story = option_data["after_story"].get<std::string>();
-    bool is_picked = option_data["isPicked"].get<bool>();
+    bool is_picked = option_data["is_picked"].get<bool>();
     std::string type_str = option_data["type"].get<std::string>();
+    int id = option_data["id"].get<int>();
 
     std::unique_ptr<Option> option;
 
@@ -42,29 +43,26 @@ void OptionManager::AddOption(int id) {
       int loot_id = option_data["loot_id"].get<int>();
       option = std::make_unique<ExplorationOption>(
           std::move(description), std::move(story), std::move(after_story),
-          is_picked, loot_id);
+          is_picked, id, loot_id);
     } else if (type_str == "kBattle") {
       std::vector<int> enemies_id =
           option_data["enemies_id"].get<std::vector<int>>();
       option = std::make_unique<BattleOption>(
           std::move(description), std::move(story), std::move(after_story),
-          is_picked, enemies_id);
+          is_picked, id, enemies_id);
     } else if (type_str == "kGramophone") {
       int sanity_restore = option_data["sanity_restore"].get<int>();
       option = std::make_unique<GramophoneOption>(
           std::move(description), std::move(story), std::move(after_story),
-          is_picked, sanity_restore);
+          is_picked, id, sanity_restore);
     } else if (type_str == "kRoomChange") {
       int room_id = option_data["room_id"].get<int>();
       option = std::make_unique<RoomChangeOption>(
           std::move(description), std::move(story), std::move(after_story),
-          is_picked, room_id);
+          is_picked, id, room_id);
     }
 
-    if (option) {
-      options_.Put(id, std::move(option));
-    }
-
+    options_.Put(id, std::move(option));
     break;
   }
 }

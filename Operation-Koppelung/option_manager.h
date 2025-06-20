@@ -8,13 +8,13 @@
 #include "option.h"
 
 class OptionManager {
- private:
-  LRUCache<Option> options_;
-
  public:
   OptionManager();
   Option* GetOption(int id);
   void AddOption(int id);
+
+ private:
+  LRUCache<Option> options_;
 };
 
 #endif  // OPTION_MANAGER_H_

@@ -3,6 +3,7 @@
 #include <iostream>
 
 Game::Game() {
+  save_manager_ = std::make_unique<SaveManager>();
   attack_manager_ = std::make_unique<AttackManager>();
   option_manager_ = std::make_unique<OptionManager>();
   enemy_manager_ = std::make_unique<EnemyManager>(attack_manager_.get());
@@ -12,7 +13,7 @@ Game::Game() {
       std::make_unique<Player>(item_manager_.get(), attack_manager_.get());
   room_manager_ = std::make_unique<RoomManager>(
       option_manager_.get(), view_manager_.get(), player_.get(),
-      enemy_manager_.get(), item_manager_.get());
+      enemy_manager_.get(), item_manager_.get(), save_manager_.get());
 }
 void Game::Run() {
   ungetch('\n');
@@ -28,6 +29,9 @@ void Game::Run() {
             "Controls:;Z/Enter - Confirm;X - Cancel;Up/Down - Choose option");
         break;
       case 2:
+        save_manager_->ResetProgress();
+        view_manager_->PrintText("Progress has been reset.");
+        break;
       case 3:
         exit(0);
     }

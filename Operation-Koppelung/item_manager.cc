@@ -5,8 +5,6 @@
 
 #include "json.hpp"
 
-using json = nlohmann::json;
-
 ItemType ItemManager::StringToItemType(const std::string& type_str) const {
   if (type_str == "kWeapon") return ItemType::kWeapon;
   if (type_str == "kArmor") return ItemType::kArmor;
@@ -25,7 +23,7 @@ ItemManager::ItemManager() {
     return;
   }
 
-  auto data = json::parse(file, nullptr, false);
+  auto data = nlohmann::json::parse(file, nullptr, false);
   if (data.is_discarded()) {
     std::cerr << "Failed to parse items.json\n";
     return;

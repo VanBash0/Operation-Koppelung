@@ -12,8 +12,6 @@ class Player {
  public:
   Player(ItemManager* item_manager, AttackManager* attack_manager);
 
-  void Update();
-
   void TakeDamage(int damage);
   void LoseSanity(int damage);
   void HealHealth(int delta);

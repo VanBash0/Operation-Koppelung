@@ -9,13 +9,16 @@ static const size_t kCacheSize = 50;
 
 RoomManager::RoomManager(OptionManager* option_manager,
                          ViewManager* view_manager, Player* player,
-                         EnemyManager* enemy_manager, ItemManager* item_manager)
+                         EnemyManager* enemy_manager, ItemManager* item_manager,
+                         SaveManager* save_manager)
     : option_manager_(option_manager),
       view_manager_(view_manager),
       player_(player),
       enemy_manager_(enemy_manager),
       item_manager_(item_manager),
+      save_manager_(save_manager),
       rooms_(kCacheSize) {};
+
 Room* RoomManager::GetRoom(int id) {
   if (!rooms_.Get(id)) {
     AddRoom(id);
@@ -45,14 +48,20 @@ bool RoomManager::RoomProcess(int id) {
   view_manager_->SetPlayerSanity(player_->GetSanity());
   view_manager_->UpdatePlayerStats();
 
-  if (!room->enemies_id_.empty() && room->room_entered_ == false) {
+  if (!room->enemies_id_.empty() && !room->room_entered_) {
     std::unique_ptr<Battle> battle = std::make_unique<Battle>(
         room->enemies_id_, enemy_manager_, player_, view_manager_);
     if (battle->ExecuteBattle()) {
       room->room_entered_ = true;
+      save_manager_->SaveRoomEntered(id);
     } else {
       return true;
     }
+  }
+
+  if (!room->room_entered_) {
+    room->room_entered_ = true;
+    save_manager_->SaveRoomEntered(id);
   }
 
   std::vector<Option*> options;
@@ -63,20 +72,17 @@ bool RoomManager::RoomProcess(int id) {
   for (auto option : options) {
     options_desc.push_back(option->GetDescription());
   }
-  while (true) {
-    if (player_->GetLocation() == id) {
-      int choice = view_manager_->Run(options_desc);
-      if (choice == -2) {
-        return false;
-      }
-      if (choice != -1) {
-        options[choice]->Execute(view_manager_, player_, item_manager_,
-                                 enemy_manager_);
-      } else {
-        break;
-      }
-    } else {
-      break;
+  while (player_->GetLocation() == id) {
+    int choice = view_manager_->Run(options_desc);
+
+    if (choice == -2) {
+      return false;  // Выход в главное меню
+    }
+
+    if (choice != -1) {
+      options[choice]->Execute(view_manager_, player_, item_manager_,
+                               enemy_manager_,
+                               save_manager_);  // Выполнить опцию
     }
   }
   return true;

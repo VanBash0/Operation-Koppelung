@@ -1,20 +1,34 @@
 [
-  {
-    "id": 1,
-    "enemies_id": [ ],
-    "options_id": [ 1, 2, 3, 4, 5 ],
-    "room_entered": false
-  },
-  {
-    "id": 2,
-    "enemies_id": [],
-    "options_id": [ 3, 5 ],
-    "room_entered": false
-  },
-  {
-    "id": 3,
-    "enemies_id": [ 4 ],
-    "options_id": [ 2, 4 ],
-    "room_entered": false
-  }
+    {
+        "enemies_id": [],
+        "id": 1,
+        "options_id": [
+            1,
+            2,
+            3,
+            4,
+            5
+        ],
+        "room_entered": false
+    },
+    {
+        "enemies_id": [],
+        "id": 2,
+        "options_id": [
+            3,
+            5
+        ],
+        "room_entered": false
+    },
+    {
+        "enemies_id": [
+            4
+        ],
+        "id": 3,
+        "options_id": [
+            2,
+            4
+        ],
+        "room_entered": false
+    }
 ]

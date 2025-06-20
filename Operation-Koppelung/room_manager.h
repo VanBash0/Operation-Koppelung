@@ -1,4 +1,6 @@
-#pragma once
+#ifndef ROOM_MANAGER_H_
+#define ROOM_MANAGER_H_
+
 #include <memory>
 
 #include "enemy_manager.h"
@@ -7,9 +9,18 @@
 #include "option_manager.h"
 #include "player.h"
 #include "room.h"
+#include "save_manager.h"
 #include "view_manager.h"
 
 class RoomManager {
+ public:
+  RoomManager(OptionManager* option_manager, ViewManager* view_manager,
+              Player* player, EnemyManager* enemy_manager,
+              ItemManager* item_manager, SaveManager* save_manager);
+  void AddRoom(int id);
+  Room* GetRoom(int id);
+  bool RoomProcess(int id);
+
  private:
   LRUCache<Room> rooms_;
   OptionManager* option_manager_;
@@ -17,12 +28,7 @@ class RoomManager {
   Player* player_;
   EnemyManager* enemy_manager_;
   ItemManager* item_manager_;
-
- public:
-  RoomManager(OptionManager* option_manager, ViewManager* view_manager,
-              Player* player, EnemyManager* enemy_manager,
-              ItemManager* item_manager);
-  void AddRoom(int id);
-  Room* GetRoom(int id);
-  bool RoomProcess(int id);
+  SaveManager* save_manager_;
 };
+
+#endif  // ROOM_MANAGER_H_

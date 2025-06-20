@@ -1,47 +1,49 @@
 [
-  {
-    "id": 1,
-    "description": "Search the rubble",
-    "type": "kExploration",
-    "story": "You sift through broken stones and find something.",
-    "after_story": "You've already searched here.",
-    "loot_id": 4,
-    "isPicked": false
-  },
-  {
-    "id": 2,
-    "description": "Examine the altar",
-    "type": "kExploration",
-    "story": "Ancient runes glow faintly under your touch.",
-    "after_story": "The runes are still glowing.",
-    "loot_id": -1,
-    "isPicked": false
-  },
-  {
-    "id": 3,
-    "description": "Confront the lurking shadow",
-    "type": "kBattle",
-    "story": "A shadowy figure emerges!",
-    "after_story": "The shadow lies defeated.",
-    "enemies_id": [ 4 ],
-    "isPicked": false
-  },
-  {
-    "id": 4,
-    "description": "Listen to the gramophone",
-    "type": "kGramophone",
-    "story": "A haunting melody soothes your mind.",
-    "after_story": "The melody fades.",
-    "sanity_restore": 15,
-    "isPicked": false
-  },
-  {
-    "id": 5,
-    "description": "Open the hidden door",
-    "type": "kRoomChange",
-    "story": "You push a loose brick and reveal a passage.",
-    "after_story": "The door is already open.",
-    "room_id": 2,
-    "isPicked": false
-  }
+    {
+        "after_story": "You've already searched here.",
+        "description": "Search the rubble",
+        "id": 1,
+        "is_picked": false,
+        "loot_id": 4,
+        "story": "You sift through broken stones and find something.",
+        "type": "kExploration"
+    },
+    {
+        "after_story": "The runes are still glowing.",
+        "description": "Examine the altar",
+        "id": 2,
+        "is_picked": false,
+        "loot_id": -1,
+        "story": "Ancient runes glow faintly under your touch.",
+        "type": "kExploration"
+    },
+    {
+        "after_story": "The shadow lies defeated.",
+        "description": "Confront the lurking shadow",
+        "enemies_id": [
+            4
+        ],
+        "id": 3,
+        "is_picked": false,
+        "story": "A shadowy figure emerges!",
+        "type": "kBattle"
+    },
+    {
+        "after_story": "The melody fades.",
+        "description": "Listen to the gramophone",
+        "id": 4,
+        "is_picked": false,
+        "sanity_restore": 15,
+        "story": "A haunting melody soothes your mind.",
+        "type": "kGramophone"
+    },
+    {
+        "after_story": "The door is already open.",
+        "description": "Open the hidden door",
+        "id": 5,
+        "is_picked": false,
+        "room_id": 2,
+        "story": "You push a loose brick and reveal a passage.",
+        "type": "kRoomChange"
+    }
 ]
