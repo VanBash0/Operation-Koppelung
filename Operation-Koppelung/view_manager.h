@@ -19,19 +19,14 @@ class ViewManager {
 
   int Run();
 
-  // ∆дЄт нажати€ клавиши, обрабатывает стрелки и Enter/Z
-  void WaitUntilHit();
-
   // ∆дЄт нажати€ клавиши Enter или Z
   void WaitUntilHitEnter();
 
-  void SetPlayerHealth(int health) { player_health_ = health; }
-  void SetPlayerSanity(int sanity) { player_sanity_ = sanity; }
+  void UpdatePlayerStats(int health, int sanity);
+
   void PrintText(const std::string& text);
   void PrintTextByLine(const std::string& text);
-  void UpdatePlayerStats() {
-    view_->ShowPlayerStats(player_health_, player_sanity_);
-  }
+
   std::vector<std::string> Split(const std::string& line);
 
  private:

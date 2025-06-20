@@ -13,8 +13,7 @@ Battle::Battle(const std::vector<int>& enemies_id, EnemyManager* enemy_manager,
 
 bool Battle::ExecuteBattle() {
   // Устанавливаем начальные параметры игрока
-  view_manager_->SetPlayerHealth(player_->GetHealth());
-  view_manager_->SetPlayerSanity(player_->GetSanity());
+  view_manager_->UpdatePlayerStats(player_->GetHealth(), player_->GetSanity());
   bool is_player_turn_ = true;
 
   // Основной цикл боя
@@ -42,9 +41,8 @@ bool Battle::ExecuteBattle() {
         "You are fainting...;Surprisingly, you find yourself alive in "
         "several... minutes? Hours? Doesn't really matter.");
     player_->SetDefaultStats();
-    view_manager_->SetPlayerHealth(player_->GetHealth());
-    view_manager_->SetPlayerSanity(player_->GetSanity());
-    view_manager_->UpdatePlayerStats();
+    view_manager_->UpdatePlayerStats(player_->GetHealth(),
+                                     player_->GetSanity());
     return false;
   }
 }
@@ -120,9 +118,8 @@ void Battle::EnemiesTurn() {
                                std::to_string(attack->damage) + " health!");
     }
 
-    view_manager_->SetPlayerHealth(player_->GetHealth());
-    view_manager_->SetPlayerSanity(player_->GetSanity());
-    view_manager_->UpdatePlayerStats();
+    view_manager_->UpdatePlayerStats(player_->GetHealth(),
+                                     player_->GetSanity());
   }
 }
 
@@ -130,13 +127,10 @@ bool Battle::HandleAttack() {
   std::vector<std::string> enemy_names;
   for (const auto& enemy : enemies_) {
     enemy_names.push_back(enemy->GetName() +
-                          " HP: " + std::to_string(enemy->GetHealth()));
+                          ". Health: " + std::to_string(enemy->GetHealth()));
   }
 
   int target = view_manager_->Run(enemy_names);
-  if (target < 0 || target >= static_cast<int>(enemies_.size())) {
-    return false;
-  }
 
   int damage = player_->GetDamage();
   enemies_[target]->TakeDamage(damage);
@@ -151,10 +145,11 @@ bool Battle::HandleAttack() {
 bool Battle::HandleMagic(const std::vector<Attack*>& spells,
                          const std::vector<std::string>& spell_names) {
   while (true) {
-    int spell_choice = view_manager_->Run(spell_names);
-    if (spell_choice < 0 || spell_choice >= static_cast<int>(spells.size())) {
+    if (spells.empty()) {
+      view_manager_->PrintText("You do not know any spells to cast!");
       return false;
     }
+    int spell_choice = view_manager_->Run(spell_names);
 
     const auto& spell = spells[spell_choice];
     if (player_->GetSanity() < spell->sanity_cost) {
@@ -165,13 +160,10 @@ bool Battle::HandleMagic(const std::vector<Attack*>& spells,
     if (spell->is_damaging) {
       std::vector<std::string> enemy_names;
       for (const auto& enemy : enemies_) {
-        enemy_names.push_back(enemy->GetName() +
-                              " HP: " + std::to_string(enemy->GetHealth()));
+        enemy_names.push_back(enemy->GetName() + ". Health: " +
+                              std::to_string(enemy->GetHealth()));
       }
       int target = view_manager_->Run(enemy_names);
-      if (target < 0 || target >= static_cast<int>(enemies_.size())) {
-        return false;
-      }
 
       enemies_[target]->TakeDamage(spell->damage);
 
@@ -180,8 +172,8 @@ bool Battle::HandleMagic(const std::vector<Attack*>& spells,
           " and deal " + std::to_string(spell->damage) + " damage!;You lose " +
           std::to_string(spell->sanity_cost) + " sanity!");
       player_->LoseSanity(spell->sanity_cost);
-      view_manager_->SetPlayerSanity(player_->GetSanity());
-      view_manager_->UpdatePlayerStats();
+      view_manager_->UpdatePlayerStats(player_->GetHealth(),
+                                       player_->GetSanity());
 
     } else {
       player_->HealHealth(spell->damage);
@@ -189,9 +181,8 @@ bool Battle::HandleMagic(const std::vector<Attack*>& spells,
                                " health with " + spell->name + "!;You lose " +
                                std::to_string(spell->sanity_cost) + " sanity!");
       player_->LoseSanity(spell->sanity_cost);
-      view_manager_->SetPlayerSanity(player_->GetSanity());
-      view_manager_->SetPlayerHealth(player_->GetHealth());
-      view_manager_->UpdatePlayerStats();
+      view_manager_->UpdatePlayerStats(player_->GetHealth(),
+                                       player_->GetSanity());
     }
 
     return true;
@@ -243,8 +234,8 @@ bool Battle::HandleItem() {
                                  std::to_string(item->value) + " health!");
       }
       player_->RemoveItem(item->id);
-      view_manager_->SetPlayerHealth(player_->GetHealth());
-      view_manager_->UpdatePlayerStats();
+      view_manager_->UpdatePlayerStats(player_->GetHealth(),
+                                       player_->GetSanity());
       break;
     case ItemType::kSanityHealer:
       player_->HealSanity(item->value);
@@ -256,8 +247,8 @@ bool Battle::HandleItem() {
                                  std::to_string(item->value) + " sanity!");
       }
       player_->RemoveItem(item->id);
-      view_manager_->SetPlayerSanity(player_->GetSanity());
-      view_manager_->UpdatePlayerStats();
+      view_manager_->UpdatePlayerStats(player_->GetHealth(),
+                                       player_->GetSanity());
       break;
     case ItemType::kInstantWeapon:
       for (auto& enemy : enemies_) {

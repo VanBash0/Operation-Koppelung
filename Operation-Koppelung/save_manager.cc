@@ -24,7 +24,7 @@ void SaveManager::ResetPlayer() {
   player_data[0]["spells_id"].clear();
 
   std::ofstream output_file("player.json");
-  output_file << player_data.dump(4);
+  output_file << player_data.dump(2);
   output_file.close();
 }
 
@@ -38,7 +38,7 @@ void SaveManager::ResetRooms() {
   }
 
   std::ofstream output_file("rooms.json");
-  output_file << data.dump(4);
+  output_file << data.dump(2);
   output_file.close();
 }
 
@@ -52,7 +52,7 @@ void SaveManager::ResetOptions() {
   }
 
   std::ofstream output_file("options.json");
-  output_file << data.dump(4);
+  output_file << data.dump(2);
   output_file.close();
 }
 
@@ -80,7 +80,7 @@ void SaveManager::SavePlayer(Player* player) {
   }
 
   std::ofstream output_file("player.json");
-  output_file << player_data.dump(4);
+  output_file << player_data.dump(2);
   output_file.close();
 }
 
@@ -97,7 +97,7 @@ void SaveManager::SaveRoomEntered(int id) {
   }
 
   std::ofstream output_file("rooms.json");
-  output_file << data.dump(4);
+  output_file << data.dump(2);
   output_file.close();
 }
 
@@ -114,6 +114,6 @@ void SaveManager::SaveOptionPicked(int id) {
   }
 
   std::ofstream output_file("options.json");
-  output_file << data.dump(4);
+  output_file << data.dump(2);
   output_file.close();
 }

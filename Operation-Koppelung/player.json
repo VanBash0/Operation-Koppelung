@@ -1,11 +1,11 @@
 [
-    {
-        "armor_id": -1,
-        "health": 100,
-        "items_id": [],
-        "location": 0,
-        "sanity": 100,
-        "spells_id": [],
-        "weapon_id": -1
-    }
+  {
+    "armor_id": -1,
+    "health": 100,
+    "items_id": [],
+    "location": 0,
+    "sanity": 100,
+    "spells_id": [],
+    "weapon_id": -1
+  }
 ]

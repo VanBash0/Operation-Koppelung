@@ -15,9 +15,10 @@ Game::Game() {
       option_manager_.get(), view_manager_.get(), player_.get(),
       enemy_manager_.get(), item_manager_.get(), save_manager_.get());
 }
+
 void Game::Run() {
   ungetch('\n');
-  view_manager_->WaitUntilHit();
+  view_manager_->WaitUntilHitEnter();
   while (true) {
     int choice = view_manager_->Run();
     switch (choice) {
@@ -43,6 +44,9 @@ void Game::Play() {
     int room_id = player_->GetLocation();
     if (!room_manager_->RoomProcess(room_id)) {
       break;
+    }
+    if (player_->GetLocation() == -1) {
+      exit(0);
     }
   }
 }

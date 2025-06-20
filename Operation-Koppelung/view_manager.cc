@@ -20,6 +20,9 @@ int ViewManager::Run(const std::vector<std::string>& options) {
     if (key == 27) {  // Esc
       return -2;
     }
+    if (key == 67 || key == 99) {  // 'C'/'c'
+      return -3;
+    }
     HandleInput(key);
   }
 }
@@ -38,17 +41,6 @@ int ViewManager::Run() {
   }
 }
 
-void ViewManager::WaitUntilHit() {
-  int key;
-  while (true) {
-    key = getch();
-    if (key == KEY_UP || key == KEY_DOWN || key == 10 || key == 90 ||
-        key == 122)
-      break;
-  }
-  HandleInput(key);
-}
-
 void ViewManager::WaitUntilHitEnter() {
   int key;
   while (true) {
@@ -57,6 +49,12 @@ void ViewManager::WaitUntilHitEnter() {
       break;
   }
   HandleInput(key);
+}
+
+void ViewManager::UpdatePlayerStats(int health, int sanity) {
+  player_health_ = health;
+  player_sanity_ = sanity;
+  view_->ShowPlayerStats(player_health_, player_sanity_);
 }
 
 void ViewManager::PrintText(const std::string& text) {

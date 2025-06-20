@@ -44,9 +44,7 @@ void RoomManager::AddRoom(int id) {
 
 bool RoomManager::RoomProcess(int id) {
   Room* room = GetRoom(id);
-  view_manager_->SetPlayerHealth(player_->GetHealth());
-  view_manager_->SetPlayerSanity(player_->GetSanity());
-  view_manager_->UpdatePlayerStats();
+  view_manager_->UpdatePlayerStats(player_->GetHealth(), player_->GetSanity());
 
   if (!room->enemies_id_.empty() && !room->room_entered_) {
     std::unique_ptr<Battle> battle = std::make_unique<Battle>(
@@ -75,14 +73,41 @@ bool RoomManager::RoomProcess(int id) {
   while (player_->GetLocation() == id) {
     int choice = view_manager_->Run(options_desc);
 
+    // Выход в главное меню
     if (choice == -2) {
-      return false;  // Выход в главное меню
+      return false;
     }
 
+    // Открыть инвентарь
+    if (choice == -3) {
+      if (player_->GetItems().empty()) {
+        view_manager_->PrintText("Your inventory is empty!");
+        break;
+      }
+      std::vector<std::string> names;
+      std::vector<std::string> descriptions;
+      for (auto& item : player_->GetItems()) {
+        names.push_back(item->name);
+        descriptions.push_back(item->description);
+      }
+      while (true) {
+        int choice = view_manager_->Run(names);
+        switch (choice) {
+          case -2:
+            return false;
+          case -1:
+            break;
+          default:
+            view_manager_->PrintText(descriptions[choice]);
+            break;
+        }
+      }
+    }
+
+    // Выполнить опцию
     if (choice != -1) {
       options[choice]->Execute(view_manager_, player_, item_manager_,
-                               enemy_manager_,
-                               save_manager_);  // Выполнить опцию
+                               enemy_manager_, save_manager_);
     }
   }
   return true;

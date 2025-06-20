@@ -58,8 +58,7 @@ void GramophoneOption::Execute(ViewManager* view_manager, Player* player,
     save_manager->SaveOptionPicked(id_);
     view_manager->PrintTextByLine(story_);
     player->HealSanity(sanity_restore_);
-    view_manager->SetPlayerSanity(player->GetSanity());
-    view_manager->UpdatePlayerStats();
+    view_manager->UpdatePlayerStats(player->GetHealth(), player->GetSanity());
     if (player->GetSanity() == 100) {
       view_manager->PrintText("You fully restore your sanity!");
     } else {
