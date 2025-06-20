@@ -3,6 +3,13 @@
 #include <string>
 #include <vector>
 
+namespace {
+constexpr int kActionsPerMove = 2;
+constexpr int kMaxHealth = 100;
+constexpr int kMaxSanity = 100;
+constexpr int kDefenceFactor = 10;  // доля здоровья, которую даёт защита
+}  // namespace
+
 Battle::Battle(const std::vector<int>& enemies_id, EnemyManager* enemy_manager,
                Player* player, ViewManager* view_manager)
     : player_(player), view_manager_(view_manager), player_defence_(0) {
@@ -34,7 +41,7 @@ bool Battle::ExecuteBattle() {
   }
 
   if (player_->GetHealth() > 0) {
-    view_manager_->PrintText("You won!");
+    view_manager_->PrintText("You win the fight!");
     return true;
   } else {
     view_manager_->PrintText(
@@ -53,7 +60,7 @@ void Battle::PlayerTurn(const std::vector<Attack*>& spells,
                                              "Item"};
   int actions_performed = 0;
 
-  while (actions_performed < 2) {
+  while (actions_performed < kActionsPerMove) {
     int choice = view_manager_->Run(kActions);
     switch (choice) {
       case 0:  // Атака
@@ -132,6 +139,10 @@ bool Battle::HandleAttack() {
 
   int target = view_manager_->Run(enemy_names);
 
+  if (target < 0) {
+    return false;
+  }
+
   int damage = player_->GetDamage();
   enemies_[target]->TakeDamage(damage);
 
@@ -151,6 +162,10 @@ bool Battle::HandleMagic(const std::vector<Attack*>& spells,
     }
     int spell_choice = view_manager_->Run(spell_names);
 
+    if (spell_choice < 0) {
+      return false;
+    }
+
     const auto& spell = spells[spell_choice];
     if (player_->GetSanity() < spell->sanity_cost) {
       view_manager_->PrintText("Not enough sanity for this spell!");
@@ -164,6 +179,10 @@ bool Battle::HandleMagic(const std::vector<Attack*>& spells,
                               std::to_string(enemy->GetHealth()));
       }
       int target = view_manager_->Run(enemy_names);
+
+      if (target < 0) {
+        return false;
+      }
 
       enemies_[target]->TakeDamage(spell->damage);
 
@@ -190,7 +209,7 @@ bool Battle::HandleMagic(const std::vector<Attack*>& spells,
 }
 
 void Battle::HandleDefend() {
-  int delta = player_->GetHealth() / 10;
+  int delta = player_->GetHealth() / kDefenceFactor;
   player_defence_ += delta;
 
   view_manager_->PrintText("You make a defensive pose. Your defence rises by " +
@@ -210,23 +229,20 @@ bool Battle::HandleItem() {
   }
 
   int item_choice = view_manager_->Run(item_names);
-  if (item_choice < 0 || item_choice >= static_cast<int>(items.size())) {
-    return false;
-  }
 
   Item* item = items[item_choice];
   switch (item->type) {
     case ItemType::kWeapon:
       view_manager_->PrintText("You equip " + item->name + "!");
-      player_->EquipWeapon(item->id);
+      player_->EquipWeapon(item_choice);
       break;
     case ItemType::kArmor:
       view_manager_->PrintText("You equip " + item->name + "!");
-      player_->EquipArmor(item->id);
+      player_->EquipArmor(item_choice);
       break;
     case ItemType::kHealthHealer:
       player_->HealHealth(item->value);
-      if (player_->GetHealth() == 100) {
+      if (player_->GetHealth() == kMaxHealth) {
         view_manager_->PrintText("You use " + item->name +
                                  " and fully restore your health!");
       } else {
@@ -239,7 +255,7 @@ bool Battle::HandleItem() {
       break;
     case ItemType::kSanityHealer:
       player_->HealSanity(item->value);
-      if (player_->GetSanity() == 100) {
+      if (player_->GetSanity() == kMaxSanity) {
         view_manager_->PrintText("You use " + item->name +
                                  " and fully restore your sanity!");
       } else {

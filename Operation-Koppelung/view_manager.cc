@@ -60,6 +60,7 @@ void ViewManager::UpdatePlayerStats(int health, int sanity) {
 void ViewManager::PrintText(const std::string& text) {
   std::vector<std::string> lines = Split(text);
   view_->ShowText(lines);
+  flushinp();
   WaitUntilHitEnter();
 }
 
@@ -67,6 +68,7 @@ void ViewManager::PrintTextByLine(const std::string& text) {
   std::vector<std::string> lines = Split(text);
   for (const auto& line : lines) {
     view_->ShowText(std::vector<std::string>{line});
+    flushinp();
     WaitUntilHitEnter();
   }
 }

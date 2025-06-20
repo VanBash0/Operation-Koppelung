@@ -1,49 +1,285 @@
 [
   {
-    "after_story": "You've already searched here.",
-    "description": "Search the rubble",
+    "after_story": "The bodies have already been searched.",
+    "description": "Search the corpses",
     "id": 1,
-    "is_picked": false,
-    "loot_id": 4,
-    "story": "You sift through broken stones and find something.",
+    "is_picked": true,
+    "loot_id": 1,
+    "story": "You find a bloodstained axe next to the bodies.",
     "type": "kExploration"
   },
   {
-    "after_story": "The runes are still glowing.",
-    "description": "Examine the altar",
+    "after_story": "The dusty shelf seems empty.",
+    "description": "Check the shelf",
     "id": 2,
-    "is_picked": false,
-    "loot_id": -1,
-    "story": "Ancient runes glow faintly under your touch.",
+    "is_picked": true,
+    "loot_id": 2,
+    "story": "A worn prayer book lies among personal effects.",
     "type": "kExploration"
   },
   {
-    "after_story": "The shadow lies defeated.",
-    "description": "Confront the lurking shadow",
-    "enemies_id": [
-      4
-    ],
+    "after_story": "The ration locker is empty.",
+    "description": "Open the ration locker",
     "id": 3,
     "is_picked": false,
-    "story": "A shadowy figure emerges!",
+    "loot_id": 3,
+    "story": "You find some stale hardtack rations.",
+    "type": "kExploration"
+  },
+  {
+    "after_story": "The hallway is silent now.",
+    "description": "Investigate strange sounds",
+    "enemies_id": [
+      1
+    ],
+    "id": 4,
+    "is_picked": false,
+    "story": "Groaning noises come from the hallway.",
     "type": "kBattle"
   },
   {
-    "after_story": "The melody fades.",
-    "description": "Listen to the gramophone",
-    "id": 4,
+    "after_story": "The door leads to the camp courtyard.",
+    "description": "Exit through the broken door",
+    "id": 5,
     "is_picked": false,
-    "sanity_restore": 15,
-    "story": "A haunting melody soothes your mind.",
+    "room_id": 1,
+    "story": "You push through the shattered doorway.;The bright light strikes you.",
+    "type": "kRoomChange"
+  },
+  {
+    "after_story": "The journal fragment is already taken.",
+    "description": "Examine the writing desk",
+    "id": 6,
+    "is_picked": false,
+    "loot_id": 4,
+    "story": "You find a torn page with frantic handwriting.",
+    "type": "kExploration"
+  },
+  {
+    "after_story": "The machinery remains silent.",
+    "description": "Investigate the broken generator",
+    "id": 7,
+    "is_picked": false,
+    "loot_id": -1,
+    "story": "A rusted machine hums faintly with residual energy.",
+    "type": "kExploration"
+  },
+  {
+    "after_story": "The shadow dissipates into the walls.",
+    "description": "Approach the dark corner",
+    "enemies_id": [
+      3
+    ],
+    "id": 8,
+    "is_picked": false,
+    "story": "Something stirs in the darkness...",
+    "type": "kBattle"
+  },
+  {
+    "after_story": "The gramophone still spins silently.",
+    "description": "Check the music player",
+    "id": 9,
+    "is_picked": false,
+    "sanity_restore": 8,
+    "story": "A cracked gramophone plays a faint melody.",
     "type": "kGramophone"
   },
   {
-    "after_story": "The door is already open.",
-    "description": "Open the hidden door",
-    "id": 5,
+    "after_story": "The passage back to barracks remains open.",
+    "description": "Return through the collapsed tunnel",
+    "id": 10,
+    "is_picked": false,
+    "room_id": 0,
+    "story": "You squeeze through the rubble-filled passage.",
+    "type": "kRoomChange"
+  },
+  {
+    "after_story": "The passage back to barracks remains open.",
+    "description": "Check the wardrobe",
+    "id": 31,
     "is_picked": false,
     "room_id": 2,
-    "story": "You push a loose brick and reveal a passage.",
+    "story": "It seems like there is a secret passage...;Though, you aren't the first to find it.",
+    "type": "kRoomChange"
+  },
+  {
+    "after_story": "The photograph is already taken.",
+    "description": "Examine the tattered family photo",
+    "id": 11,
+    "is_picked": false,
+    "loot_id": 6,
+    "story": "You find a faded photograph tucked in a coat pocket on the ground.",
+    "type": "kExploration"
+  },
+  {
+    "after_story": "The wall remains damp and cold.",
+    "description": "Investigate the strange markings on the wall",
+    "id": 12,
+    "is_picked": false,
+    "loot_id": -1,
+    "story": "Ancient runes glow faintly under your touch, then fade away.",
+    "type": "kExploration"
+  },
+  {
+    "after_story": "The shadows' essence dissipates into the air.",
+    "description": "Confront the flickering shadows",
+    "enemies_id": [
+      4,
+      4
+    ],
+    "id": 13,
+    "is_picked": false,
+    "story": "Two dark figures materializes from the wall, eyes burning with hate.",
+    "type": "kBattle"
+  },
+  {
+    "after_story": "The gramophone's melody still echoes softly.",
+    "description": "Listen to the broken gramophone",
+    "id": 14,
+    "is_picked": false,
+    "sanity_restore": 10,
+    "story": "A crackling tune plays, bringing brief respite from the madness.",
+    "type": "kGramophone"
+  },
+  {
+    "after_story": "You start getting used to the temperature.",
+    "description": "Go further in the cold",
+    "id": 15,
+    "is_picked": false,
+    "room_id": 3,
+    "story": "You step into a colder place.;A strange figure emerges from the dark.",
+    "type": "kRoomChange"
+  },
+  {
+    "after_story": "The journal pages remain frozen in your hand.",
+    "description": "Examine the frozen diary",
+    "id": 17,
+    "is_picked": false,
+    "loot_id": 8,
+    "story": "You find a bundle of frozen pages that won't fully defrost.",
+    "type": "kExploration"
+  },
+  {
+    "after_story": "The ice formations remain undisturbed.",
+    "description": "Investigate the strange ice patterns",
+    "id": 18,
+    "is_picked": false,
+    "loot_id": -1,
+    "story": "Intricate ice formations shimmer with unnatural light.",
+    "type": "kExploration"
+  },
+  {
+    "after_story": "The darkness has cleared after defeating the Mara.",
+    "description": "Approach the shadowy figure",
+    "enemies_id": [
+      5
+    ],
+    "id": 19,
+    "is_picked": false,
+    "story": "A dark wraith materializes from the shadows, eyes burning with hate.",
+    "type": "kBattle"
+  },
+  {
+    "after_story": "The warming stone's glow has faded.",
+    "description": "Pick up the glowing stone",
+    "id": 20,
+    "is_picked": false,
+    "loot_id": 10,
+    "story": "A strange stone radiates warmth in this freezing environment.",
+    "type": "kExploration"
+  },
+  {
+    "after_story": "You aren't so easily giving up, are you?'",
+    "description": "Keep going through the tunnel",
+    "id": 21,
+    "is_picked": false,
+    "room_id": 4,
+    "story": "You don't feel your fingers, but you keep going forward.",
+    "type": "kRoomChange"
+  },
+  {
+    "after_story": "The ice pick is already taken.",
+    "description": "Examine the sharp tool",
+    "id": 22,
+    "is_picked": false,
+    "loot_id": 9,
+    "story": "A sturdy ice pick lies half-buried in the frost.",
+    "type": "kExploration"
+  },
+  {
+    "after_story": "The frozen altar remains silent.",
+    "description": "Approach the icy structure",
+    "id": 23,
+    "is_picked": false,
+    "loot_id": -1,
+    "story": "A frost-covered altar hums with ancient energy.",
+    "type": "kExploration"
+  },
+  {
+    "after_story": "The crystalline warrior has been defeated.",
+    "description": "Confront the ice-encased figure",
+    "enemies_id": [
+      6
+    ],
+    "id": 24,
+    "is_picked": false,
+    "story": "A frozen warrior slowly rises from its icy slumber.",
+    "type": "kBattle"
+  },
+  {
+    "after_story": "The passage continues deeper into the icy caverns.",
+    "description": "Enter the glowing tunnel",
+    "id": 25,
+    "is_picked": false,
+    "room_id": 5,
+    "story": "A faint blue light emanates from a narrow ice tunnel.",
+    "type": "kRoomChange"
+  },
+  {
+    "after_story": "The frost patterns remain unchanged.",
+    "description": "Study the ice formations",
+    "id": 26,
+    "is_picked": false,
+    "loot_id": -1,
+    "story": "Ancient runes glow faintly within the ice walls.",
+    "type": "kExploration"
+  },
+  {
+    "after_story": "The Jotun's lair is now silent.",
+    "description": "Approach the massive figure",
+    "enemies_id": [
+      7
+    ],
+    "id": 27,
+    "is_picked": false,
+    "story": "A towering ice giant awakens from its slumber.",
+    "type": "kBattle"
+  },
+  {
+    "after_story": "Good luck.",
+    "description": "Reach the end",
+    "id": 28,
+    "is_picked": false,
+    "room_id": 6,
+    "story": "A dark figure emerges from the shadows, radiating pure malevolence.",
+    "type": "kRoomChange"
+  },
+  {
+    "after_story": "The crystal's glow fades as its power is spent.",
+    "description": "Activate the Ragnarok Crystal",
+    "id": 29,
+    "is_picked": false,
+    "loot_id": 11,
+    "story": "The crystal pulses with energy, ready to rewrite reality.",
+    "type": "kExploration"
+  },
+  {
+    "after_story": "The portal to salvation remains open.",
+    "description": "Step through the rift to end this nightmare",
+    "id": 30,
+    "is_picked": false,
+    "room_id": -1,
+    "story": "A shimmering portal forms, offering a chance to reshape the world.",
     "type": "kRoomChange"
   }
 ]

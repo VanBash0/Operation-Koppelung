@@ -1,37 +1,79 @@
 [
   {
     "id": 1,
-    "name": "Pistol",
-    "description": "A reliable handgun for ranged attacks.",
+    "name": "Rusty Axe",
+    "description": "Bloody axe found near the bodies.",
+    "type": "kWeapon",
+    "value": 15
+  },
+  {
+    "id": 2,
+    "name": "Prayer Book",
+    "description": "Tattered religious text found in the barracks.",
+    "type": "kSanityHealer",
+    "value": 10
+  },
+  {
+    "id": 3,
+    "name": "Hardtack",
+    "description": "Stale military rations found in a locker.",
+    "type": "kHealthHealer",
+    "value": 5
+  },
+  {
+    "id": 4,
+    "name": "Torn Note",
+    "description": "A fragment of a scientist's journal.",
+    "type": "kSanityHealer",
+    "value": 5
+  },
+  {
+    "id": 5,
+    "name": "Rusty Crowbar",
+    "description": "A heavy iron bar found near machinery.",
+    "type": "kWeapon",
+    "value": 10
+  },
+  {
+    "id": 6,
+    "name": "Faded Photograph",
+    "description": "A torn blackandwhite photo of a family.",
+    "type": "kSanityHealer",
+    "value": 3
+  },
+  {
+    "id": 7,
+    "name": "Rusty Shovel",
+    "description": "A heavy digging tool found near some disturbed earth.",
     "type": "kWeapon",
     "value": 12
   },
   {
-    "id": 2,
-    "name": "Leather Armor",
-    "description": "Basic protection against physical harm.",
-    "type": "kArmor",
-    "value": 8
-  },
-  {
-    "id": 4,
-    "name": "Minor Health Potion",
-    "description": "Heals a small amount of HP.",
-    "type": "kHealthHealer",
-    "value": 25
-  },
-  {
-    "id": 5,
-    "name": "Calming Tonic",
-    "description": "Restores sanity when consumed.",
+    "id": 8,
+    "name": "Frozen Journal",
+    "description": "A scientist's frozen diary pages with cryptic notes.",
     "type": "kSanityHealer",
-    "value": 20
+    "value": -7
   },
   {
-    "id": 6,
-    "name": "Grenade",
-    "description": "Deals area damage to all enemies.",
+    "id": 9,
+    "name": "Ice Pick",
+    "description": "A sharp tool for breaking through ice formations.",
+    "type": "kWeapon",
+    "value": 18
+  },
+  {
+    "id": 10,
+    "name": "Warming Stone",
+    "description": "A glowing stone that protects against cold.",
+    "type": "kSanityHealer",
+    "value": 15
+  },
+  {
+    "id": 11,
+    "name": "Ragnarok Crystal",
+    "description": "A pulsating crystal containing ancient power to rewrite reality.",
     "type": "kInstantWeapon",
-    "value": 30
+    "value": 50
   }
 ]

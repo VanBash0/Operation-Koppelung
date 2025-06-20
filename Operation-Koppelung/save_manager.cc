@@ -21,7 +21,7 @@ void SaveManager::ResetPlayer() {
   player_data[0]["items_id"].clear();
   player_data[0]["weapon_id"] = -1;
   player_data[0]["armor_id"] = -1;
-  player_data[0]["spells_id"].clear();
+  player_data[0]["spells_id"] = {0, 12};
 
   std::ofstream output_file("player.json");
   output_file << player_data.dump(2);

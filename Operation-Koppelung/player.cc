@@ -36,36 +36,26 @@ void Player::HealHealth(int delta) { health_ = std::min(100, health_ + delta); }
 void Player::HealSanity(int delta) { sanity_ = std::min(100, sanity_ + delta); }
 
 void Player::EquipWeapon(int inventory_index) {
-  if (inventory_index < 0 ||
-      inventory_index >= static_cast<int>(inventory_.size())) {
-    return;
-  }
-
-  Item* selected_item = inventory_[inventory_index];
-  if (!selected_item || selected_item->type != ItemType::kWeapon) {
-    return;
-  }
-
   // Обмен текущего оружия с выбранным в инвентаре предметом
-  std::swap(weapon_, inventory_[inventory_index]);
+  if (!weapon_) {
+    weapon_ = inventory_[inventory_index];
+    RemoveItem(inventory_[inventory_index]->id);
+  } else {
+    std::swap(weapon_, inventory_[inventory_index]);
+  }
 }
 
 void Player::EquipArmor(int inventory_index) {
-  if (inventory_index < 0 ||
-      inventory_index >= static_cast<int>(inventory_.size())) {
-    return;
-  }
-
-  Item* selected_item = inventory_[inventory_index];
-  if (!selected_item || selected_item->type != ItemType::kArmor) {
-    return;
-  }
-
   // Обмен текущей брони с выбранным в инвентаре предметом
-  std::swap(armor_, inventory_[inventory_index]);
+  if (!armor_) {
+    armor_ = inventory_[inventory_index];
+    RemoveItem(inventory_[inventory_index]->id);
+  } else {
+    std::swap(armor_, inventory_[inventory_index]);
+  }
 }
 
-int Player::GetDamage() const { return weapon_ ? weapon_->value : 0; }
+int Player::GetDamage() const { return weapon_ ? weapon_->value : 5; }
 
 int Player::GetDefence() const { return armor_ ? armor_->value : 0; }
 
@@ -87,7 +77,7 @@ void Player::SetDefaultStats() {
 }
 
 std::string Player::GetWeaponName() const {
-  return weapon_ ? weapon_->name : "Unarmed";
+  return weapon_ ? weapon_->name : "bare hands";
 }
 
 std::vector<Attack*> Player::GetSpells() const { return spells_; }

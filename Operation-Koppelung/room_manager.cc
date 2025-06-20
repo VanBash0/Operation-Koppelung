@@ -5,7 +5,9 @@
 #include "battle.h"
 #include "json.hpp"
 
-static const size_t kCacheSize = 50;
+namespace {
+constexpr size_t kCacheSize = 10;
+}
 
 RoomManager::RoomManager(OptionManager* option_manager,
                          ViewManager* view_manager, Player* player,
@@ -52,7 +54,9 @@ bool RoomManager::RoomProcess(int id) {
     if (battle->ExecuteBattle()) {
       room->room_entered_ = true;
       save_manager_->SaveRoomEntered(id);
+      save_manager_->SavePlayer(player_);
     } else {
+      save_manager_->SavePlayer(player_);
       return true;
     }
   }
@@ -96,18 +100,21 @@ bool RoomManager::RoomProcess(int id) {
           case -2:
             return false;
           case -1:
-            break;
+          case -3:
+            return true;
           default:
             view_manager_->PrintText(descriptions[choice]);
             break;
         }
       }
+      break;
     }
 
     // Выполнить опцию
     if (choice != -1) {
       options[choice]->Execute(view_manager_, player_, item_manager_,
                                enemy_manager_, save_manager_);
+      save_manager_->SavePlayer(player_);
     }
   }
   return true;

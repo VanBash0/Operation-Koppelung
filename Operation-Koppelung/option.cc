@@ -14,13 +14,13 @@ void ExplorationOption::Execute(ViewManager* view_manager, Player* player,
       if (player->InventoryFull()) {
         // Инвентарь полон
         view_manager->PrintText("Your inventory is full!");
-        is_picked_ = true;
-        save_manager->SaveOptionPicked(id_);
       } else {
         // Добавление предмета в инвентарь
         player->AddItem(loot_id_, item_manager);
         view_manager->PrintText("You found " +
                                 item_manager->GetItem(loot_id_)->name + "!");
+        is_picked_ = true;
+        save_manager->SaveOptionPicked(id_);
       }
     } else {
       // Помечаем опцию выбранной при отсутствии предмета

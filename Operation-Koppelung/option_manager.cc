@@ -5,7 +5,9 @@
 #include "json.hpp"
 #include "option.h"
 
-static const size_t kCacheSize = 50;
+namespace {
+constexpr size_t kCacheSize = 10;
+}
 
 OptionManager::OptionManager() : options_(kCacheSize) {}
 

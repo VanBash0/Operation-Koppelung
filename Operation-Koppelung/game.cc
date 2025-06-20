@@ -27,7 +27,8 @@ void Game::Run() {
         break;
       case 1:
         view_manager_->PrintText(
-            "Controls:;Z/Enter - Confirm;X - Cancel;Up/Down - Choose option");
+            "Controls:;Z/Enter - Confirm;X - Cancel;Up/Down - Choose option;C "
+            "- Inventory;Esc - Main Menu");
         break;
       case 2:
         save_manager_->ResetProgress();
@@ -46,6 +47,7 @@ void Game::Play() {
       break;
     }
     if (player_->GetLocation() == -1) {
+      save_manager_->ResetProgress();
       exit(0);
     }
   }

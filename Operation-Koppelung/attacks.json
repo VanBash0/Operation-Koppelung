@@ -1,47 +1,164 @@
 [
   {
-    "id": 1,
+    "id": 0,
     "name": "Fireball",
-    "description": "A blazing orb of fire.",
-    "damage": 20000,
-    "sanity_cost": 5,
+    "description": "A ball of fire.",
+    "damage": 20,
+    "sanity_cost": 15,
+    "is_damaging": true,
+    "is_physical": true
+  },
+  {
+    "id": 1,
+    "name": "Axe Strike",
+    "description": "Swing a heavy axe at the enemy.",
+    "damage": 15,
+    "sanity_cost": 0,
     "is_damaging": true,
     "is_physical": true
   },
   {
     "id": 2,
-    "name": "Slash",
-    "description": "A swift blade strike.",
-    "damage": 15,
+    "name": "Club Attack",
+    "description": "Blunt force attack with wooden weapon.",
+    "damage": 8,
     "sanity_cost": 0,
     "is_damaging": true,
     "is_physical": true
   },
   {
     "id": 3,
-    "name": "Punch",
-    "description": "A powerful fist blow.",
+    "name": "Shadow Grasp",
+    "description": "Dark tendrils from the shadows attack.",
+    "damage": 5,
+    "sanity_cost": 0,
+    "is_damaging": true,
+    "is_physical": false
+  },
+  {
+    "id": 4,
+    "name": "Chilling Touch",
+    "description": "Freezing cold that damages both body and mind.",
     "damage": 10,
+    "sanity_cost": 0,
+    "is_damaging": true,
+    "is_physical": false
+  },
+  {
+    "id": 6,
+    "name": "Chilling Touch",
+    "description": "Freezing cold that damages both body and mind.",
+    "damage": 10,
+    "sanity_cost": 0,
+    "is_damaging": true,
+    "is_physical": false
+  },
+  {
+    "id": 7,
+    "name": "Shadow Tendril",
+    "description": "Dark tendrils from the shadows that constrict the target.",
+    "damage": 12,
+    "sanity_cost": 0,
+    "is_damaging": true,
+    "is_physical": false
+  },
+  {
+    "id": 8,
+    "name": "Ethereal Scream",
+    "description": "A piercing wail that damages both body and mind.",
+    "damage": 8,
+    "sanity_cost": 0,
+    "is_damaging": true,
+    "is_physical": false
+  },
+  {
+    "id": 9,
+    "name": "Shadow Strangulation",
+    "description": "A suffocating shadow that drains sanity and health.",
+    "damage": 18,
+    "sanity_cost": 0,
+    "is_damaging": true,
+    "is_physical": false
+  },
+  {
+    "id": 10,
+    "name": "Claws of Night",
+    "description": "Multiple shadowy strikes that wear down defenses.",
+    "damage": 6,
+    "sanity_cost": 0,
+    "is_damaging": true,
+    "is_physical": false
+  },
+  {
+    "id": 11,
+    "name": "Frostbite Strike",
+    "description": "A freezing attack that temporarily paralyzes.",
+    "damage": 14,
     "sanity_cost": 0,
     "is_damaging": true,
     "is_physical": true
   },
   {
-    "id": 4,
-    "name": "Minor Heal",
-    "description": "Restores a small amount of health.",
+    "id": 12,
+    "name": "Glacial Armor",
+    "description": "A protective ice barrier that absorbs damage.",
     "damage": 15,
-    "sanity_cost": 0,
+    "sanity_cost": 15,
     "is_damaging": false,
     "is_physical": true
   },
   {
-    "id": 5,
-    "name": "Mind Mend",
-    "description": "Calming energy restores sanity.",
+    "id": 13,
+    "name": "Ice Axe Smash",
+    "description": "A powerful ice weapon strike that freezes the target.",
+    "damage": 22,
+    "sanity_cost": 0,
+    "is_damaging": true,
+    "is_physical": true
+  },
+  {
+    "id": 14,
+    "name": "Frost Aura",
+    "description": "A chilling field that reduces health.",
+    "damage": 4,
+    "sanity_cost": 0,
+    "is_damaging": true,
+    "is_physical": false
+  },
+  {
+    "id": 15,
+    "name": "Rock Toss",
+    "description": "Massive boulder hurled at the enemy.",
+    "damage": 30,
+    "sanity_cost": 0,
+    "is_damaging": true,
+    "is_physical": true
+  },
+  {
+    "id": 16,
+    "name": "Shadow Tentacles",
+    "description": "Dark tendrils that grasp the player, draining health and sanity.",
+    "damage": 25,
+    "sanity_cost": 0,
+    "is_damaging": true,
+    "is_physical": false
+  },
+  {
+    "id": 17,
+    "name": "Soul Siphon",
+    "description": "Drains life force from the target.",
     "damage": 10,
     "sanity_cost": 0,
-    "is_damaging": false,
+    "is_damaging": true,
+    "is_physical": false
+  },
+  {
+    "id": 18,
+    "name": "Phantasmal Horror",
+    "description": "Summons terrifying illusions that reduce sanity.",
+    "damage": 15,
+    "sanity_cost": 0,
+    "is_damaging": true,
     "is_physical": false
   }
 ]

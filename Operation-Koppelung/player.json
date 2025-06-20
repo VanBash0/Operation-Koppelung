@@ -2,10 +2,16 @@
   {
     "armor_id": -1,
     "health": 100,
-    "items_id": [],
+    "items_id": [
+      1,
+      2
+    ],
     "location": 0,
     "sanity": 100,
-    "spells_id": [],
+    "spells_id": [
+      0,
+      12
+    ],
     "weapon_id": -1
   }
 ]
