@@ -5,7 +5,7 @@
 #include <memory>
 #include <unordered_map>
 
-// Класс кеша с вытеснением по принципу Least Recently Used (LRU)
+// Класс кэша с вытеснением по принципу Least Recently Used (LRU)
 // Хранит пары ключ-значение и удаляет наименее недавно использованные элементы
 // при переполнении
 template <typename Value>
@@ -65,7 +65,7 @@ class LRUCache {
 
   std::unordered_map<int, CacheItem> cache_;
   std::list<int> order_;  // Список ключей
-  size_t capacity_;       // Максимальное количество элементов в кеше
+  size_t capacity_;       // Максимальное количество элементов в кэше
 };
 
 #endif  // LRU_CACHE_H_

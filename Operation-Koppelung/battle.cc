@@ -82,9 +82,6 @@ void Battle::PlayerTurn(const std::vector<Attack*>& spells,
           ++actions_performed;
         }
         break;
-      default:
-        // Некорректный выбор, повторяем
-        break;
     }
 
     RemoveDeadEnemies();

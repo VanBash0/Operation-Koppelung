@@ -25,11 +25,10 @@ class Player {
   int GetHealth() const;
   int GetSanity() const;
   int GetLocation() const;
+  std::string GetWeaponName() const;
 
   void SetLocation(int location);
   void SetDefaultStats();
-
-  std::string GetWeaponName() const;
 
   std::vector<Attack*> GetSpells() const;
   std::vector<Item*> GetItems() const;
@@ -43,10 +42,10 @@ class Player {
   void RemoveItem(int item_id);
 
  private:
-  int health_ = 100;
-  int sanity_ = 100;
-  int location_ = 0;
-  int prev_location_ = 0;
+  int health_;
+  int sanity_;
+  int location_;
+  int prev_location_;
 
   Item* weapon_ = nullptr;
   Item* armor_ = nullptr;

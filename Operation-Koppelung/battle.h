@@ -29,8 +29,8 @@ class Battle {
   bool IsBattleOver() const;
 
   Player* player_;
-  std::vector<std::unique_ptr<Enemy>> enemies_;
   ViewManager* view_manager_;
+  std::vector<std::unique_ptr<Enemy>> enemies_;
 
   int player_defence_ = 0;
 };

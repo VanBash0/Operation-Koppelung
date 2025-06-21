@@ -9,7 +9,7 @@
 // Менеджер атак: хранит атаки по их ID
 class AttackManager {
  public:
-  explicit AttackManager();
+  AttackManager();
 
   // Возвращает указатель на атаку по ID или nullptr, если не найдено
   Attack* GetAttack(int id) const;

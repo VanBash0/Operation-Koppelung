@@ -19,7 +19,7 @@ RoomManager::RoomManager(OptionManager* option_manager,
       enemy_manager_(enemy_manager),
       item_manager_(item_manager),
       save_manager_(save_manager),
-      rooms_(kCacheSize) {};
+      rooms_(kCacheSize) {}
 
 Room* RoomManager::GetRoom(int id) {
   if (!rooms_.Get(id)) {

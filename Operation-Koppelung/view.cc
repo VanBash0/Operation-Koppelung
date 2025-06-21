@@ -61,9 +61,9 @@ void View::DrawMenu(int selected, int health, int sanity) {
   wclear(main_win_);
   box(main_win_, 0, 0);
   for (size_t i = 0; i < options_.size(); ++i) {
-    if (static_cast<int>(i) == selected) wattron(main_win_, A_REVERSE);
-    mvwprintw(main_win_, static_cast<int>(i) + 1, 1, "%s", options_[i].c_str());
-    if (static_cast<int>(i) == selected) wattroff(main_win_, A_REVERSE);
+    if (i == selected) wattron(main_win_, A_REVERSE);
+    mvwprintw(main_win_, i + 1, 1, "%s", options_[i].c_str());
+    if (i == selected) wattroff(main_win_, A_REVERSE);
   }
   wrefresh(main_win_);
 
@@ -74,9 +74,9 @@ void View::DrawMenu(int selected) {
   wclear(main_win_);
   box(main_win_, 0, 0);
   for (size_t i = 0; i < options_.size(); ++i) {
-    if (static_cast<int>(i) == selected) wattron(main_win_, A_REVERSE);
-    mvwprintw(main_win_, static_cast<int>(i) + 1, 1, "%s", options_[i].c_str());
-    if (static_cast<int>(i) == selected) wattroff(main_win_, A_REVERSE);
+    if (i == selected) wattron(main_win_, A_REVERSE);
+    mvwprintw(main_win_, i + 1, 1, "%s", options_[i].c_str());
+    if (i == selected) wattroff(main_win_, A_REVERSE);
   }
   wrefresh(main_win_);
 

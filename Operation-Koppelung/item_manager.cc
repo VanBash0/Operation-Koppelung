@@ -18,16 +18,8 @@ ItemType ItemManager::StringToItemType(const std::string& type_str) const {
 
 ItemManager::ItemManager() {
   std::ifstream file("items.json");
-  if (!file.is_open()) {
-    std::cerr << "Failed to open items.json\n";
-    return;
-  }
 
   auto data = nlohmann::json::parse(file, nullptr, false);
-  if (data.is_discarded()) {
-    std::cerr << "Failed to parse items.json\n";
-    return;
-  }
 
   for (const auto& item_data : data) {
     int id = item_data["id"].get<int>();
